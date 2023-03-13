@@ -1,0 +1,13 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "paths": {
+      "@gbs/*": ["src/features/gbs/*"]
+    }
+  },
+  "exclude": ["node_modules/**"]
+}

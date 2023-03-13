@@ -1,0 +1,216 @@
+/* The integration's default injected base.css file */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --c-elm-0: #7e7065;
+    --c-elm-1: #f13b13;
+    --c-elm-2: #1b82ea;
+    --c-elm-3: #7b4725;
+    --c-elm-4: #77de41;
+    --c-elm-5: #ffed2f;
+    --c-elm-6: #933bff;
+    --c-tweet-outline-1: #fff;
+    --c-tweet-bg: #fff;
+    --c-tweet-flash: rgba(255, 255, 255, 0.6);
+    --c-tweet-copied: rgba(0, 0, 0, 0.5);
+  }
+  .dark {
+    --c-tweet-outline-1: #2e2a2a;
+    --c-tweet-bg: #2e2a2a;
+    --c-tweet-flash: rgba(255, 255, 255, 0.2);
+    --c-tweet-copied: rgba(0, 0, 0, 0.6);
+  }
+
+  html {
+    font-family: 'Helvetica Neue', メイリオ, Meiryo, Helvetica, Arial,
+      游ゴシック, YuGothic, 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN',
+      'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  }
+
+  *,
+  *::before,
+  *::after {
+    line-height: 1;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+  }
+  ::-webkit-details-marker {
+    display: none;
+  }
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+    border-width: 0 0 0 1px;
+    border-style: solid;
+    border-color: #aaa;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: #555;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #222;
+  }
+  input::-webkit-input-placeholder {
+    vertical-align: middle;
+    line-height: 0;
+  }
+
+  .tweet-copied::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: var(--c-tweet-copied);
+    pointer-events: none;
+    z-index: 6;
+  }
+
+  .tweet-battle-id {
+    text-shadow: -2px -2px 0 #000, -2px -1px 0 #000, -2px 0 0 #000,
+      -2px 1px 0 #000, -2px 2px 0 #000, -1px -2px 0 #000, -1px -1px 0 #000,
+      -1px 0 0 #000, -1px 1px 0 #000, -1px 2px 0 #000, 0 -2px 0 #000,
+      0 -1px 0 #000, 0 0 0 #000, 0 1px 0 #000, 0 2px 0 #000, 1px -2px 0 #000,
+      1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 1px 2px 0 #000,
+      2px -2px 0 #000, 2px -1px 0 #000, 2px 0 0 #000, 2px 1px 0 #000,
+      2px 2px 0 #000;
+  }
+
+  .tweet-outline-text {
+    text-shadow: -2px -2px 0 var(--c-tweet-outline-1),
+      -2px -1px 0 var(--c-tweet-outline-1), -2px 0 0 var(--c-tweet-outline-1),
+      -2px 1px 0 var(--c-tweet-outline-1), -2px 2px 0 var(--c-tweet-outline-1),
+      -1px -2px 0 var(--c-tweet-outline-1), -1px -1px 0 var(--c-tweet-outline-1),
+      -1px 0 0 var(--c-tweet-outline-1), -1px 1px 0 var(--c-tweet-outline-1),
+      -1px 2px 0 var(--c-tweet-outline-1), 0 -2px 0 var(--c-tweet-outline-1),
+      0 -1px 0 var(--c-tweet-outline-1), 0 0 0 var(--c-tweet-outline-1),
+      0 1px 0 var(--c-tweet-outline-1), 0 2px 0 var(--c-tweet-outline-1),
+      1px -2px 0 var(--c-tweet-outline-1), 1px -1px 0 var(--c-tweet-outline-1),
+      1px 0 0 var(--c-tweet-outline-1), 1px 1px 0 var(--c-tweet-outline-1),
+      1px 2px 0 var(--c-tweet-outline-1), 2px -2px 0 var(--c-tweet-outline-1),
+      2px -1px 0 var(--c-tweet-outline-1), 2px 0 0 var(--c-tweet-outline-1),
+      2px 1px 0 var(--c-tweet-outline-1), 2px 2px 0 var(--c-tweet-outline-1);
+  }
+
+  .tweet-bg-img {
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-position: 0 20%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    z-index: 0;
+    /* transform: rotate3d(0, 1, 0, 180deg); */
+    transform: rotateY(180deg);
+  }
+  .tweet-bg-img[data-elm='0'] {
+    background-color: var(--c-elm-0);
+  }
+  .tweet-bg-img[data-elm='1'] {
+    background-color: var(--c-elm-1);
+  }
+  .tweet-bg-img[data-elm='2'] {
+    background-color: var(--c-elm-2);
+  }
+  .tweet-bg-img[data-elm='3'] {
+    background-color: var(--c-elm-3);
+  }
+  .tweet-bg-img[data-elm='4'] {
+    background-color: var(--c-elm-4);
+  }
+  .tweet-bg-img[data-elm='5'] {
+    background-color: var(--c-elm-5);
+  }
+  .tweet-bg-img[data-elm='6'] {
+    background-color: var(--c-elm-6);
+  }
+  .tweet-bg-img::after {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 100%;
+    top: 0;
+    right: -2px;
+    background: linear-gradient(270deg, var(--c-tweet-bg) 45%, transparent 90%);
+  }
+
+  .tweet-comment {
+    z-index: 1;
+    position: relative;
+    display: inline-block;
+    max-width: calc(100% - 80px);
+    margin-top: 3px;
+    padding: 9px 7px 3px 7px;
+    color: #fff;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .tweet-comment::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 5px);
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+  }
+  .tweet-comment::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: 5px;
+    margin-top: -5px;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 5px 4px;
+    border-bottom-color: rgba(0, 0, 0, 0.7);
+  }
+  .tweet-flash {
+    animation: showTweet 400ms ease 0ms 1 normal;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+    background: var(--c-tweet-flash);
+    z-index: 6;
+  }
+  button:hover .tweet-flash {
+    opacity: 0.5;
+  }
+
+  @keyframes showTweet {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
