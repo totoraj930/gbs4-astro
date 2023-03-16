@@ -17,7 +17,7 @@ export const tweetReciver = mitt<ReceiverEvents>();
 export function randomTweet(): TweetData | null {
   const list = gbsList();
   // スパバハ, ジーク, アガスティア, 強バハ
-  const enemys = [117, 126, 127, 54];
+  const enemys = [117, 126, 127, 55];
   const senders = ['totoraj_game', 'hogefuga', 'xYdfs12d__2'];
   const sender = senders[Math.floor(Math.random() * senders.length)];
   const enemyId = enemys[Math.floor(Math.random() * enemys.length)];

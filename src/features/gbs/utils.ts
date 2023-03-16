@@ -59,3 +59,41 @@ export function copyTextLegacy(str: string) {
     return false;
   }
 }
+
+const audioBufferMap: Map<string, AudioBuffer> = new Map();
+let audioContext: AudioContext;
+let gainNode: GainNode;
+
+export async function initAudioContext() {
+  audioContext = new AudioContext();
+}
+
+export async function playAudio(url: string, volume: number) {
+  if (!audioContext) return () => {};
+  if (!gainNode) {
+    gainNode = audioContext.createGain();
+    gainNode.connect(audioContext.destination);
+  }
+  gainNode.gain.value = volume;
+
+  async function getAudioBuffer() {
+    let audioBuffer = audioBufferMap.get(url);
+    if (!audioBuffer) {
+      const res = await fetch(url);
+      const arrayBuffer = await res.arrayBuffer();
+      audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+      audioBufferMap.set(url, audioBuffer);
+      return audioBuffer;
+    }
+    return audioBuffer;
+  }
+
+  const sourceNode = audioContext.createBufferSource();
+  sourceNode.buffer = await getAudioBuffer();
+  sourceNode.connect(gainNode);
+  sourceNode.start();
+
+  return () => {
+    sourceNode.stop();
+  };
+}

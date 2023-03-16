@@ -1,26 +1,22 @@
-import { saveSettingsToStorage } from '@gbs/Store/globalSettings';
+import { Select } from '@gbs/MenuColumn/Select';
+import {
+  globalSettings,
+  saveSettingsToStorage,
+} from '@gbs/Store/globalSettings';
 import clsx from 'clsx';
 import { RiSystemDeleteBin2Line } from 'solid-icons/ri';
-import {
-  onCleanup,
-  Show,
-  createSignal,
-  createEffect,
-  Index,
-  For,
-} from 'solid-js';
+import { onCleanup, Show, createEffect, createMemo } from 'solid-js';
 import { createStore, produce } from 'solid-js/store';
 import { Portal } from 'solid-js/web';
 import {
-  MsFilter,
+  MsBadge,
   MsFilterList,
-  MsPlaylistAdd,
+  MsMusicNote,
   MsSwapVert,
-  MsSyncAlt,
 } from 'solid-material-symbols/rounded/600';
 import { text } from '../../Text';
 import { useColumn } from '../columnContext';
-import { FilterItemView } from './FilterItemView';
+import { FiltersView } from './FiltersView';
 import { InputGbsList } from './InputGbsList';
 
 type Props = {
@@ -31,13 +27,23 @@ type Props = {
 const c = /*tw*/ {
   title: 'font-bold flex items-center mb-[5px]',
   wrap: '',
-  hr: 'w-full my-[10px] border-t border-solid border-gray-300',
+  hr: 'w-full my-[10px] border-t border-solid border-gray-300 dark:border-gray-500',
 } as const;
 
 export function SettingsModal(props: Props) {
   const { options: col, setOptions: setCol, dispatch } = useColumn();
 
   const [localFilters, setLocalFilters] = createStore([...col.filters]);
+
+  const soundOps = createMemo(() => {
+    const en = globalSettings.language === 'en';
+    return [
+      { value: '0', name: en ? 'Onepoint 22' : 'ワンポイント22' },
+      { value: '1', name: en ? 'Onepoint 26' : 'ワンポイント26' },
+      { value: '2', name: en ? 'System 35' : 'システム35' },
+      { value: '3', name: en ? 'System 46' : 'システム46' },
+    ] as const;
+  });
 
   const delCol = () => dispatch({ type: 'Delete' });
 
@@ -67,13 +73,6 @@ export function SettingsModal(props: Props) {
     props.onClose();
   }
 
-  function addFilter(num: number) {
-    setLocalFilters((s) => {
-      if (s.find(({ id }) => id === num)) return s;
-      return [...s, { id: num }];
-    });
-  }
-
   return (
     <Show when={props.open}>
       <Portal>
@@ -83,16 +82,25 @@ export function SettingsModal(props: Props) {
               closeModal(elm, saveAndClose);
               focusTrap(elm);
             }}
-            class="m-auto flex h-full min-h-[400px] w-full min-w-[300px] max-w-[800px] flex-col bg-white"
+            class={clsx(
+              'm-auto flex h-full min-h-[400px] w-full min-w-[300px] max-w-[800px] flex-col',
+              'bg-white dark:bg-gray-700 dark:text-white'
+            )}
             tabindex="-1"
             role="dialog"
             aria-modal="true"
           >
-            <header class="z-10 flex flex-shrink-0 flex-grow-0 flex-row items-center py-[5px] px-[10px] shadow-[0_0_5px_rgba(0,0,0,0.5)]">
+            <header
+              class={clsx(
+                'z-10 flex flex-shrink-0 flex-grow-0 flex-row items-center',
+                'py-[5px] px-[10px] shadow-[0_0_5px_rgba(0,0,0,0.5)]',
+                'dark:shadow-[0_0_5px_rgba(0,0,0,1)]'
+              )}
+            >
               <p class="mr-auto font-bold uppercase">{text('カラム設定')}</p>
               <button
                 onClick={() => onDelete()}
-                class="flex items-center text-red-600"
+                class="flex items-center text-red-600 dark:text-red-400"
               >
                 <RiSystemDeleteBin2Line size={20} class="mr-[3px]" />
                 <span class="text-[14px]">{text('カラムを削除')}</span>
@@ -100,43 +108,67 @@ export function SettingsModal(props: Props) {
             </header>
 
             <div class="flex-1 overflow-auto p-[5px]">
+              <div class="my-[5px] flex max-w-[500px] flex-wrap gap-[5px]">
+                <div class="min-w-[120px] flex-1">
+                  <p class="mb-[2px] flex items-center text-[14px] font-bold">
+                    <MsBadge size={20} class="mr-[5px] -translate-y-[2px]" />
+                    {text('表示名')}
+                  </p>
+                  <input
+                    type="text"
+                    class={clsx(
+                      'h-[32px] w-full rounded-[4px] border border-solid px-[5px] leading-none',
+                      'border-gray-300 bg-white dark:border-gray-900 dark:bg-gray-600',
+                      'text-[14px] text-gray-900 dark:text-white'
+                    )}
+                    value={col.name}
+                    placeholder={text('自動')}
+                    onInput={(e) =>
+                      setCol(produce((s) => (s.name = e.currentTarget.value)))
+                    }
+                  />
+                </div>
+
+                <div class="min-w-[120px] flex-1">
+                  <p class="mb-[2px] flex items-center text-[14px] font-bold">
+                    <MsMusicNote
+                      size={20}
+                      class="mr-[5px] -translate-y-[1px]"
+                    />
+                    {text('通知音')}
+                    <a
+                      class={clsx('ml-auto font-normal text-sky-500')}
+                      href="https://maou.audio/category/se/"
+                      target="_blank"
+                    >
+                      &copy; 魔王魂
+                    </a>
+                  </p>
+                  <Select
+                    options={soundOps()}
+                    value={col.sound.type}
+                    class="h-[32px] w-full text-[14px]"
+                    onChange={(v) =>
+                      setCol(
+                        'sound',
+                        produce((s) => (s.type = v))
+                      )
+                    }
+                  />
+                </div>
+              </div>
+
+              <hr class={c.hr} />
+
               <div class={c.wrap}>
                 <p class={c.title}>
                   <MsFilterList size={24} class="mr-[5px]" />
                   {text('フィルタ')}
                 </p>
-                {/* <div>
-                  <For each={[117, 126, 127, 54]}>
-                    {(num) => {
-                      return (
-                        <button onClick={() => addFilter(num)}>{num}</button>
-                      );
-                    }}
-                  </For>
-                </div> */}
-                <ul class="flex max-w-[500px] flex-col">
-                  <Show when={localFilters.length === 0}>
-                    <li class="flex h-[50px] items-center bg-gray-100 pl-[20px] font-bold text-gray-500">
-                      {text('設定なし')}
-                    </li>
-                  </Show>
-                  <Index each={localFilters}>
-                    {(filter, index) => (
-                      <li class="border-b border-solid border-gray-200 p-[5px] last:border-b-0">
-                        <FilterItemView
-                          data={filter()}
-                          onDelete={() => {
-                            setLocalFilters((prev) => {
-                              const filters = [...prev];
-                              filters.splice(index, 1);
-                              return filters;
-                            });
-                          }}
-                        />
-                      </li>
-                    )}
-                  </Index>
-                </ul>
+                <FiltersView
+                  filters={localFilters}
+                  setFilters={setLocalFilters}
+                />
               </div>
 
               <hr class={c.hr} />
@@ -156,8 +188,9 @@ export function SettingsModal(props: Props) {
 
             <footer
               class={clsx(
-                'flex flex-shrink-0 flex-grow-0 flex-row',
-                'py-[5px] px-[10px] shadow-[0_0_5px_rgba(0,0,0,0.5)]'
+                'z-10 flex flex-shrink-0 flex-grow-0 flex-row',
+                'py-[5px] px-[10px] shadow-[0_0_5px_rgba(0,0,0,0.5)]',
+                'dark:shadow-[0_0_5px_rgba(0,0,0,1)]'
               )}
             >
               <button

@@ -35,7 +35,14 @@ export async function loadGbsList() {
     const list = zGbsList.parse(rawJson);
     setGbsList(
       list
-        .sort((a, b) => (a.level > b.level ? 1 : a.level < b.level ? -1 : 0))
+        .sort((a, b) => {
+          const aNum = Number.parseInt(a.level);
+          const bNum = Number.parseInt(b.level);
+          if (!Number.isFinite(bNum)) return -1;
+          if (aNum < bNum) return -1;
+          else if (aNum > bNum) return 1;
+          return 0;
+        })
         .sort((a, b) => a.attr - b.attr)
     );
   } catch (err) {

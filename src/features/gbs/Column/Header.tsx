@@ -9,7 +9,14 @@ import { text } from '@gbs/Text';
 import { SettingsModal } from './Settings/SettingsModal';
 import { clsx } from 'clsx';
 import { useColumn } from './columnContext';
-import { MsAutorenew, MsSearch } from 'solid-material-symbols/rounded/600';
+import {
+  MsAutorenew,
+  MsNotifications,
+  MsNotificationsFill,
+  MsNotificationsOffFill,
+  MsSearch,
+} from 'solid-material-symbols/rounded/600';
+import { twMerge } from 'tailwind-merge';
 
 export function Header() {
   const { options: col, setOptions: setCol } = useColumn();
@@ -48,7 +55,7 @@ export function Header() {
 
       <header
         class={clsx(
-          'z-40 flex flex-row items-center justify-start border-b border-solid',
+          'z-40 flex flex-row items-center justify-start gap-[2px] border-b border-solid',
           'border-gray-300 dark:border-gray-600'
         )}
       >
@@ -75,6 +82,7 @@ export function Header() {
             </span>
           </span>
         </button>
+
         <button
           onClick={() => {
             setCol(
@@ -84,19 +92,42 @@ export function Header() {
             );
             saveCol();
           }}
-          class={clsx(
-            'mr-1 flex flex-row items-center gap-[3px] rounded-full py-[4px] px-[8px]',
-            'text-white active:translate-y-[1px] dark:text-gray-800',
-            {
-              'bg-gray-800 dark:bg-white': !col.autoCopy,
-              'bg-sky-400': col.autoCopy,
-            }
+          class={twMerge(
+            clsx(
+              'mr-1 flex flex-row items-center gap-[3px] rounded-full py-[4px] px-[8px]',
+              'text-white active:translate-y-[1px] dark:text-gray-800',
+              {
+                'bg-gray-800 dark:bg-white': !col.autoCopy,
+                'bg-sky-400 dark:text-white': col.autoCopy,
+              }
+            )
           )}
         >
           <span class="-ml-[2px]">
             <MsAutorenew size={14} />
           </span>
           <span class="text-[10px] font-bold">AUTO</span>
+        </button>
+
+        <button
+          class={clsx(
+            'grid h-[30px] w-[30px] place-content-center active:translate-y-[1px]',
+            {
+              'text-sky-400': !col.sound.mute,
+              'text-gray-800 dark:text-white': col.sound.mute,
+              'opacity-50': globalSettings.mute,
+            }
+          )}
+          onClick={() => {
+            setCol(produce((s) => (s.sound.mute = !s.sound.mute)));
+          }}
+        >
+          <Show when={col.sound.mute}>
+            <MsNotificationsOffFill size={22} />
+          </Show>
+          <Show when={!col.sound.mute}>
+            <MsNotificationsFill size={22} />
+          </Show>
         </button>
       </header>
     </Show>

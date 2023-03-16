@@ -34,8 +34,8 @@ export function Select<T extends SelectOptions = []>(props: SelectProps<T>) {
       }}
       class={twMerge(
         clsx(
-          'rounded-[4px] border border-solid py-[3px] px-[5px] leading-none',
-          'border-gray-300 bg-white dark:border-gray-900 dark:bg-gray-700',
+          'h-[36px] rounded-[4px] border border-solid px-[5px] leading-none',
+          'border-gray-300 bg-white dark:border-gray-900 dark:bg-gray-600',
           'text-gray-900 dark:text-white',
           props.class
         )

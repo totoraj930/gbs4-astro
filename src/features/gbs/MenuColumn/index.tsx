@@ -1,4 +1,4 @@
-import { createMemo, createSignal } from 'solid-js';
+import { createMemo, createSignal, Switch, Match, Show } from 'solid-js';
 import { produce } from 'solid-js/store';
 import { changeAndSave, globalSettings } from '../Store/globalSettings';
 import { text } from '../Text';
@@ -16,6 +16,9 @@ import {
   MsBookmarks,
   MsSettingsFill,
   MsTranslate,
+  MsVolumeMute,
+  MsVolumeOff,
+  MsVolumeUp,
 } from 'solid-material-symbols/rounded/600';
 
 const langOps = [
@@ -148,6 +151,46 @@ export function MenuColumn() {
               }
             />
           </div>
+        </div>
+
+        <hr class={c.hr} />
+
+        <div class="flex h-[50px] items-center">
+          <button
+            class="p-[10px]"
+            title={text('ミュート切り替え')}
+            onClick={() => changeAndSave(produce((s) => (s.mute = !s.mute)))}
+          >
+            <Show
+              when={globalSettings.mute}
+              fallback={
+                <Show
+                  when={globalSettings.volume <= 0 && !globalSettings.mute}
+                  fallback={<MsVolumeUp size={24} />}
+                >
+                  <MsVolumeMute size={24} class="translate-x-[-4px]" />
+                </Show>
+              }
+            >
+              <MsVolumeOff size={24} />
+            </Show>
+          </button>
+          <input
+            type="range"
+            class="w-[175px]"
+            title={text('音量')}
+            min={0}
+            max={1}
+            step={0.1}
+            value={globalSettings.volume}
+            disabled={globalSettings.mute}
+            onInput={(e) => {
+              const v = Number.parseFloat(e.currentTarget.value);
+              if (v <= 1 && v >= 0) {
+                changeAndSave(produce((s) => (s.volume = v)));
+              }
+            }}
+          />
         </div>
 
         <hr class={c.hr} />

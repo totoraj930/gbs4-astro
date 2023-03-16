@@ -20,11 +20,19 @@ export type FilterItem = z.infer<typeof zFilterItem>;
 
 export const zSoundType = z.enum(['0', '1', '2', '3']);
 export type SoundType = z.infer<typeof zSoundType>;
+export const SoundData: {
+  [K in SoundType]: { name: string; file: string };
+} = {
+  0: { name: 'ワンポイント22', file: 'se_maoudamashii_onepoint22.mp3' },
+  1: { name: 'ワンポイント26', file: 'se_maoudamashii_onepoint26.mp3' },
+  2: { name: 'システム35', file: 'se_maoudamashii_system35.mp3' },
+  3: { name: 'システム46', file: 'se_maoudamashii_system46.mp3' },
+};
 
 export const zSoundOptions = z.object({
   type: zSoundType.default('0'),
-  volume: z.number().min(0).max(1).default(0.2),
-  isMute: z.boolean().default(true),
+  // volume: z.number().min(0).max(1).default(1),
+  mute: z.boolean().default(true),
 });
 export type SoundOptions = z.infer<typeof zSoundOptions>;
 
@@ -47,6 +55,7 @@ export const zColumnOptions = z.object({
   filters: z.array(zFilterItem).default([]),
   duplicate: zDuplicateOption.default('latest'),
   elapsed: zElapsedOption.default('all'),
+  comment: z.string().default(''),
   autoCopy: z.boolean().default(false),
   sound: zSoundOptions.default({}),
 });
@@ -110,5 +119,7 @@ export const zGlobalSettings = z.object({
   showMoveButton: z.boolean().default(false),
   menuPotision: zMenuPosition.default('right'),
   fewerTweets: z.boolean().default(false),
+  volume: z.number().min(0).max(1).default(0.3),
+  mute: z.boolean().default(false),
 });
 export type GlobalSettings = z.infer<typeof zGlobalSettings>;

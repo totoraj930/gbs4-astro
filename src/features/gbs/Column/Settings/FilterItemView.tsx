@@ -4,6 +4,7 @@ import { gbsList, GbsListItem } from '@gbs/Store/gbsList';
 import { globalSettings } from '@gbs/Store/globalSettings';
 import type { FilterItem } from '@gbs/Store/globalSettings/schema';
 import { RiSystemDeleteBack2Line } from 'solid-icons/ri';
+import { MsEdit, MsPersonAdd } from 'solid-material-symbols/rounded/600';
 
 export function EnemyElement(props: { element: GbsListItem['attr'] }) {
   return (
@@ -20,6 +21,7 @@ export function EnemyElement(props: { element: GbsListItem['attr'] }) {
         },
         'relative h-[25px] w-[25px] min-w-[25px] overflow-hidden rounded-full',
         'border border-solid bg-[var(--element-color)]',
+        'border-gray-300 dark:border-gray-900',
         'before:bg-[linear-gradient(to_right_bottom,#000,#fff)]',
         'before:absolute before:block before:h-full before:w-full before:opacity-50',
         'after:bg-[linear-gradient(180deg,#fff_5%,transparent_40%)]',
@@ -69,6 +71,28 @@ export function InListEnemy(props: { data: number }) {
   return <Enemy {...enemyProps()} />;
 }
 
+export function ManualEnemy(props: { name?: string; level?: string }) {
+  const level = createMemo(() => {
+    if (!props.level || props.level.length <= 0) return '???';
+    return props.level;
+  });
+  return (
+    <span class="flex h-[40px] flex-1 items-center gap-[5px] leading-none">
+      <span class="grid h-[25px] w-[25px] place-content-center">
+        {/* <MsEdit size={25} /> */}
+        <MsPersonAdd size={22} class="translate-x-[2px]" />
+      </span>
+      <span class="relative h-[40px] flex-1 text-left">
+        <span class="items-flex-start absolute flex h-full w-full flex-col justify-center">
+          <span class="min-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[16px] font-bold leading-[1.3]">
+            Lv.{level()} {props.name ?? ''}
+          </span>
+        </span>
+      </span>
+    </span>
+  );
+}
+
 type Props = {
   data: FilterItem;
   onDelete: () => void;
@@ -79,14 +103,14 @@ export function FilterItemView(props: Props) {
     if (props.data.id >= 0) {
       return <InListEnemy data={props.data.id} />;
     } else {
-      return <></>;
+      return <ManualEnemy name={props.data.regex} level={props.data.level} />;
     }
   });
   return (
     <div class="flex flex-row items-center">
       {filterName()}
       <button
-        class="ml-auto flex-shrink-0 flex-grow-0 text-red-600"
+        class="ml-auto flex-shrink-0 flex-grow-0 text-red-600 dark:text-red-400"
         onClick={() => props.onDelete()}
       >
         <RiSystemDeleteBack2Line size={25} />

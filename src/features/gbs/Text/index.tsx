@@ -4,7 +4,7 @@ export const TEXT_LIST = [
   { ja: '設定', en: 'Settings' },
   { ja: '設定なし', en: 'NO SETTINGS' },
   { ja: 'フィルタ', en: 'Filters' },
-  { ja: 'カラム表示名', en: 'Display name' },
+  { ja: '表示名', en: 'Display name' },
   { ja: '検索', en: 'Search' },
   { ja: 'リストから追加', en: 'Add from list' },
   { ja: 'コメント', en: 'Comment' },
@@ -52,7 +52,9 @@ export const TEXT_LIST = [
   { ja: 'カラムを追加', en: 'Add column' },
   { ja: 'コンパクト', en: 'Compact' },
   { ja: '通知音', en: 'Alarm' },
+  { ja: '音量', en: 'Volume' },
   { ja: 'ミュート', en: 'Mute' },
+  { ja: 'ミュート切り替え', en: 'Mute on/off' },
   { ja: '{n}分', en: '{n}m' },
   { ja: '{n}秒', en: '{n}s' },
   { ja: '英語', en: 'English' },
@@ -77,6 +79,8 @@ export const TEXT_LIST = [
   { ja: 'マイセット', en: 'My Sets' },
   { ja: '軽量化', en: 'Optimize performance' },
   { ja: '表示ツイート数を減らす', en: 'Show fewer Tweets' },
+  { ja: '名前', en: 'Name' },
+  { ja: '自動', en: 'Auto' },
 ] as const;
 
 type Key = (typeof TEXT_LIST)[number]['ja'];

@@ -1,10 +1,11 @@
 ---
 import { Gbs } from '../features/gbs';
 import '../features/gbs/styles/base.css';
-import { Moc } from '../features/gbs/styles/Moc';
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Granblue Search 4">
+<Layout
+  title="Granblue Search 4 - グラブルのツイ救援をリアルタイムに検索するやつ"
+>
   <Gbs client:only="solid-js" />
 </Layout>
