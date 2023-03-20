@@ -1,5 +1,7 @@
 import { createStore, SetStoreFunction } from 'solid-js/store';
+import { createSignal } from 'solid-js';
 import { GlobalSettings, VERSION, zGlobalSettings } from './schema';
+import { hasClipboardPermission } from '@gbs/utils';
 
 /**
  * 全体で使う設定ストア
@@ -17,6 +19,34 @@ export const changeAndSave: SetStoreFunction<GlobalSettings> = (
   setGlobalSettings(...args);
   saveSettingsToStorage();
 };
+
+/**
+ * windowにfocusがあるか
+ */
+const [hasFocus, setHasFocus] = createSignal(true);
+export { hasFocus };
+const onFocus = () => setHasFocus(true);
+const onBlur = () => setHasFocus(false);
+export function initFocusDetector() {
+  window.removeEventListener('focus', onFocus);
+  window.removeEventListener('blur', onBlur);
+  window.addEventListener('focus', onFocus);
+  window.addEventListener('blur', onBlur);
+}
+
+/**
+ * Permissions APIでclipboard-writeが許可されているか
+ */
+const [canAutoCopy, setCanAutoCopy] = createSignal(false);
+export { canAutoCopy };
+export async function initAutoCopy() {
+  setCanAutoCopy(await hasClipboardPermission());
+}
+
+/**
+ * コンパクトモードを使用するか
+ */
+export const [isCompact, setIsCompact] = createSignal(false);
 
 /**
  * カラム移動モードのON/OFF

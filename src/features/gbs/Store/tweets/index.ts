@@ -1,5 +1,5 @@
 import { copyText } from '@gbs/utils';
-import { createSignal } from 'solid-js';
+import { createSignal, createEffect } from 'solid-js';
 import { putLog } from '@gbs/Store/logs';
 import type { TweetData } from './schema';
 
@@ -23,14 +23,18 @@ export const copiedIds = () => {
 /**
  * 時間のズレ
  */
-const globalTimeDiff = 0;
+const [globalTimeDiff, setGlobalTimeDiff] = createSignal(0);
+export { globalTimeDiff };
 
 /**
  * 現在時刻
  */
-const [globalTime, setGlobalTime] = createSignal(Date.now() + globalTimeDiff);
+const [globalTime, setGlobalTime] = createSignal(Date.now());
 export { globalTime };
-setInterval(() => setGlobalTime(Date.now() + globalTimeDiff), 1000);
+setInterval(() => setGlobalTime(Date.now() + globalTimeDiff()), 1000);
+createEffect(() => {
+  setGlobalTime(Date.now() + globalTimeDiff());
+});
 
 let prevTime = Date.now();
 export async function copyTweet(tweetData: TweetData) {

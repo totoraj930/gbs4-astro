@@ -41,7 +41,7 @@ export const TEXT_LIST = [
   { ja: '時間の表示タイプ', en: 'Time display type' },
   { ja: '経過時間', en: 'Elapsed time' },
   { ja: '投稿時間', en: 'Tweet time' },
-  { ja: 'その他の表示設定', en: 'Other display settings' },
+  { ja: 'その他の設定', en: 'Other settings' },
   { ja: 'ダークモード', en: 'Dark mode' },
   { ja: '画像を表示', en: 'Show images' },
   { ja: 'デバッグログを表示', en: 'Debug logs' },
@@ -54,7 +54,7 @@ export const TEXT_LIST = [
   { ja: '通知音', en: 'Alarm' },
   { ja: '音量', en: 'Volume' },
   { ja: 'ミュート', en: 'Mute' },
-  { ja: 'ミュート切り替え', en: 'Mute on/off' },
+  { ja: 'ミュート切り替え', en: 'Toggle mute' },
   { ja: '{n}分', en: '{n}m' },
   { ja: '{n}秒', en: '{n}s' },
   { ja: '英語', en: 'English' },
@@ -81,6 +81,7 @@ export const TEXT_LIST = [
   { ja: '表示ツイート数を減らす', en: 'Show fewer Tweets' },
   { ja: '名前', en: 'Name' },
   { ja: '自動', en: 'Auto' },
+  { ja: 'フォーカス時のみ音を鳴らす', en: 'Play sound only when focused' },
 ] as const;
 
 type Key = (typeof TEXT_LIST)[number]['ja'];

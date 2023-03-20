@@ -12,6 +12,7 @@ export const zTweetData = z.object({
   sender: z.string(),
   comment: z.string().optional(),
   enemy: zGbsListItem,
+  elapsed: z.number(),
 });
 export type TweetData = z.infer<typeof zTweetData>;
 

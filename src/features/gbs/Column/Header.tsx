@@ -2,7 +2,10 @@ import { createMemo, createSignal, Show } from 'solid-js';
 import { produce } from 'solid-js/store';
 import { gbsList } from '@gbs/Store/gbsList';
 import {
+  canAutoCopy,
   globalSettings,
+  hasFocus,
+  isCompact,
   saveSettingsToStorage,
 } from '@gbs/Store/globalSettings';
 import { text } from '@gbs/Text';
@@ -54,9 +57,14 @@ export function Header() {
       <SettingsModal open={open()} onClose={() => setOpen(false)} />
 
       <header
-        class={clsx(
-          'z-40 flex flex-row items-center justify-start gap-[2px] border-b border-solid',
-          'border-gray-300 dark:border-gray-600'
+        class={twMerge(
+          clsx(
+            'z-40 flex flex-row items-center justify-start gap-[2px] border-b border-solid',
+            'border-gray-300 dark:border-gray-600',
+            {
+              hidden: isCompact(),
+            }
+          )
         )}
       >
         <button
@@ -99,12 +107,19 @@ export function Header() {
               {
                 'bg-gray-800 dark:bg-white': !col.autoCopy,
                 'bg-sky-400 dark:text-white': col.autoCopy,
+                'opacity-50': col.autoCopy && !hasFocus(),
+                hidden: !canAutoCopy(),
               }
             )
           )}
         >
           <span class="-ml-[2px]">
-            <MsAutorenew size={14} />
+            <MsAutorenew
+              size={14}
+              class={clsx({
+                'animate-spin': col.autoCopy && hasFocus(),
+              })}
+            />
           </span>
           <span class="text-[10px] font-bold">AUTO</span>
         </button>
@@ -115,11 +130,16 @@ export function Header() {
             {
               'text-sky-400': !col.sound.mute,
               'text-gray-800 dark:text-white': col.sound.mute,
-              'opacity-50': globalSettings.mute,
+              'opacity-50':
+                globalSettings.mute ||
+                (!col.sound.mute &&
+                  !hasFocus() &&
+                  globalSettings.focusOnlySound),
             }
           )}
           onClick={() => {
             setCol(produce((s) => (s.sound.mute = !s.sound.mute)));
+            saveCol();
           }}
         >
           <Show when={col.sound.mute}>

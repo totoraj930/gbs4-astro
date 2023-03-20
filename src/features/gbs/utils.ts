@@ -3,6 +3,18 @@ export function uid() {
   return ++__num + '-' + Math.random().toString(16).slice(2);
 }
 
+export async function hasClipboardPermission() {
+  try {
+    const res = await navigator.permissions.query({
+      name: 'clipboard-write' as PermissionName,
+    });
+    return res.state === 'granted' || res.state === 'prompt';
+  } catch {
+    /* */
+  }
+  return false;
+}
+
 export function getUserLanguage() {
   try {
     return /^ja\b/.test(window.navigator.language) ? 'ja' : 'en';

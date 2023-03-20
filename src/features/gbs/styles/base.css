@@ -64,6 +64,13 @@
     line-height: 0;
   }
 
+  /* @media screen and (max-height: 400px) {
+    .auto-compact .compact,
+    .use-compact .compact {
+      display: none;
+    }
+  } */
+
   .tweet-copied::after {
     content: '';
     position: absolute;

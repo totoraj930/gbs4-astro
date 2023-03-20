@@ -115,11 +115,15 @@ export const zGlobalSettings = z.object({
   columnGroup: zColumnGroupMap.default({}),
   currentGroupKey: zColumnGroupKey.default('1'),
   compact: z.boolean().default(false),
+  autoCompact: z.boolean().default(true),
   noScroll: z.boolean().default(false),
   showMoveButton: z.boolean().default(false),
   menuPotision: zMenuPosition.default('right'),
+  menuButton: z.boolean().default(true),
   fewerTweets: z.boolean().default(false),
-  volume: z.number().min(0).max(1).default(0.3),
+
+  volume: z.number().min(0).max(1).default(0.1),
   mute: z.boolean().default(false),
+  focusOnlySound: z.boolean().default(false),
 });
 export type GlobalSettings = z.infer<typeof zGlobalSettings>;

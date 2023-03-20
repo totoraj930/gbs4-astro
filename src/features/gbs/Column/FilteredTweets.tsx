@@ -8,17 +8,24 @@ import {
   onMount,
   Show,
 } from 'solid-js';
-import { globalSettings } from '@gbs/Store/globalSettings';
+import { globalSettings, hasFocus } from '@gbs/Store/globalSettings';
 import { text } from '@gbs/Text';
 import { Tweet } from '@gbs/Tweet';
 import { tweetReciver } from '@gbs/Store/tweets/reciver';
-import { allTweets, copyTweet } from '@gbs/Store/tweets';
+import { allTweets, copyTweet, globalTimeDiff } from '@gbs/Store/tweets';
 import type { TweetData } from '@gbs/Store/tweets/schema';
 
-import type { FilterItem } from '@gbs/Store/globalSettings/schema';
+import {
+  ColumnOptions,
+  DuplicateOption,
+  ElapsedOption,
+  FilterItem,
+  SoundData,
+} from '@gbs/Store/globalSettings/schema';
 import { useColumn } from './columnContext';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
+import { playAudio } from '@gbs/utils';
 
 function testFilter(tweetData: TweetData, filter: FilterItem) {
   if (tweetData.enemy.id !== filter.id) return false;
@@ -44,17 +51,94 @@ function testFilters(tweetData: TweetData, filters: FilterItem[]) {
   return false;
 }
 
+function strToRegExp(str: string) {
+  try {
+    return new RegExp(str);
+  } catch {
+    return str;
+  }
+}
+
+function testComment(tweetData: TweetData, text: string) {
+  if (text.length <= 0) return true;
+  const comment = tweetData.comment ?? '';
+  const reg = strToRegExp(text);
+  return typeof reg === 'string' ? comment.includes(reg) : reg.test(comment);
+}
+
+function testElapsed(tweetData: TweetData, elapsed: ElapsedOption) {
+  if (elapsed === 'all') return true;
+  const diff = tweetData.elapsed;
+  const one = 1000;
+  switch (elapsed) {
+    case '2s': {
+      return diff <= one * 2;
+    }
+    case '3s': {
+      return diff <= one * 3;
+    }
+    case '4s': {
+      return diff <= one * 4;
+    }
+    case '5s': {
+      return diff <= one * 5;
+    }
+  }
+  return true;
+}
+
+function testDuplicate(tweetData: TweetData, duplicate: DuplicateOption) {
+  if (duplicate === 'all') return true;
+  if (duplicate === 'latest') return tweetData.firstTime === tweetData.time;
+  const diff = tweetData.time - tweetData.firstTime;
+  const one = 1000 * 60;
+  switch (duplicate) {
+    case '1m': {
+      return diff >= one;
+    }
+    case '2m': {
+      return diff >= one * 2;
+    }
+    case '3m': {
+      return diff >= one * 3;
+    }
+    case '5m': {
+      return diff >= one * 5;
+    }
+    case '10m': {
+      return diff >= one * 10;
+    }
+  }
+  return true;
+}
+
+function testAllOptions(tweetData: TweetData, ops: ColumnOptions) {
+  return (
+    testComment(tweetData, ops.comment) &&
+    testElapsed(tweetData, ops.elapsed) &&
+    testDuplicate(tweetData, ops.duplicate) &&
+    testFilters(tweetData, ops.filters)
+  );
+}
+
 export function FilteredTweets() {
   const { options: col } = useColumn();
   const [filteredTweets, setFilteredTweets] = createSignal<TweetData[]>([]);
   const shortTweets = createMemo(() => {
     return filteredTweets().slice(0, globalSettings.fewerTweets ? 8 : 20);
   });
+  const soundUrl = createMemo(() => {
+    return '/gbs/sound/' + SoundData[col.sound.type].file;
+  });
 
   const filters = () => col.filters;
 
   function onTweet(tweetData: TweetData) {
-    if (!testFilters(tweetData, col.filters)) return;
+    // 各種フィルタの確認
+    const isAllowed = testAllOptions(tweetData, col);
+    if (!isAllowed) return;
+
+    // 有効なツイートなら処理する
     setFilteredTweets((prev) => {
       const res = [...prev];
       let insertPos = 0;
@@ -67,8 +151,18 @@ export function FilteredTweets() {
 
       res.splice(insertPos, 0, tweetData);
 
-      if (insertPos === 0 && col.autoCopy) {
-        copyTweet(tweetData);
+      // 最新なら処理する
+      if (insertPos === 0) {
+        // 自動コピー
+        if (col.autoCopy) copyTweet(tweetData);
+
+        // ミュート確認
+        if (!col.sound.mute && !globalSettings.mute) {
+          // フォーカス確認
+          if (!globalSettings.focusOnlySound || hasFocus()) {
+            playAudio(soundUrl(), globalSettings.volume);
+          }
+        }
       }
       return res;
     });
@@ -90,7 +184,7 @@ export function FilteredTweets() {
   createEffect(
     on(filters, () => {
       setFilteredTweets(
-        allTweets().filter((tweetData) => testFilters(tweetData, filters()))
+        allTweets().filter((tweetData) => testAllOptions(tweetData, col))
       );
     })
   );

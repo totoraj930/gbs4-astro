@@ -1,4 +1,11 @@
-import { createMemo, createSignal, Switch, Match, Show } from 'solid-js';
+import {
+  createMemo,
+  createSignal,
+  Switch,
+  Match,
+  Show,
+  onCleanup,
+} from 'solid-js';
 import { produce } from 'solid-js/store';
 import { changeAndSave, globalSettings } from '../Store/globalSettings';
 import { text } from '../Text';
@@ -42,6 +49,32 @@ const c = /*tw*/ {
 
 const [isOpen, setIsOpen] = createSignal(false);
 
+/**
+ * メニューが画面内にあるか
+ */
+const [isMenuVisible, setIsMenuVisible] = createSignal(true);
+export { isMenuVisible };
+
+/**
+ * メニューが表示されているかを検知する
+ */
+const observer = new IntersectionObserver(
+  (entries) => {
+    const target = entries[0];
+    if (!target) return;
+    if (target.intersectionRatio > 0.5) {
+      setIsMenuVisible(true);
+    } else {
+      console.log(target);
+      setIsMenuVisible(false);
+    }
+  },
+  {
+    root: document.querySelector('#gbs-main'),
+    threshold: [0, 0.25, 0.5, 0.75, 1],
+  }
+);
+
 export function MenuColumn() {
   const canAddColumn = createMemo(() => {
     return (
@@ -51,6 +84,12 @@ export function MenuColumn() {
   });
   return (
     <header
+      ref={(elm) => {
+        requestAnimationFrame(() => {
+          observer.observe(elm);
+        });
+        onCleanup(() => observer.unobserve(elm));
+      }}
       class={clsx(
         'flex h-full w-screen min-w-[240px] max-w-[300px] shrink-0 flex-col',
         'bg-white dark:bg-gray-700 dark:text-white'
@@ -181,7 +220,7 @@ export function MenuColumn() {
             title={text('音量')}
             min={0}
             max={1}
-            step={0.1}
+            step={0.01}
             value={globalSettings.volume}
             disabled={globalSettings.mute}
             onInput={(e) => {

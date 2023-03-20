@@ -1,6 +1,6 @@
 import mitt from 'mitt';
 import { gbsList } from '@gbs/Store/gbsList';
-import { setAllTweets } from '.';
+import { globalTimeDiff, setAllTweets } from '.';
 import type { TweetData } from './schema';
 
 type ReceiverEvents = {
@@ -34,6 +34,7 @@ export function randomTweet(): TweetData | null {
     firstTime: time,
     language: 'ja',
     sender,
+    elapsed: Date.now() + globalTimeDiff() - time,
   };
 }
 

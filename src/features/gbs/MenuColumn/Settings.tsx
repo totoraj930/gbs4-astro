@@ -145,7 +145,7 @@ export function Settings() {
       <hr class={c.hr} />
 
       <div class={c.wrap}>
-        <p class={c.title}>{text('その他の表示設定')}</p>
+        <p class={c.title}>{text('その他の設定')}</p>
         <ul class="flex flex-col justify-items-start gap-[10px]">
           <li>
             <Checkbox
@@ -153,6 +153,16 @@ export function Settings() {
               onChange={(v) => changeAndSave(produce((s) => (s.darkMode = v)))}
             >
               {text('ダークモード')}
+            </Checkbox>
+          </li>
+          <li>
+            <Checkbox
+              value={globalSettings.focusOnlySound}
+              onChange={(v) =>
+                changeAndSave(produce((s) => (s.focusOnlySound = v)))
+              }
+            >
+              {text('フォーカス時のみ音を鳴らす')}
             </Checkbox>
           </li>
           <li>
