@@ -1,6 +1,7 @@
 import { createEffect, onMount, Show } from 'solid-js';
 import { clsx } from 'clsx';
 import {
+  allFilterIds,
   globalSettings,
   hasFocus,
   initAutoCopy,
@@ -9,7 +10,11 @@ import {
   setIsCompact,
 } from '@gbs/Store/globalSettings';
 import { loadGbsList } from '@gbs/Store/gbsList';
-import { connectReciver } from './Store/tweets/reciver';
+import {
+  connectReciver,
+  getRaidTweetCache,
+  setIsInitializing,
+} from './Store/tweets/reciver';
 import { isMenuVisible, MenuColumn } from './MenuColumn';
 import { ColumnGroup } from './Column';
 import { initAudioContext } from './utils';
@@ -19,6 +24,8 @@ import { MsMenu } from 'solid-material-symbols/rounded/600';
 export function Gbs() {
   onMount(async () => {
     await loadGbsList();
+    setIsInitializing(false);
+    await getRaidTweetCache(allFilterIds());
     connectReciver();
     initFocusDetector();
     initAutoCopy();

@@ -1,10 +1,10 @@
 import mitt from 'mitt';
 import { gbsList } from '@gbs/Store/gbsList';
 import { globalTimeDiff, setAllTweets, setGlobalTimeDiff } from '.';
-import type { TweetData } from './schema';
+import { TweetData, zCacheResponse } from './schema';
 import { connect, gbsWs, sendMessage } from './ws';
 import { allFilterIds } from '../globalSettings';
-import { createEffect, on } from 'solid-js';
+import { createEffect, createSignal, on } from 'solid-js';
 import type { RaidTweetMini } from 'gbs-open-lib';
 
 type ReceiverEvents = {
@@ -23,14 +23,20 @@ export const tweetReciver = mitt<ReceiverEvents>();
  * フィルタ更新のタイムアウト(連続で変更されないように)
  */
 let updateFilterTimeout: number | null = null;
+
+/**
+ * 初期化中フラグ(trueなら何もしない)
+ */
+export const [isInitializing, setIsInitializing] = createSignal(true);
 createEffect(
   on(allFilterIds, () => {
+    if (isInitializing()) return;
     if (updateFilterTimeout) {
       clearTimeout(updateFilterTimeout);
     }
-    console.log();
     updateFilterTimeout = setTimeout(() => {
       sendFilters(allFilterIds());
+      getRaidTweetCache(allFilterIds());
     }, 1000);
   })
 );
@@ -51,6 +57,7 @@ gbsWs.on('tweet', (mini) => {
  */
 gbsWs.on('open', () => {
   sendFilters(allFilterIds());
+  setIsInitializing(false);
 });
 
 /**
@@ -88,6 +95,7 @@ export function randomTweet(): TweetData | null {
     firstTime: time,
     language: 'ja',
     sender,
+    tweetId: Math.random() + '',
     elapsed: Date.now() + globalTimeDiff() - time,
   };
 }
@@ -100,6 +108,7 @@ function emitRandomTweet() {
 function emitTweetFromMiniData(mini: RaidTweetMini) {
   const enemy = gbsList().find((item) => item.id === mini.ei);
   const tweet: TweetData = {
+    tweetId: mini.ti,
     battleId: mini.bi,
     language: mini.l,
     // elapsed: Date.now() + globalTimeDiff() - mini.t,
@@ -124,6 +133,10 @@ function emitTweetFromMiniData(mini: RaidTweetMini) {
 function emitTweet(tweetData: TweetData) {
   tweetReciver.emit('tweet', tweetData);
   setAllTweets((prev) => {
+    // 追加済みなら何もしない
+    if (prev.find((target) => target.tweetId === tweetData.tweetId)) {
+      return prev;
+    }
     const res = [...prev];
     let insertPos = 0;
     for (let i = 0; i < res.length; i++) {
@@ -156,4 +169,23 @@ export function sendFilters(filters: number[]) {
     type: 'filters',
     data: filters,
   });
+}
+
+/**
+ * キャッシュサーバーからクエストを入手
+ */
+export async function getRaidTweetCache(filters: number[]) {
+  try {
+    const url = new URL('https://gbs-open.eriri.net/api/cache');
+    url.searchParams.set('q', filters.join(','));
+    const json = await (await fetch(url.href)).json();
+    const res = zCacheResponse.parse(json);
+    for (const item of res) {
+      for (const mini of item.tweets) {
+        emitTweetFromMiniData(mini);
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
 }

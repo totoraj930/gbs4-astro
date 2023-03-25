@@ -140,6 +140,10 @@ export function FilteredTweets() {
 
     // 有効なツイートなら処理する
     setFilteredTweets((prev) => {
+      // 追加済みならなにもしない
+      if (prev.find((target) => target.tweetId === tweetData.tweetId)) {
+        return prev;
+      }
       const res = [...prev];
       let insertPos = 0;
       if (globalSettings.orderByTweetTime) {
