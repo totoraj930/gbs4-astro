@@ -1,5 +1,7 @@
 import { createSignal, createMemo } from 'solid-js';
 import { EnemyElement, zGbsListItem, zGbsList, GbsList } from 'gbs-open-lib';
+import { addToast } from './toast';
+import { text } from '@gbs/Text';
 export { EnemyElement, zGbsListItem };
 export type { GbsList };
 
@@ -25,6 +27,10 @@ export async function loadGbsList() {
     );
   } catch (err) {
     console.error(err);
+    addToast({
+      type: 'error',
+      message: text('リストの読み込みに失敗'),
+    });
   }
 }
 

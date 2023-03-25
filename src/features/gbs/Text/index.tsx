@@ -65,6 +65,8 @@ export const TEXT_LIST = [
   { ja: 'PC版を開く', en: 'Open PC ver.' },
   { ja: 'スマホ版(モバゲー)を開く', en: 'Open mobile ver.(mbga)' },
   { ja: 'スマホ版(アプリ)を開く', en: 'Open mobile ver.(app)' },
+  { ja: 'SkyLeap(モバゲー)を開く', en: 'Open SkyLeap ver.(mbga)' },
+  { ja: 'SkyLeap(その他)を開く', en: 'Open SkyLeap ver.(other)' },
   { ja: '最新をコピー', en: 'Copy latest' },
   { ja: 'コピーに失敗しました', en: 'Copy filed' },
   { ja: 'ログを表示', en: 'Display log' },
@@ -85,6 +87,11 @@ export const TEXT_LIST = [
   { ja: 'ダーク', en: 'Dark' },
   { ja: 'ライト', en: 'Light' },
   { ja: 'テーマ', en: 'Theme' },
+  { ja: 'サーバーに接続しました', en: 'Server connected' },
+  { ja: 'サーバーから切断しました', en: 'Server disconnected' },
+  { ja: 'サーバー接続に失敗', en: 'Server connection failed' },
+  { ja: 'コピー: {id}', en: 'Copied: {id}' },
+  { ja: 'リストの読み込みに失敗', en: 'Failed to load list' },
 ] as const;
 
 type Key = (typeof TEXT_LIST)[number]['ja'];

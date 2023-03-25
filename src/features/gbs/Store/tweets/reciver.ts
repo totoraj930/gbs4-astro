@@ -6,6 +6,8 @@ import { connect, gbsWs, sendMessage } from './ws';
 import { allFilterIds } from '../globalSettings';
 import { createEffect, createSignal, on } from 'solid-js';
 import type { RaidTweetMini } from 'gbs-open-lib';
+import { addToast } from '../toast';
+import { text } from '@gbs/Text';
 
 type ReceiverEvents = {
   tweet: TweetData;
@@ -58,13 +60,18 @@ gbsWs.on('tweet', (mini) => {
 gbsWs.on('open', () => {
   sendFilters(allFilterIds());
   setIsInitializing(false);
+  addToast({
+    type: 'info',
+    duration: 3000,
+    message: text('サーバーに接続しました'),
+  });
 });
 
 /**
  * サーバーとの時間のずれを確認
  */
 gbsWs.on('time', (time) => {
-  setGlobalTimeDiff(Date.now() - time);
+  setGlobalTimeDiff(time - Date.now());
 });
 
 gbsWs.on('ping', (num) => {
@@ -73,6 +80,14 @@ gbsWs.on('ping', (num) => {
 
 gbsWs.on('error', (msg) => {
   console.log(msg);
+});
+
+gbsWs.on('close', () => {
+  addToast({
+    type: 'warn',
+    duration: 3000,
+    message: text('サーバーから切断しました'),
+  });
 });
 
 export function randomTweet(): TweetData | null {

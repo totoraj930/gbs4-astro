@@ -12,7 +12,7 @@ import { globalSettings, hasFocus } from '@gbs/Store/globalSettings';
 import { text } from '@gbs/Text';
 import { Tweet } from '@gbs/Tweet';
 import { tweetReciver } from '@gbs/Store/tweets/reciver';
-import { allTweets, copyTweet, globalTimeDiff } from '@gbs/Store/tweets';
+import { allTweets, copyTweet } from '@gbs/Store/tweets';
 import type { TweetData } from '@gbs/Store/tweets/schema';
 
 import {
@@ -25,7 +25,7 @@ import {
 import { useColumn } from './columnContext';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
-import { playAudio } from '@gbs/utils';
+import { openGbfPage, playAudio } from '@gbs/utils';
 
 function testFilter(tweetData: TweetData, filter: FilterItem) {
   if (tweetData.enemy.id !== filter.id) return false;
@@ -172,9 +172,12 @@ export function FilteredTweets() {
     });
   }
 
-  function copyLatest() {
+  // ボタンからのコピー
+  async function copyLatest() {
     const latestTweet = filteredTweets()[0];
-    if (latestTweet) copyTweet(latestTweet);
+    if (latestTweet) {
+      copyTweet(latestTweet, globalSettings.clickAction);
+    }
   }
 
   onMount(() => {

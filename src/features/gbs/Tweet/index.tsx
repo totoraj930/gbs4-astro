@@ -1,7 +1,12 @@
 import { createMemo, Show } from 'solid-js';
 import { globalSettings } from '../Store/globalSettings';
 import { text } from '../Text';
-import { copiedIds, copyTweet, globalTime } from '@gbs/Store/tweets';
+import {
+  copiedIds,
+  copyTweet,
+  globalTime,
+  globalTimeDiff,
+} from '@gbs/Store/tweets';
 import type { TweetData } from '@gbs/Store/tweets/schema';
 import clsx from 'clsx';
 
@@ -11,7 +16,7 @@ type Props = {
 
 export function Tweet(props: Props) {
   const viewTime = createMemo(() => {
-    const now = Math.max(globalTime(), Date.now());
+    const now = globalTime();
     const seconds = Math.round((now - props.tweet.time) / 1000);
     const minutes = ~~(seconds / 60);
     const time = minutes > 0 ? minutes + text('分') : seconds + text('秒');
@@ -46,8 +51,8 @@ export function Tweet(props: Props) {
       classList={{
         'tweet-copied': copied(),
       }}
-      onMouseDown={() => copyTweet(props.tweet)}
-      onTouchEnd={() => copyTweet(props.tweet)}
+      onMouseDown={() => copyTweet(props.tweet, globalSettings.clickAction)}
+      onTouchEnd={() => copyTweet(props.tweet, globalSettings.clickAction)}
     >
       <span
         class="tweet-bg-img"

@@ -1,7 +1,10 @@
-import { copyText } from '@gbs/utils';
+import { copyText, openGbfPage } from '@gbs/utils';
 import { createSignal, createEffect } from 'solid-js';
 import { putLog } from '@gbs/Store/logs';
 import type { TweetData } from './schema';
+import type { ClickAction } from '../globalSettings/schema';
+import { addToast } from '../toast';
+import { text } from '@gbs/Text';
 
 /**
  * 全ツイート
@@ -30,14 +33,16 @@ export const [globalTimeDiff, setGlobalTimeDiff] = createSignal(0);
  */
 const [globalTime, setGlobalTime] = createSignal(Date.now());
 export { globalTime };
-setInterval(() => setGlobalTime(Date.now() + globalTimeDiff()), 1000);
+setInterval(() => {
+  setGlobalTime(Date.now() + globalTimeDiff());
+}, 1000);
 createEffect(() => {
   setGlobalTime(Date.now() + globalTimeDiff());
 });
 
 let prevTime = Date.now();
-export async function copyTweet(tweetData: TweetData) {
-  if (Date.now() - prevTime < 100) return;
+export async function copyTweet(tweetData: TweetData, action?: ClickAction) {
+  // if (Date.now() - prevTime < 100) return;
   // putLog('info', 'copy', tweetData.battleId);
   const copyRes = await copyText(tweetData.battleId);
   if (copyRes) {
@@ -46,6 +51,14 @@ export async function copyTweet(tweetData: TweetData) {
     setCopiedTweets((prev) => {
       return [...prev, tweetData];
     });
+    addToast({
+      type: 'info',
+      duration: 2000,
+      message: text('コピー: {id}', { id: tweetData.battleId }),
+    });
+    if (action && action !== 'copy') {
+      openGbfPage(action);
+    }
   }
   return copyRes;
 }

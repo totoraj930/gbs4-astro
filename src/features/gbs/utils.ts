@@ -1,3 +1,5 @@
+import type { ClickAction } from './Store/globalSettings/schema';
+
 let __num = 0;
 export function uid() {
   return ++__num + '-' + Math.random().toString(16).slice(2);
@@ -108,4 +110,42 @@ export async function playAudio(url: string, volume: number) {
   return () => {
     sourceNode.stop();
   };
+}
+
+const actionUrls: { [key in ClickAction]: string | null } = {
+  copy: null,
+  'pc:browser': 'https://game.granbluefantasy.jp/#quest/assist',
+  'mobile:mbga': 'https://gbf.game.mbga.jp/#quest/assist',
+  'mobile:app': 'mobage-jp-12016007://',
+};
+// SkyLeap用のwindow.open
+let oldWindow: Window | null = null;
+let useNewWindow = false;
+(function () {
+  const ua = window.navigator.userAgent;
+  if (ua.match(/Android.+SkyLeap/) || ua.match(/iPhone/)) {
+    useNewWindow = true;
+  }
+  if (ua.match(/Smooz/)) {
+    useNewWindow = false;
+  }
+})();
+export function openGbfPage(type: ClickAction) {
+  const url = actionUrls[type];
+  if (!url) return;
+  if (useNewWindow) {
+    if (oldWindow && !oldWindow.closed) oldWindow.close();
+    oldWindow = window.open(url, 'gbs-' + Date.now());
+  } else {
+    window.open(url, 'gbs');
+  }
+
+  // スマホでアプリ版を開いてたら1秒後にwindowを閉じる
+  if (type === 'mobile:app') {
+    setTimeout(() => {
+      if (oldWindow && !oldWindow.closed) {
+        oldWindow.close();
+      }
+    }, 1000);
+  }
 }

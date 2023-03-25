@@ -94,7 +94,7 @@ export function Settings() {
         />
       </div>
 
-      {/* <hr class={c.hr} />
+      <hr class={c.hr} />
 
       <div class={c.wrap}>
         <p class={c.title}>{text('クリック時の動作')}</p>
@@ -103,7 +103,7 @@ export function Settings() {
           options={options().clickAction}
           onChange={(v) => changeAndSave(produce((s) => (s.clickAction = v)))}
         />
-      </div> */}
+      </div>
 
       <hr class={c.hr} />
 

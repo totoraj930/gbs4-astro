@@ -20,6 +20,7 @@ import { ColumnGroup } from './Column';
 import { initAudioContext } from './utils';
 import { twMerge } from 'tailwind-merge';
 import { MsMenu } from 'solid-material-symbols/rounded/600';
+import { ToastArea } from './Store/toast';
 
 export function Gbs() {
   onMount(async () => {
@@ -85,6 +86,8 @@ export function Gbs() {
         }
       )}
     >
+      <ToastArea />
+
       <Show when={globalSettings.menuPotision === 'left'}>
         <MenuColumn />
       </Show>

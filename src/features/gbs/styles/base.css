@@ -214,6 +214,19 @@
     opacity: 0.5;
   }
 
+  .toast-fadeout {
+    animation: fadeOut 300ms ease-in-out 0ms 1 forwards;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
   @keyframes showTweet {
     0% {
       opacity: 0;
