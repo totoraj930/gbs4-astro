@@ -175,6 +175,7 @@ export function sendFilters(filters: number[]) {
  * キャッシュサーバーからクエストを入手
  */
 export async function getRaidTweetCache(filters: number[]) {
+  if (filters.length <= 0) return;
   try {
     const url = new URL('https://gbs-open.eriri.net/api/cache');
     url.searchParams.set('q', filters.join(','));
