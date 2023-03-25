@@ -61,6 +61,11 @@ export async function initAutoCopy() {
 export const [isCompact, setIsCompact] = createSignal(false);
 
 /**
+ * 画面ロックを使用するか
+ */
+export const [isScreenLock, setIsScreenLock] = createSignal(false);
+
+/**
  * カラム移動モードのON/OFF
  */
 // export const [isColumnMoveMode, setIsColumnMoveMode] = createSignal(false);

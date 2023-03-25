@@ -122,6 +122,8 @@ export const zGlobalSettings = z.object({
   menuButton: z.boolean().default(true),
   fewerTweets: z.boolean().default(false),
 
+  lockButton: z.boolean().default(false),
+
   volume: z.number().min(0).max(1).default(0.1),
   mute: z.boolean().default(false),
   focusOnlySound: z.boolean().default(false),

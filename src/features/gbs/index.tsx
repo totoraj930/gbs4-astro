@@ -7,7 +7,9 @@ import {
   initAutoCopy,
   initFocusDetector,
   isCompact,
+  isScreenLock,
   setIsCompact,
+  setIsScreenLock,
 } from '@gbs/Store/globalSettings';
 import { loadGbsList } from '@gbs/Store/gbsList';
 import {
@@ -19,7 +21,7 @@ import { isMenuVisible, MenuColumn } from './MenuColumn';
 import { ColumnGroup } from './Column';
 import { initAudioContext } from './utils';
 import { twMerge } from 'tailwind-merge';
-import { MsMenu } from 'solid-material-symbols/rounded/600';
+import { MsLock, MsLockOpen, MsMenu } from 'solid-material-symbols/rounded/600';
 import { ToastArea } from './Store/toast';
 
 export function Gbs() {
@@ -68,22 +70,25 @@ export function Gbs() {
   return (
     <div
       id="gbs-main"
-      class={clsx(
-        'flex h-full w-full content-start justify-start gap-[5px] overflow-auto p-[5px]',
-        'smh:p-0',
-        'dark:text-red bg-gray-100 text-gray-800 dark:bg-gray-900',
-        {
-          'flex-row': globalSettings.columnType === '1line',
-          'flex-nowrap': globalSettings.columnType === '1line',
-          'flex-col': globalSettings.columnType == '2lines',
-          'flex-wrap': globalSettings.columnType == '2lines',
-          'min-h-[340px]': globalSettings.columnType == '2lines',
-          '[--column-size:270px]': globalSettings.columnSize == 's',
-          '[--column-size:320px]': globalSettings.columnSize == 'm',
-          '[--column-size:380px]': globalSettings.columnSize == 'l',
-          'auto-compact': true,
-          'has-focus': hasFocus(),
-        }
+      class={twMerge(
+        clsx(
+          'flex h-full w-full content-start justify-start gap-[5px] overflow-auto p-[5px]',
+          'smh:p-0',
+          'dark:text-red bg-gray-100 text-gray-800 dark:bg-gray-900',
+          {
+            'flex-row': globalSettings.columnType === '1line',
+            'flex-nowrap': globalSettings.columnType === '1line',
+            'flex-col': globalSettings.columnType == '2lines',
+            'flex-wrap': globalSettings.columnType == '2lines',
+            'min-h-[340px]': globalSettings.columnType == '2lines',
+            '[--column-size:270px]': globalSettings.columnSize == 's',
+            '[--column-size:320px]': globalSettings.columnSize == 'm',
+            '[--column-size:380px]': globalSettings.columnSize == 'l',
+            'auto-compact': true,
+            'has-focus': hasFocus(),
+            'overflow-hidden': isScreenLock(),
+          }
+        )
       )}
     >
       <ToastArea />
@@ -98,23 +103,54 @@ export function Gbs() {
         <MenuColumn />
       </Show>
 
-      <button
-        onClick={() => showMenu()}
-        class={twMerge(
-          clsx(
-            'absolute grid h-[40px] w-[40px] place-content-center',
-            'bottom-[18px] right-[15px] z-[40] rounded-full',
-            'bg-sky-500 text-white',
-            {
-              hidden: isMenuVisible() || isCompact(),
-              'shadow-[0_0_5px_#000]': globalSettings.darkMode,
-              'shadow-[0_0_5px_rgba(0,0,0,0.5)]': !globalSettings.darkMode,
-            }
-          )
+      <div
+        class={clsx(
+          'absolute bottom-0 right-0 gap-[10px] p-[18px]',
+          'pointer-events-none flex flex-col',
+          'z-[40]'
         )}
       >
-        <MsMenu size={26} />
-      </button>
+        <button
+          onClick={() => setIsScreenLock((prev) => !prev)}
+          class={twMerge(
+            clsx(
+              'h-[40px] w-[40px] place-content-center',
+              'pointer-events-auto grid rounded-full',
+              'bg-sky-500 text-white',
+              {
+                hidden: !globalSettings.lockButton,
+                'shadow-[0_0_5px_#000]': globalSettings.darkMode,
+                'shadow-[0_0_5px_rgba(0,0,0,0.5)]': !globalSettings.darkMode,
+                'bg-red-600': isScreenLock(),
+              }
+            )
+          )}
+        >
+          <Show
+            when={isScreenLock()}
+            fallback={<MsLockOpen size={26} class="-translate-y-[1px]" />}
+          >
+            <MsLock size={26} class="-translate-y-[1px]" />
+          </Show>
+        </button>
+        <button
+          onClick={() => showMenu()}
+          class={twMerge(
+            clsx(
+              'h-[40px] w-[40px] place-content-center',
+              'pointer-events-auto grid rounded-full',
+              'bg-sky-500 text-white',
+              {
+                hidden: isMenuVisible() || isCompact() || isScreenLock(),
+                'shadow-[0_0_5px_#000]': globalSettings.darkMode,
+                'shadow-[0_0_5px_rgba(0,0,0,0.5)]': !globalSettings.darkMode,
+              }
+            )
+          )}
+        >
+          <MsMenu size={26} />
+        </button>
+      </div>
     </div>
   );
 }

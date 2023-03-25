@@ -177,6 +177,16 @@ export function Settings() {
           </li>
           <li>
             <Checkbox
+              value={globalSettings.lockButton}
+              onChange={(v) =>
+                changeAndSave(produce((s) => (s.lockButton = v)))
+              }
+            >
+              {text('画面ロックボタンを表示')}
+            </Checkbox>
+          </li>
+          <li>
+            <Checkbox
               value={globalSettings.showImage}
               onChange={(v) => changeAndSave(produce((s) => (s.showImage = v)))}
             >

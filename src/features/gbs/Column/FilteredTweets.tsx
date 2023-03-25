@@ -8,7 +8,11 @@ import {
   onMount,
   Show,
 } from 'solid-js';
-import { globalSettings, hasFocus } from '@gbs/Store/globalSettings';
+import {
+  globalSettings,
+  hasFocus,
+  isScreenLock,
+} from '@gbs/Store/globalSettings';
 import { text } from '@gbs/Text';
 import { Tweet } from '@gbs/Tweet';
 import { tweetReciver } from '@gbs/Store/tweets/reciver';
@@ -222,7 +226,9 @@ export function FilteredTweets() {
             },
             {
               'overflow-y-hidden':
-                globalSettings.compact || globalSettings.noScroll,
+                globalSettings.compact ||
+                globalSettings.noScroll ||
+                isScreenLock(),
             }
           )
         )}

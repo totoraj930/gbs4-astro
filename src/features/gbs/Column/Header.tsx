@@ -6,6 +6,7 @@ import {
   globalSettings,
   hasFocus,
   isCompact,
+  isScreenLock,
   saveSettingsToStorage,
 } from '@gbs/Store/globalSettings';
 import { text } from '@gbs/Text';
@@ -20,6 +21,7 @@ import {
   MsSearch,
 } from 'solid-material-symbols/rounded/600';
 import { twMerge } from 'tailwind-merge';
+import { addToast } from '@gbs/Store/toast';
 
 export function Header() {
   const { options: col, setOptions: setCol } = useColumn();
@@ -69,7 +71,17 @@ export function Header() {
       >
         <button
           class="flex flex-1 flex-row items-center justify-start gap-[5px] text-left leading-none active:translate-y-[1px]"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            if (isScreenLock()) {
+              addToast({
+                type: 'warn',
+                duration: 2000,
+                message: text('画面ロック中'),
+              });
+              return;
+            }
+            setOpen(true);
+          }}
         >
           <span class="ml-[5px]">
             {/* <RiSystemFilter3Fill size={22} /> */}

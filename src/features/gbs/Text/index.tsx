@@ -42,6 +42,7 @@ export const TEXT_LIST = [
   { ja: '経過時間', en: 'Elapsed time' },
   { ja: '投稿時間', en: 'Tweet time' },
   { ja: 'その他の設定', en: 'Other settings' },
+  { ja: '画面ロックボタンを表示', en: 'Show screen lock button' },
   { ja: 'ダークモード', en: 'Dark mode' },
   { ja: '画像を表示', en: 'Show images' },
   { ja: 'デバッグログを表示', en: 'Debug logs' },
@@ -92,6 +93,7 @@ export const TEXT_LIST = [
   { ja: 'サーバー接続に失敗', en: 'Server connection failed' },
   { ja: 'コピー: {id}', en: 'Copied: {id}' },
   { ja: 'リストの読み込みに失敗', en: 'Failed to load list' },
+  { ja: '画面ロック中', en: 'Screen locked' },
 ] as const;
 
 type Key = (typeof TEXT_LIST)[number]['ja'];
