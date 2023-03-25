@@ -83,11 +83,11 @@ gbsWs.on('error', (msg) => {
 });
 
 gbsWs.on('close', () => {
-  addToast({
-    type: 'warn',
-    duration: 3000,
-    message: text('サーバーから切断しました'),
-  });
+  // addToast({
+  //   type: 'warn',
+  //   duration: 3000,
+  //   message: text('サーバーから切断しました'),
+  // });
 });
 
 export function randomTweet(): TweetData | null {

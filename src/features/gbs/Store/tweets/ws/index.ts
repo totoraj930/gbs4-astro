@@ -2,6 +2,8 @@ import mitt from 'mitt';
 import type { RaidTweetMini } from 'gbs-open-lib';
 import { ClientMessage, zServerMessage } from './schema';
 import { createSignal } from 'solid-js';
+import { addToast } from '@gbs/Store/toast';
+import { text } from '@gbs/Text';
 export let ws: WebSocket | null = null;
 
 type GbsWsEvents = {
@@ -33,11 +35,23 @@ export { ping };
 
 let isStart = false;
 let reconnectingCount = 0;
+const timer = setInterval(() => {
+  if (
+    isStart &&
+    ws &&
+    ws.readyState !== WebSocket.OPEN &&
+    ws.readyState !== WebSocket.CONNECTING &&
+    ws.readyState !== WebSocket.CLOSING
+  ) {
+    connect();
+  }
+}, 2000);
 
 export function connect() {
-  if (reconnectingCount > 5) return;
-  reconnectingCount++;
-  if (ws && ws.readyState !== WebSocket.CLOSED) {
+  // if (reconnectingCount > 5) return;
+  // reconnectingCount++;
+  // if (ws && ws.readyState !== WebSocket.CLOSED) {
+  if (ws) {
     ws.close();
     ws = null;
   }
@@ -45,6 +59,7 @@ export function connect() {
   try {
     // ws = new WebSocket(`ws://${location.hostname}:10510/ws/`);
     ws = new WebSocket(`wss://gbs-open.eriri.net/private/api/stream/ws/`);
+
     ws.addEventListener('message', (event) => {
       try {
         // console.log(JSON.parse(event.data));
@@ -85,16 +100,14 @@ export function connect() {
     });
     ws.addEventListener('close', (event) => {
       gbsWs.emit('close', event);
-      if (isStart) {
-        // 再接続チャレンジ
-        setTimeout(() => {
-          connect();
-        }, 2000);
-      }
     });
     ws.addEventListener('error', () => {
-      gbsWs.emit('error', 'サーバー接続エラー');
-      ws?.close();
+      // gbsWs.emit('error', 'サーバー接続エラー');
+      addToast({
+        type: 'error',
+        duration: 3000,
+        message: text('サーバー接続に失敗'),
+      });
     });
   } catch {
     gbsWs.emit('error', 'サーバーに接続できませんでした');
