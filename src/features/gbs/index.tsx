@@ -75,6 +75,7 @@ export function Gbs() {
           'flex h-full w-full content-start justify-start gap-[5px] overflow-auto p-[5px]',
           'smh:p-0',
           'dark:text-red bg-gray-100 text-gray-800 dark:bg-gray-900',
+          'no-pull-to-refresh overscroll-y-none',
           {
             'flex-row': globalSettings.columnType === '1line',
             'flex-nowrap': globalSettings.columnType === '1line',
@@ -111,6 +112,23 @@ export function Gbs() {
         )}
       >
         <button
+          onClick={() => showMenu()}
+          class={twMerge(
+            clsx(
+              'h-[40px] w-[40px] place-content-center',
+              'pointer-events-auto grid rounded-full',
+              'bg-sky-500 text-white',
+              {
+                hidden: isMenuVisible() || isCompact() || isScreenLock(),
+                'shadow-[0_0_5px_#000]': globalSettings.darkMode,
+                'shadow-[0_0_5px_rgba(0,0,0,0.5)]': !globalSettings.darkMode,
+              }
+            )
+          )}
+        >
+          <MsMenu size={26} />
+        </button>
+        <button
           onClick={() => setIsScreenLock((prev) => !prev)}
           class={twMerge(
             clsx(
@@ -132,23 +150,6 @@ export function Gbs() {
           >
             <MsLock size={26} class="-translate-y-[1px]" />
           </Show>
-        </button>
-        <button
-          onClick={() => showMenu()}
-          class={twMerge(
-            clsx(
-              'h-[40px] w-[40px] place-content-center',
-              'pointer-events-auto grid rounded-full',
-              'bg-sky-500 text-white',
-              {
-                hidden: isMenuVisible() || isCompact() || isScreenLock(),
-                'shadow-[0_0_5px_#000]': globalSettings.darkMode,
-                'shadow-[0_0_5px_rgba(0,0,0,0.5)]': !globalSettings.darkMode,
-              }
-            )
-          )}
-        >
-          <MsMenu size={26} />
         </button>
       </div>
     </div>

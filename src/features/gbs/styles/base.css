@@ -40,6 +40,10 @@
   body {
     width: 100%;
     height: 100%;
+    overflow: hidden;
+  }
+  .no-pull-to-refresh {
+    -webkit-overflow-scrolling: touch;
   }
   ::-webkit-details-marker {
     display: none;
@@ -120,8 +124,8 @@
     background-size: 100%;
     background-repeat: no-repeat;
     z-index: 0;
-    /* transform: rotate3d(0, 1, 0, 180deg); */
-    transform: rotateY(180deg);
+    transform: rotate3d(0, 1, 0, 180deg);
+    /* transform: rotateY(180deg); */
   }
   .tweet-bg-img[data-elm='0'] {
     background-color: var(--c-elm-0);
