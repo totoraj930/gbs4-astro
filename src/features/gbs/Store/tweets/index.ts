@@ -23,8 +23,7 @@ export const copiedIds = () => {
 /**
  * 時間のズレ
  */
-const [globalTimeDiff, setGlobalTimeDiff] = createSignal(0);
-export { globalTimeDiff };
+export const [globalTimeDiff, setGlobalTimeDiff] = createSignal(0);
 
 /**
  * 現在時刻

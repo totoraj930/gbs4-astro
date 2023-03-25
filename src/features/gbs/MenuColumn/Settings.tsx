@@ -147,14 +147,14 @@ export function Settings() {
       <div class={c.wrap}>
         <p class={c.title}>{text('その他の設定')}</p>
         <ul class="flex flex-col justify-items-start gap-[10px]">
-          <li>
+          {/* <li>
             <Checkbox
               value={globalSettings.darkMode}
               onChange={(v) => changeAndSave(produce((s) => (s.darkMode = v)))}
             >
               {text('ダークモード')}
             </Checkbox>
-          </li>
+          </li> */}
           <li>
             <Checkbox
               value={globalSettings.focusOnlySound}
@@ -183,14 +183,14 @@ export function Settings() {
               {text('画像を表示')}
             </Checkbox>
           </li>
-          <li>
+          {/* <li>
             <Checkbox
               value={globalSettings.log}
               onChange={(v) => changeAndSave(produce((s) => (s.log = v)))}
             >
               {text('ログを表示')}
             </Checkbox>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

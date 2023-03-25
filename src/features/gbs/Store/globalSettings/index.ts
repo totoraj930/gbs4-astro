@@ -1,5 +1,5 @@
 import { createStore, SetStoreFunction } from 'solid-js/store';
-import { createSignal } from 'solid-js';
+import { createMemo, createSignal } from 'solid-js';
 import { GlobalSettings, VERSION, zGlobalSettings } from './schema';
 import { hasClipboardPermission } from '@gbs/utils';
 
@@ -10,6 +10,18 @@ import { hasClipboardPermission } from '@gbs/utils';
 export const [globalSettings, setGlobalSettings] = createStore<GlobalSettings>(
   getSettingsFromStorage()
 );
+
+export const allFilterIds = createMemo(() => {
+  const cols =
+    globalSettings.columnGroup[globalSettings.currentGroupKey].columns;
+  const ids = new Set<number>();
+  for (const col of cols) {
+    for (const f of col.filters) {
+      ids.add(f.id);
+    }
+  }
+  return [...ids];
+});
 
 export const changeAndSave: SetStoreFunction<GlobalSettings> = (
   // @ts-expect-error setStoreと同じ実装のためエラーは出ない

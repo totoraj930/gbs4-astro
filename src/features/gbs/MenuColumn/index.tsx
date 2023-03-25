@@ -1,11 +1,4 @@
-import {
-  createMemo,
-  createSignal,
-  Switch,
-  Match,
-  Show,
-  onCleanup,
-} from 'solid-js';
+import { createMemo, createSignal, Show, onCleanup } from 'solid-js';
 import { produce } from 'solid-js/store';
 import { changeAndSave, globalSettings } from '../Store/globalSettings';
 import { text } from '../Text';
@@ -21,12 +14,15 @@ import {
 import {
   MsAddCircle,
   MsBookmarks,
+  MsDarkMode,
+  MsLightMode,
   MsSettingsFill,
   MsTranslate,
   MsVolumeMute,
   MsVolumeOff,
   MsVolumeUp,
 } from 'solid-material-symbols/rounded/600';
+import { gbsWs, ping } from '@gbs/Store/tweets/ws';
 
 const langOps = [
   { value: 'ja', name: '日本語' },
@@ -82,6 +78,24 @@ export function MenuColumn() {
         .length < MAX_COLUMN_NUM
     );
   });
+
+  const themeOps = createMemo(() => {
+    return [
+      { value: 'dark', name: text('ダーク') },
+      { value: 'light', name: text('ライト') },
+    ] as const;
+  });
+
+  const [pingFlash, setPingFlash] = createSignal('');
+
+  function onPing() {
+    setPingFlash('');
+    setTimeout(() => setPingFlash('ping-flash'), 50);
+  }
+  gbsWs.on('ping', onPing);
+  onCleanup(() => {
+    gbsWs.off('ping', onPing);
+  });
   return (
     <header
       ref={(elm) => {
@@ -101,7 +115,18 @@ export function MenuColumn() {
           'border-gray-300 dark:border-gray-600'
         )}
       >
-        <h1 class="font-bold">Granblue Search</h1>
+        <h1 class="font-bold">Granblue Search 4</h1>
+        <span class={clsx('flex items-center gap-[5px]', 'ml-auto p-[5px]')}>
+          <span
+            class={clsx(
+              pingFlash(),
+              'opacity-0',
+              'h-[12px] w-[12px] rounded-full',
+              'bg-lime-500'
+            )}
+          />
+          <span class="text-[14px]">{ping()}ms</span>
+        </span>
       </div>
 
       <div class="flex-1 overflow-y-scroll">
@@ -230,6 +255,35 @@ export function MenuColumn() {
               }
             }}
           />
+        </div>
+
+        <hr class={c.hr} />
+
+        <div class="flex h-[50px] flex-row items-center">
+          <button
+            class="p-[10px]"
+            title={text('テーマ')}
+            onClick={() =>
+              changeAndSave(produce((s) => (s.darkMode = !s.darkMode)))
+            }
+          >
+            <Show
+              when={globalSettings.darkMode}
+              fallback={<MsLightMode size={24} />}
+            >
+              <MsDarkMode size={24} />
+            </Show>
+          </button>
+          <div class="text-sm">
+            <Radio
+              value={globalSettings.darkMode ? 'dark' : 'light'}
+              options={themeOps()}
+              name="s-theme"
+              onChange={(value) =>
+                changeAndSave(produce((s) => (s.darkMode = value === 'dark')))
+              }
+            />
+          </div>
         </div>
 
         <hr class={c.hr} />

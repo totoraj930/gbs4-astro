@@ -82,6 +82,9 @@ export const TEXT_LIST = [
   { ja: '名前', en: 'Name' },
   { ja: '自動', en: 'Auto' },
   { ja: 'フォーカス時のみ音を鳴らす', en: 'Play sound only when focused' },
+  { ja: 'ダーク', en: 'Dark' },
+  { ja: 'ライト', en: 'Light' },
+  { ja: 'テーマ', en: 'Theme' },
 ] as const;
 
 type Key = (typeof TEXT_LIST)[number]['ja'];

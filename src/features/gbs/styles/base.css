@@ -205,6 +205,11 @@
     background: var(--c-tweet-flash);
     z-index: 6;
   }
+
+  .ping-flash {
+    animation: pingAnime 2600ms linear 0ms 1 normal;
+  }
+
   button:hover .tweet-flash {
     opacity: 0.5;
   }
@@ -212,6 +217,21 @@
   @keyframes showTweet {
     0% {
       opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes pingAnime {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
     }
     50% {
       opacity: 1;

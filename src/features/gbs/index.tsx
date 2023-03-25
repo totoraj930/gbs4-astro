@@ -17,8 +17,8 @@ import { twMerge } from 'tailwind-merge';
 import { MsMenu } from 'solid-material-symbols/rounded/600';
 
 export function Gbs() {
-  onMount(() => {
-    loadGbsList();
+  onMount(async () => {
+    await loadGbsList();
     connectReciver();
     initFocusDetector();
     initAutoCopy();
