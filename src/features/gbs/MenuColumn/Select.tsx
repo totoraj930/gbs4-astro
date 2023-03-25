@@ -15,6 +15,7 @@ type SelectProps<T extends SelectOptions, V = T[number]['value']> = {
   name?: string;
   onChange?: (value: V) => void;
   class?: string;
+  disabled?: boolean;
 };
 
 export function Select<T extends SelectOptions = []>(props: SelectProps<T>) {
@@ -40,6 +41,7 @@ export function Select<T extends SelectOptions = []>(props: SelectProps<T>) {
           props.class
         )
       )}
+      disabled={props.disabled}
     >
       <For each={props.options}>
         {(item) => {
