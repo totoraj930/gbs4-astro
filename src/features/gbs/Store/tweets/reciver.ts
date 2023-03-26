@@ -115,6 +115,7 @@ export function randomTweet(): TweetData | null {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function emitRandomTweet() {
   const tweet = randomTweet();
   if (tweet) emitTweet(tweet);

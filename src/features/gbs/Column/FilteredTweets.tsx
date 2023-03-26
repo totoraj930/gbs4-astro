@@ -30,7 +30,7 @@ import {
 import { useColumn } from './columnContext';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
-import { openGbfPage, playAudio } from '@gbs/utils';
+import { playAudio } from '@gbs/utils';
 
 function testFilter(tweetData: TweetData, filter: FilterItem) {
   if (tweetData.enemy.id !== filter.id) return false;

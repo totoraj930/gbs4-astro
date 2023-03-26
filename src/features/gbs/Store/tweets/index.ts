@@ -44,6 +44,7 @@ let prevTime = Date.now();
 export async function copyTweet(tweetData: TweetData, action?: ClickAction) {
   // if (Date.now() - prevTime < 100) return;
   // putLog('info', 'copy', tweetData.battleId);
+  prevTime;
   const copyRes = await copyText(tweetData.battleId);
   if (copyRes) {
     prevTime = Date.now();

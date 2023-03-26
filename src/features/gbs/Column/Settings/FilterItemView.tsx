@@ -1,10 +1,11 @@
 import clsx from 'clsx';
 import { createMemo } from 'solid-js';
-import { gbsList, GbsListItem } from '@gbs/Store/gbsList';
+import { gbsList } from '@gbs/Store/gbsList';
 import { globalSettings } from '@gbs/Store/globalSettings';
 import type { FilterItem } from '@gbs/Store/globalSettings/schema';
 import { RiSystemDeleteBack2Line } from 'solid-icons/ri';
-import { MsEdit, MsPersonAdd } from 'solid-material-symbols/rounded/600';
+import { MsPersonAdd } from 'solid-material-symbols/rounded/600';
+import type { GbsListItem } from 'gbs-open-lib';
 
 export function EnemyElement(props: { element: GbsListItem['attr'] }) {
   return (

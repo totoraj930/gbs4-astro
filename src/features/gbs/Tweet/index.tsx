@@ -1,12 +1,7 @@
 import { createMemo, Show } from 'solid-js';
 import { globalSettings } from '../Store/globalSettings';
 import { text } from '../Text';
-import {
-  copiedIds,
-  copyTweet,
-  globalTime,
-  globalTimeDiff,
-} from '@gbs/Store/tweets';
+import { copiedIds, copyTweet, globalTime } from '@gbs/Store/tweets';
 import type { TweetData } from '@gbs/Store/tweets/schema';
 import clsx from 'clsx';
 

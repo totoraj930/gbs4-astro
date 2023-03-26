@@ -5,12 +5,7 @@ import { uid } from '@gbs/utils';
 import clsx from 'clsx';
 import { Show, Index, createMemo } from 'solid-js';
 import { produce, SetStoreFunction } from 'solid-js/store';
-import {
-  MsChatBubble,
-  MsFileCopy,
-  MsSms,
-  MsTimer,
-} from 'solid-material-symbols/rounded/600';
+import { MsFileCopy, MsSms, MsTimer } from 'solid-material-symbols/rounded/600';
 import { useColumn } from '../columnContext';
 import { FilterItemView } from './FilterItemView';
 

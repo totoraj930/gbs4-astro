@@ -15,7 +15,6 @@ import { clsx } from 'clsx';
 import { useColumn } from './columnContext';
 import {
   MsAutorenew,
-  MsNotifications,
   MsNotificationsFill,
   MsNotificationsOffFill,
   MsSearch,

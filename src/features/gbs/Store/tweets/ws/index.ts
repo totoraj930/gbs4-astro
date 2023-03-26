@@ -34,7 +34,8 @@ const [ping, setPing] = createSignal(0);
 export { ping };
 
 let isStart = false;
-let reconnectingCount = 0;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const timer = setInterval(() => {
   if (
     isStart &&
@@ -48,9 +49,6 @@ const timer = setInterval(() => {
 }, 2000);
 
 export function connect() {
-  // if (reconnectingCount > 5) return;
-  // reconnectingCount++;
-  // if (ws && ws.readyState !== WebSocket.CLOSED) {
   if (ws) {
     ws.close();
     ws = null;
@@ -96,7 +94,6 @@ export function connect() {
       gbsWs.emit('open', event);
       startPingTime = Date.now();
       sendMessage({ type: 'ping' });
-      reconnectingCount = 0;
     });
     ws.addEventListener('close', (event) => {
       gbsWs.emit('close', event);
