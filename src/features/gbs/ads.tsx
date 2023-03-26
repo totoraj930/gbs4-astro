@@ -23,12 +23,17 @@ export function AdsColumn() {
   return (
     <section class="ad-column dark:text-white">
       <p class="w-full py-[5px] text-center text-[14px]">{text('広告')}</p>
-      <div class="ad-wrap bg-gray-200 dark:bg-gray-800">
-        <script
-          type="text/javascript"
-          src="//pagead2.googlesyndication.com/pagead/show_ads.js"
-        />
-      </div>
+      <div
+        class="ad-wrap bg-gray-200 dark:bg-gray-800"
+        ref={(div) => {
+          setTimeout(() => {
+            const script = document.createElement('script');
+            script.src = '//pagead2.googlesyndication.com/pagead/show_ads.js';
+            script.type = 'text/javascript';
+            div.append(script);
+          }, 1);
+        }}
+      />
     </section>
   );
 }
