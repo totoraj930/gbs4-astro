@@ -307,10 +307,6 @@ export function MenuColumn() {
         </div>
 
         <hr class={c.hr} />
-
-        <div class="h-[300px] w-full">
-          <Ads />
-        </div>
       </div>
     </header>
   );

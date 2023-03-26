@@ -16,6 +16,7 @@ import {
   MsKeyboardArrowRight,
 } from 'solid-material-symbols/rounded/600';
 import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function ColumnGroup(props: { groupKey: ColumnGroupKey }) {
   const columns = () => globalSettings.columnGroup[props.groupKey].columns;
@@ -88,13 +89,15 @@ export function Column() {
 
   return (
     <section
-      class={clsx(
-        'relative flex h-full w-[var(--column-size)] shrink-0 flex-col leading-none',
-        'bg-white text-gray-700 dark:bg-gray-700 dark:text-white'
+      class={twMerge(
+        clsx(
+          'relative flex h-full min-w-[var(--column-size)] shrink-0 flex-col leading-none',
+          'bg-white text-gray-700 dark:bg-gray-700 dark:text-white',
+          {
+            'h-[calc(50%-3px)]': globalSettings.columnType === '2lines',
+          }
+        )
       )}
-      classList={{
-        'h-[calc(50%-3px)]': globalSettings.columnType === '2lines',
-      }}
     >
       <Header />
 
