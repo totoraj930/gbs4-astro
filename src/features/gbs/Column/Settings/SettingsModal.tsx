@@ -75,148 +75,145 @@ export function SettingsModal(props: Props) {
 
   return (
     <Show when={props.open}>
-      <Portal>
-        <div class="fixed top-0 left-0 z-50 flex h-full w-full items-stretch overflow-auto bg-[rgba(0,0,0,0.7)] p-[10px]">
-          <section
-            ref={(elm) => {
-              closeModal(elm, saveAndClose);
-              focusTrap(elm);
-            }}
+      {/* <Portal> */}
+      <div class="fixed top-0 left-0 z-50 flex h-full w-full items-stretch overflow-auto bg-[rgba(0,0,0,0.7)] p-[10px]">
+        <section
+          ref={(elm) => {
+            closeModal(elm, saveAndClose);
+            focusTrap(elm);
+          }}
+          class={clsx(
+            'm-auto flex h-full min-h-[400px] w-full min-w-[300px] max-w-[800px] flex-col',
+            'bg-white dark:bg-gray-700 dark:text-white'
+          )}
+          tabindex="-1"
+          role="dialog"
+          aria-modal="true"
+        >
+          <header
             class={clsx(
-              'm-auto flex h-full min-h-[400px] w-full min-w-[300px] max-w-[800px] flex-col',
-              'bg-white dark:bg-gray-700 dark:text-white'
+              'z-10 flex flex-shrink-0 flex-grow-0 flex-row items-center',
+              'py-[5px] px-[10px] shadow-[0_0_5px_rgba(0,0,0,0.5)]',
+              'dark:shadow-[0_0_5px_rgba(0,0,0,1)]'
             )}
-            tabindex="-1"
-            role="dialog"
-            aria-modal="true"
           >
-            <header
-              class={clsx(
-                'z-10 flex flex-shrink-0 flex-grow-0 flex-row items-center',
-                'py-[5px] px-[10px] shadow-[0_0_5px_rgba(0,0,0,0.5)]',
-                'dark:shadow-[0_0_5px_rgba(0,0,0,1)]'
-              )}
+            <p class="mr-auto font-bold uppercase">{text('カラム設定')}</p>
+            <button
+              onClick={() => onDelete()}
+              class="flex items-center text-red-600 dark:text-red-400"
             >
-              <p class="mr-auto font-bold uppercase">{text('カラム設定')}</p>
-              <button
-                onClick={() => onDelete()}
-                class="flex items-center text-red-600 dark:text-red-400"
-              >
-                <RiSystemDeleteBin2Line size={20} class="mr-[3px]" />
-                <span class="text-[14px]">{text('カラムを削除')}</span>
-              </button>
-            </header>
+              <RiSystemDeleteBin2Line size={20} class="mr-[3px]" />
+              <span class="text-[14px]">{text('カラムを削除')}</span>
+            </button>
+          </header>
 
-            <div class="flex-1 overflow-auto p-[5px]">
-              <div class="my-[5px] flex max-w-[500px] flex-wrap gap-[5px]">
-                <div class="min-w-[120px] flex-1">
-                  <p class="mb-[2px] flex items-center text-[14px] font-bold">
-                    <MsBadge size={20} class="mr-[5px] -translate-y-[2px]" />
-                    {text('表示名')}
-                  </p>
-                  <input
-                    type="text"
-                    class={clsx(
-                      'h-[32px] w-full rounded-[4px] border border-solid px-[5px] leading-none',
-                      'border-gray-300 bg-white dark:border-gray-900 dark:bg-gray-600',
-                      'text-[14px] text-gray-900 dark:text-white'
-                    )}
-                    value={col.name}
-                    placeholder={text('自動')}
-                    onInput={(e) =>
-                      setCol(produce((s) => (s.name = e.currentTarget.value)))
-                    }
-                  />
-                </div>
-
-                <div class="min-w-[120px] flex-1">
-                  <p class="mb-[2px] flex items-center text-[14px] font-bold">
-                    <MsMusicNote
-                      size={20}
-                      class="mr-[5px] -translate-y-[1px]"
-                    />
-                    {text('通知音')}
-                    <a
-                      class={clsx('ml-auto font-normal text-sky-500')}
-                      href="https://maou.audio/category/se/"
-                      target="_blank"
-                    >
-                      &copy; 魔王魂
-                    </a>
-                  </p>
-                  <Select
-                    options={soundOps()}
-                    value={col.sound.type}
-                    class="h-[32px] w-full text-[14px]"
-                    onChange={(v) =>
-                      setCol(
-                        'sound',
-                        produce((s) => (s.type = v))
-                      )
-                    }
-                  />
-                </div>
-              </div>
-
-              <hr class={c.hr} />
-
-              <div class={c.wrap}>
-                <p class={c.title}>
-                  <MsFilterList size={24} class="mr-[5px]" />
-                  {text('フィルタ')}
+          <div class="flex-1 overflow-auto p-[5px]">
+            <div class="my-[5px] flex max-w-[500px] flex-wrap gap-[5px]">
+              <div class="min-w-[120px] flex-1">
+                <p class="mb-[2px] flex items-center text-[14px] font-bold">
+                  <MsBadge size={20} class="mr-[5px] -translate-y-[2px]" />
+                  {text('表示名')}
                 </p>
-                <FiltersView
-                  filters={localFilters}
-                  setFilters={setLocalFilters}
+                <input
+                  type="text"
+                  class={clsx(
+                    'h-[32px] w-full rounded-[4px] border border-solid px-[5px] leading-none',
+                    'border-gray-300 bg-white dark:border-gray-900 dark:bg-gray-600',
+                    'text-[14px] text-gray-900 dark:text-white'
+                  )}
+                  value={col.name}
+                  placeholder={text('自動')}
+                  onInput={(e) =>
+                    setCol(produce((s) => (s.name = e.currentTarget.value)))
+                  }
                 />
               </div>
 
-              <hr class={c.hr} />
-
-              <div class={c.wrap}>
-                <p class={c.title}>
-                  {/* <MsPlaylistAdd size={24} class="mr-[5px] translate-x-[2px]" /> */}
-                  <MsSwapVert size={24} class="mr-[5px] translate-x-[2px]" />
-                  {text('リストから追加')}
+              <div class="min-w-[120px] flex-1">
+                <p class="mb-[2px] flex items-center text-[14px] font-bold">
+                  <MsMusicNote size={20} class="mr-[5px] -translate-y-[1px]" />
+                  {text('通知音')}
+                  <a
+                    class={clsx('ml-auto font-normal text-sky-500')}
+                    href="https://maou.audio/category/se/"
+                    target="_blank"
+                  >
+                    &copy; 魔王魂
+                  </a>
                 </p>
-                <InputGbsList
-                  localFilters={localFilters}
-                  setLocalFilters={setLocalFilters}
+                <Select
+                  options={soundOps()}
+                  value={col.sound.type}
+                  class="h-[32px] w-full text-[14px]"
+                  onChange={(v) =>
+                    setCol(
+                      'sound',
+                      produce((s) => (s.type = v))
+                    )
+                  }
                 />
               </div>
             </div>
 
-            <footer
+            <hr class={c.hr} />
+
+            <div class={c.wrap}>
+              <p class={c.title}>
+                <MsFilterList size={24} class="mr-[5px]" />
+                {text('フィルタ')}
+              </p>
+              <FiltersView
+                filters={localFilters}
+                setFilters={setLocalFilters}
+              />
+            </div>
+
+            <hr class={c.hr} />
+
+            <div class={c.wrap}>
+              <p class={c.title}>
+                {/* <MsPlaylistAdd size={24} class="mr-[5px] translate-x-[2px]" /> */}
+                <MsSwapVert size={24} class="mr-[5px] translate-x-[2px]" />
+                {text('リストから追加')}
+              </p>
+              <InputGbsList
+                localFilters={localFilters}
+                setLocalFilters={setLocalFilters}
+              />
+            </div>
+          </div>
+
+          <footer
+            class={clsx(
+              'z-10 flex flex-shrink-0 flex-grow-0 flex-row',
+              'py-[5px] px-[10px] shadow-[0_0_5px_rgba(0,0,0,0.5)]',
+              'dark:shadow-[0_0_5px_rgba(0,0,0,1)]'
+            )}
+          >
+            <button
               class={clsx(
-                'z-10 flex flex-shrink-0 flex-grow-0 flex-row',
-                'py-[5px] px-[10px] shadow-[0_0_5px_rgba(0,0,0,0.5)]',
-                'dark:shadow-[0_0_5px_rgba(0,0,0,1)]'
+                'flex items-center justify-center',
+                'h-[40px] px-[10px]',
+                'hover:underline'
               )}
+              onClick={() => onCancel()}
             >
-              <button
-                class={clsx(
-                  'flex items-center justify-center',
-                  'h-[40px] px-[10px]',
-                  'hover:underline'
-                )}
-                onClick={() => onCancel()}
-              >
-                {text('キャンセル')}
-              </button>
-              <button
-                class={clsx(
-                  'flex items-center justify-center rounded-full',
-                  'ml-auto h-[40px] min-w-[150px]',
-                  'bg-sky-500 text-white'
-                )}
-                onClick={() => saveAndClose()}
-              >
-                {text('OK')}
-              </button>
-            </footer>
-          </section>
-        </div>
-      </Portal>
+              {text('キャンセル')}
+            </button>
+            <button
+              class={clsx(
+                'flex items-center justify-center rounded-full',
+                'ml-auto h-[40px] min-w-[150px]',
+                'bg-sky-500 text-white'
+              )}
+              onClick={() => saveAndClose()}
+            >
+              {text('OK')}
+            </button>
+          </footer>
+        </section>
+      </div>
+      {/* </Portal> */}
     </Show>
   );
 }

@@ -57,7 +57,7 @@ export function Header() {
     <Show when={col !== null}>
       <SettingsModal open={open()} onClose={() => setOpen(false)} />
 
-      <header
+      <div
         class={twMerge(
           clsx(
             'z-40 flex flex-row items-center justify-start gap-[2px] border-b border-solid',
@@ -160,7 +160,7 @@ export function Header() {
             <MsNotificationsFill size={22} />
           </Show>
         </button>
-      </header>
+      </div>
     </Show>
   );
 }

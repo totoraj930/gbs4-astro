@@ -77,23 +77,14 @@ export function Gbs() {
     <Portal mount={document.body} useShadow={false}>
       <div
         id="gbs-main"
+        data-type={globalSettings.columnType}
         class={twMerge(
           clsx(
-            'flex h-full w-full flex-row content-start justify-start',
-            'gap-[5px] overflow-x-scroll p-[5px]',
-            'smh:p-0',
+            'no-pull-to-refresh',
+            'flex h-full min-h-full w-full flex-row',
+            'overflow-x-scroll',
             'dark:text-red bg-gray-100 text-gray-800 dark:bg-gray-900',
-            'no-pull-to-refresh overscroll-y-none',
             {
-              'flex-row': globalSettings.columnType === '1line',
-              'flex-nowrap': globalSettings.columnType === '1line',
-              'flex-col': globalSettings.columnType == '2lines',
-              'flex-wrap': globalSettings.columnType == '2lines',
-              'min-h-[340px]': globalSettings.columnType == '2lines',
-              '[--column-size:270px]': globalSettings.columnSize == 's',
-              '[--column-size:320px]': globalSettings.columnSize == 'm',
-              '[--column-size:380px]': globalSettings.columnSize == 'l',
-              'auto-compact': true,
               'has-focus': hasFocus(),
               'overflow-hidden': isScreenLock(),
             }
@@ -120,9 +111,6 @@ export function Gbs() {
             {
               'right-0': globalSettings.menuPotision === 'left',
               'left-0': globalSettings.menuPotision === 'right',
-              // 'bottom-0': globalSettings.columnType === '2lines' || isCompact(),
-              // 'bottom-[100px]':
-              //   globalSettings.columnType === '1line' && !isCompact(),
             }
           )}
         >

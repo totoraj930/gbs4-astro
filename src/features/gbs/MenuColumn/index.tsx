@@ -99,7 +99,7 @@ export function MenuColumn() {
     gbsWs.off('ping', onPing);
   });
   return (
-    <header
+    <section
       ref={(elm) => {
         requestAnimationFrame(() => {
           observer.observe(elm);
@@ -107,11 +107,12 @@ export function MenuColumn() {
         onCleanup(() => observer.unobserve(elm));
       }}
       class={clsx(
-        'flex h-full w-screen min-w-[320px] max-w-[320px] shrink-0 flex-col',
+        'flex h-full min-w-[320px] max-w-[320px] shrink-0 flex-col',
+        'm-[5px]',
         'bg-white dark:bg-gray-700 dark:text-white'
       )}
     >
-      <div
+      <header
         class={clsx(
           'flex min-h-[36px] flex-row items-center border-b border-solid px-[5px]',
           'border-gray-300 dark:border-gray-600'
@@ -129,7 +130,7 @@ export function MenuColumn() {
           />
           <span class="text-[14px]">{ping()}ms</span>
         </span>
-      </div>
+      </header>
 
       <div class="w-[320px] flex-1 overflow-y-scroll">
         <div>
@@ -334,6 +335,6 @@ export function MenuColumn() {
         <div class="mt-[50px]" />
         <AdsColumn />
       </div>
-    </header>
+    </section>
   );
 }
