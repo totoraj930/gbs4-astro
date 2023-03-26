@@ -23,6 +23,7 @@ import {
   MsVolumeUp,
 } from 'solid-material-symbols/rounded/600';
 import { gbsWs, ping } from '@gbs/Store/tweets/ws';
+import { Ads } from '@gbs/ads';
 
 const langOps = [
   { value: 'ja', name: '日本語' },
@@ -306,6 +307,10 @@ export function MenuColumn() {
         </div>
 
         <hr class={c.hr} />
+
+        <div>
+          <Ads />
+        </div>
       </div>
     </header>
   );
