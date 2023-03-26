@@ -61,7 +61,7 @@ const observer = new IntersectionObserver(
     if (target.intersectionRatio > 0.5) {
       setIsMenuVisible(true);
     } else {
-      console.log(target);
+      // console.log(target);
       setIsMenuVisible(false);
     }
   },
