@@ -1,7 +1,6 @@
 import { createEffect, onMount, Show } from 'solid-js';
 import { clsx } from 'clsx';
 import {
-  allFilterIds,
   allFilterIdStrs,
   globalSettings,
   hasFocus,
@@ -24,7 +23,7 @@ import { initAudioContext } from './utils';
 import { twMerge } from 'tailwind-merge';
 import { MsLock, MsLockOpen, MsMenu } from 'solid-material-symbols/rounded/600';
 import { ToastArea } from './Store/toast';
-import { Ads, AdsColumn } from './ads';
+import { AdsColumn } from './ads';
 
 export function Gbs() {
   onMount(async () => {

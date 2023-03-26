@@ -39,7 +39,7 @@ export function AdsColumn() {
           'relative flex h-full shrink-0 flex-col leading-none',
           'text-gray-700 dark:text-white',
           // 'bg-white, dark:bg-gray-700',
-          'grid place-content-center',
+          'flex flex-col items-stretch justify-center',
           {
             'min-w-[var(--column-size)]': globalSettings.columnSize !== 's',
             'min-w-[300px]': globalSettings.columnSize === 's',
@@ -48,8 +48,8 @@ export function AdsColumn() {
         )
       )}
     >
-      <div>
-        <p class="mb-[5px] text-[14px]">広告</p>
+      <div class="">
+        <p class="mb-[5px] text-center text-[14px]">広告</p>
         <Ads />
       </div>
     </section>
