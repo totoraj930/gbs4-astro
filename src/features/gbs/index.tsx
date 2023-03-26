@@ -106,7 +106,7 @@ export function Gbs() {
 
       <ColumnGroup groupKey={globalSettings.currentGroupKey} />
 
-      <AdsColumn />
+      {/* <AdsColumn /> */}
 
       <Show when={globalSettings.menuPotision === 'right'}>
         <MenuColumn />
