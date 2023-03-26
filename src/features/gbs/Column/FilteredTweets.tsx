@@ -11,6 +11,7 @@ import {
 import {
   globalSettings,
   hasFocus,
+  isCompact,
   isScreenLock,
 } from '@gbs/Store/globalSettings';
 import { text } from '@gbs/Text';
@@ -223,6 +224,8 @@ export function FilteredTweets() {
               'overflow-y-scroll': globalSettings.copyButton !== 'overlay',
               'overflow-y-clip p-[10px] pb-[40px]':
                 globalSettings.copyButton === 'overlay',
+              'p-[5px] pb-[24px]':
+                globalSettings.copyButton === 'overlay' && isCompact(),
             },
             {
               'overflow-y-hidden':
@@ -234,11 +237,12 @@ export function FilteredTweets() {
         )}
       >
         <ul
-          class="flex flex-col items-stretch"
-          classList={{
-            'border border-solid border-gray-300 dark:border-gray-600 h-full overflow-hidden':
-              globalSettings.copyButton === 'overlay',
-          }}
+          class={twMerge(
+            clsx('flex flex-col items-stretch', {
+              'h-full overflow-hidden border border-solid border-gray-300 dark:border-gray-600':
+                globalSettings.copyButton === 'overlay',
+            })
+          )}
         >
           <For each={shortTweets()}>
             {(item) => {
@@ -260,9 +264,14 @@ export function FilteredTweets() {
           onTouchEnd={copyLatest}
         >
           <span
-            class={clsx(
-              'grid h-[40px] flex-1 place-items-center text-sm',
-              'bg-white dark:bg-gray-700'
+            class={twMerge(
+              clsx(
+                'grid h-[40px] flex-1 place-items-center text-[14px]',
+                'bg-white dark:bg-gray-700',
+                {
+                  'h-[24px] text-[12px]': isCompact(),
+                }
+              )
             )}
           >
             {text('最新をコピー')}

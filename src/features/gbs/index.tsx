@@ -26,6 +26,7 @@ import { ToastArea } from './Store/toast';
 
 export function Gbs() {
   onMount(async () => {
+    detectWindowSize();
     await loadGbsList();
     setIsInitializing(false);
     await getRaidTweetCache(allFilterIds());
@@ -37,12 +38,7 @@ export function Gbs() {
       once: true,
     });
     window.addEventListener('resize', () => {
-      if (!globalSettings.autoCompact) return;
-      if (document.body.clientHeight <= 200) {
-        setIsCompact(true);
-      } else {
-        setIsCompact(false);
-      }
+      detectWindowSize();
     });
   });
 
@@ -53,6 +49,15 @@ export function Gbs() {
       document.body.classList.remove('dark');
     }
   });
+
+  function detectWindowSize() {
+    if (!globalSettings.autoCompact) return;
+    if (document.body.clientHeight <= 200) {
+      setIsCompact(true);
+    } else {
+      setIsCompact(false);
+    }
+  }
 
   function showMenu() {
     const elm = document.body.querySelector('#gbs-main');
