@@ -32,11 +32,11 @@ export function AdsColumn() {
           /> */}
           <ins
             class="adsbygoogle slot_1"
-            style={{ display: 'block' }}
+            style={{ display: 'block', height: '280px' }}
             data-ad-client="ca-pub-5994029821720632"
             data-ad-slot="7493107324"
             data-ad-format="auto"
-            // data-full-width-responsive="true"
+            data-full-width-responsive="true"
           />
         </div>
       </section>
