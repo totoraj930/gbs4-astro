@@ -117,13 +117,13 @@ export function Gbs() {
 
         <div
           class={clsx(
-            'absolute right-0 gap-[10px] p-[18px]',
+            'absolute bottom-0 right-0 gap-[10px] p-[18px]',
             'pointer-events-none flex flex-col',
             'z-[40]',
             {
-              'bottom-0': globalSettings.columnType === '2lines' || isCompact(),
-              'bottom-[100px]':
-                globalSettings.columnType === '1line' && !isCompact(),
+              // 'bottom-0': globalSettings.columnType === '2lines' || isCompact(),
+              // 'bottom-[100px]':
+              //   globalSettings.columnType === '1line' && !isCompact(),
             }
           )}
         >
