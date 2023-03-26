@@ -164,7 +164,8 @@
     display: inline-block;
     max-width: calc(100% - 80px);
     margin-top: 3px;
-    padding: 9px 7px 3px 7px;
+    /* padding: 9px 7px 3px 7px; */
+    padding: 3px 7px;
     color: #fff;
     font-size: 14px;
     overflow: hidden;
@@ -176,7 +177,8 @@
     z-index: -1;
     position: absolute;
     width: 100%;
-    height: calc(100% - 5px);
+    /* height: calc(100% - 5px); */
+    height: 100%;
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.7);
@@ -194,6 +196,7 @@
     border-color: transparent;
     border-width: 5px 4px;
     border-bottom-color: rgba(0, 0, 0, 0.7);
+    display: none;
   }
   .tweet-flash {
     animation: showTweet 400ms ease 0ms 1 normal;
