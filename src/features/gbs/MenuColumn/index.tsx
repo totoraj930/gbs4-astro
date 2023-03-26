@@ -23,7 +23,6 @@ import {
   MsVolumeUp,
 } from 'solid-material-symbols/rounded/600';
 import { gbsWs, ping } from '@gbs/Store/tweets/ws';
-import { Ads } from '@gbs/ads';
 
 const langOps = [
   { value: 'ja', name: '日本語' },
@@ -131,6 +130,11 @@ export function MenuColumn() {
       </div>
 
       <div class="flex-1 overflow-y-scroll">
+        <div>
+          <p class="bg-white p-[10px] text-center font-bold text-red-600">
+            現在広告のテスト中
+          </p>
+        </div>
         {/* <div class="flex">
           <Checkbox
             value={isColumnMoveMode()}
