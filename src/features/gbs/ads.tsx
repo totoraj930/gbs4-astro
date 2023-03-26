@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { onMount } from 'solid-js';
+import { onCleanup, onMount } from 'solid-js';
 import { twMerge } from 'tailwind-merge';
 import { globalSettings } from './Store/globalSettings';
 
@@ -14,9 +14,14 @@ declare global {
 }
 
 export function Ads() {
-  onMount(() => {
+  const timer = setTimeout(() => {
     window.adsbygoogle && window.adsbygoogle.push({});
+  }, 100);
+
+  onCleanup(() => {
+    clearTimeout(timer);
   });
+
   return (
     <>
       {/* gbs4-レスポンシブ */}
