@@ -48,8 +48,8 @@ export function AdsColumn() {
         )
       )}
     >
-      <div class="">
-        <p class="mb-[5px] text-center text-[14px]">広告</p>
+      <div class="h-full overflow-auto">
+        <p class="mb-[5px] mt-[5px] text-center text-[14px]">広告</p>
         <Ads />
       </div>
     </section>
