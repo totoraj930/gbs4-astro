@@ -225,6 +225,13 @@
     animation: fadeOut 300ms ease-in-out 0ms 1 forwards;
   }
 
+  .ads-wrap {
+    width: 300px !important;
+    height: 250px !important;
+    min-width: 300px !important;
+    min-height: 250px !important;
+  }
+
   @keyframes fadeOut {
     0% {
       opacity: 1;

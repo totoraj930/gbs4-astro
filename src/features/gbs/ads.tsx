@@ -52,7 +52,7 @@ export function Ads(props: { unit: '300x250' | 'footer' }) {
   return (
     <>
       <Show when={props.unit === '300x250'}>
-        <div class="h-[250px] w-[300px]">
+        <div class="ads-wrap">
           <UnitGbs300x250 />
         </div>
       </Show>
