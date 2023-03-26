@@ -44,7 +44,7 @@ export function ColumnGroup(props: { groupKey: ColumnGroupKey }) {
   return (
     <div
       style={{ width: width() + 'px', 'min-width': width() + 'px' }}
-      class={clsx('relative h-full')}
+      class={clsx('relative')}
     >
       <For each={columns()}>
         {(columnOptions, index) => {

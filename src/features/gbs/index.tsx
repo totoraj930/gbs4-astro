@@ -83,7 +83,7 @@ export function Gbs() {
         clsx(
           'no-pull-to-refresh',
           'flex h-full min-h-full w-full flex-row',
-          'overflow-x-scroll',
+          'items-stretch overflow-x-scroll',
           'dark:text-red bg-gray-100 text-gray-800 dark:bg-gray-900',
           {
             'has-focus': hasFocus(),

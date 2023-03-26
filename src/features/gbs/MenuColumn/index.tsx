@@ -107,7 +107,7 @@ export function MenuColumn() {
         onCleanup(() => observer.unobserve(elm));
       }}
       class={clsx(
-        'h-[calc(100%-5px)] min-w-[320px] max-w-[320px] flex-shrink-0 flex-grow-0',
+        'min-w-[320px] max-w-[320px] flex-shrink-0 flex-grow-0',
         'relative mx-[5px] mt-[5px]',
         'bg-white dark:bg-gray-700 dark:text-white'
       )}
