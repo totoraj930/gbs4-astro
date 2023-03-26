@@ -24,6 +24,7 @@ import {
 } from 'solid-material-symbols/rounded/600';
 import { gbsWs, ping } from '@gbs/Store/tweets/ws';
 import { AdsColumn } from '@gbs/ads';
+import { twMerge } from 'tailwind-merge';
 
 const langOps = [
   { value: 'ja', name: '日本語' },
@@ -265,7 +266,7 @@ export function MenuColumn() {
 
         <hr class={c.hr} />
 
-        <div class="flex h-[50px] flex-row items-center">
+        {/* <div class="flex h-[50px] flex-row items-center">
           <button
             class="p-[10px]"
             title={text('テーマ')}
@@ -290,11 +291,28 @@ export function MenuColumn() {
               }
             />
           </div>
-        </div>
+        </div> */}
 
-        <hr class={c.hr} />
+        {/* <hr class={c.hr} /> */}
 
         <div class="flex h-[50px] flex-row items-center">
+          <button
+            class="py-[10px] px-[10px]"
+            title={text('テーマ')}
+            onClick={() =>
+              changeAndSave(produce((s) => (s.darkMode = !s.darkMode)))
+            }
+          >
+            <Show
+              when={globalSettings.darkMode}
+              fallback={<MsLightMode size={24} />}
+            >
+              <MsDarkMode size={24} />
+            </Show>
+          </button>
+
+          <hr class={twMerge(clsx(c.hr, 'h-full border-0 border-r'))} />
+
           <span class="p-[10px]" title={text('言語')}>
             {/* <RiEditorTranslate2 size={20} /> */}
             <MsTranslate size={24} />
@@ -313,9 +331,8 @@ export function MenuColumn() {
 
         <hr class={c.hr} />
 
+        <div class="mt-[50px]" />
         <AdsColumn />
-
-        <hr class={c.hr} />
       </div>
     </header>
   );

@@ -5,6 +5,7 @@ import { text } from '@gbs/Text';
 import { Checkbox } from './Checkbox';
 import { Radio } from './Radio';
 import { Select } from './Select';
+import { deleteAds } from '@gbs/ads';
 
 const c = /*tw*/ {
   wrap: 'px-[5px]',
@@ -112,7 +113,10 @@ export function Settings() {
         <Radio
           value={globalSettings.menuPotision}
           options={options().menuPosition}
-          onChange={(v) => changeAndSave(produce((s) => (s.menuPotision = v)))}
+          onChange={(v) => {
+            changeAndSave(produce((s) => (s.menuPotision = v)));
+            deleteAds();
+          }}
         />
       </div>
 

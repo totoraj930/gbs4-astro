@@ -1,3 +1,4 @@
+import { createSignal, Show } from 'solid-js';
 import { text } from './Text';
 
 declare global {
@@ -7,33 +8,28 @@ declare global {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       push: (v: any) => void;
     };
-    google_ad_client?: string;
-    google_ad_slot?: string;
-    google_ad_width?: number;
-    google_ad_height?: number;
   }
 }
 
-export function AdsColumn() {
-  window.google_ad_client = 'ca-pub-5994029821720632';
-  window.google_ad_slot = '7373836338';
-  window.google_ad_width = 300;
-  window.google_ad_height = 250;
+const [showAds, setShowAds] = createSignal(true);
+export function deleteAds() {
+  setShowAds(false);
+}
 
+export function AdsColumn() {
   return (
-    <section class="ad-column dark:text-white">
-      <p class="w-full py-[5px] text-center text-[14px]">{text('広告')}</p>
-      <div
-        class="ad-wrap bg-gray-200 dark:bg-gray-800"
-        ref={(div) => {
-          setTimeout(() => {
-            const script = document.createElement('script');
-            script.src = '//pagead2.googlesyndication.com/pagead/show_ads.js';
-            script.type = 'text/javascript';
-            div.append(script);
-          }, 1);
-        }}
-      />
-    </section>
+    <Show when={showAds()}>
+      <section class="w-full dark:text-white">
+        <p class="w-full py-[5px] text-center text-[14px]">{text('広告')}</p>
+        <div class="ad-wrap mx-auto bg-gray-100 dark:bg-gray-800">
+          <ins
+            class="adsbygoogle"
+            style={{ display: 'inline-block', width: '300px', height: '250px' }}
+            data-ad-client="ca-pub-5994029821720632"
+            data-ad-slot="5710766688"
+          />
+        </div>
+      </section>
+    </Show>
   );
 }
