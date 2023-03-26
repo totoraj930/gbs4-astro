@@ -52,7 +52,7 @@ export function AdsColumn() {
         )
       )}
     >
-      <div class="absolute top-0 left-0 h-full w-full overflow-auto">
+      <div class="absolute top-0 left-0 h-full w-full overflow-hidden">
         <p class="mb-[5px] mt-[5px] text-center text-[14px]">広告</p>
         <Ads />
       </div>
