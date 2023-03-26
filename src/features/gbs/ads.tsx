@@ -20,6 +20,7 @@ export function AdsColumn() {
       <p class="w-full py-[5px] text-center text-[14px]">{text('広告')}</p>
       <div class="ad-wrap bg-gray-100 dark:bg-gray-800">
         <ins
+          class="adsbygoogle"
           data-ad-client="ca-pub-5994029821720632"
           data-ad-slot="5710766688"
           style={{ display: 'block', width: '300px', height: '250px' }}
