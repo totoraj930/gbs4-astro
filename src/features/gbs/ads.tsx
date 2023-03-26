@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { onCleanup, onMount, Show, createSignal } from 'solid-js';
+import { onCleanup, Show, createSignal } from 'solid-js';
 import { twMerge } from 'tailwind-merge';
 import { globalSettings, isCompact } from './Store/globalSettings';
 
@@ -17,14 +17,14 @@ declare global {
  * gbs-footer
  */
 export function UnitGbsFooter() {
+  const [w, setW] = createSignal(Math.min(970, document.body.clientWidth));
+
   return (
     <ins
       class="adsbygoogle"
-      style={{ display: 'block' }}
+      style={{ display: 'inline-block', width: `${w()}px`, height: '100px' }}
       data-ad-client="ca-pub-5994029821720632"
       data-ad-slot="8366255152"
-      // data-ad-format="auto"
-      data-full-width-responsive="true"
     />
   );
 }
