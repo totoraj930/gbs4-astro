@@ -19,11 +19,11 @@ export function deleteAds() {
 export function AdsColumn() {
   return (
     <Show when={showAds()}>
-      <section class="w-full dark:text-white">
+      <section class="ad-wrap w-full dark:text-white">
         <p class="w-full py-[5px] text-center text-[14px]">{text('広告')}</p>
-        <div class="ad-wrap mx-auto bg-gray-100 dark:bg-gray-800">
+        <div class="ad-wrap relative mx-auto bg-gray-100 dark:bg-gray-800">
           <ins
-            class="adsbygoogle"
+            class="adsbygoogle max-h-[250px] min-h-[250px] min-w-[300px] max-w-[300px]"
             style={{ display: 'inline-block', width: '300px', height: '250px' }}
             data-ad-client="ca-pub-5994029821720632"
             data-ad-slot="1281137909"
