@@ -23,7 +23,7 @@ export function Ads() {
   });
 
   return (
-    <>
+    <div class="h-[250px] w-[300px]">
       {/* gbs4-レスポンシブ */}
       {/* <ins
         class="adsbygoogle block"
@@ -39,7 +39,7 @@ export function Ads() {
         data-ad-client="ca-pub-5994029821720632"
         data-ad-slot="5710766688"
       />
-    </>
+    </div>
   );
 }
 
@@ -59,7 +59,8 @@ export function AdsColumn() {
         )
       )}
     >
-      <div class="absolute top-0 left-0 h-full w-full overflow-hidden text-center">
+      {/* <div class="absolute top-0 left-0 h-full w-full overflow-hidden text-center"> */}
+      <div class="w-full text-center">
         <p class="mb-[5px] mt-[5px] text-center text-[14px]">広告</p>
         <Ads />
       </div>
