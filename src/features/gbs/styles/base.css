@@ -237,6 +237,8 @@
     min-height: 250px !important;
   }
   .adsbygoogle {
+    width: 300px;
+    height: 250px;
     min-width: 300px;
     min-height: 250px;
   }
