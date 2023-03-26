@@ -107,9 +107,9 @@ export function Gbs() {
 
         <ColumnGroup groupKey={globalSettings.currentGroupKey} />
 
-        <Show when={globalSettings.columnType === '2lines'}>
-          <AdsColumn />
-        </Show>
+        {/* <Show when={globalSettings.columnType === '2lines'}> */}
+        <AdsColumn />
+        {/* </Show> */}
 
         <Show when={globalSettings.menuPotision === 'right'}>
           <MenuColumn />
@@ -173,9 +173,9 @@ export function Gbs() {
           </button>
         </div>
       </div>
-      <Show when={globalSettings.columnType === '1line'}>
+      {/* <Show when={globalSettings.columnType === '1line'}>
         <AdsFooter />
-      </Show>
+      </Show> */}
     </div>
   );
 }
