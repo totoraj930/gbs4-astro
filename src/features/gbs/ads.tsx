@@ -43,7 +43,7 @@ export function UnitGbs300x250() {
 export function Ads(props: { unit: '300x250' | 'footer' }) {
   const timer = setTimeout(() => {
     window.adsbygoogle && window.adsbygoogle.push({});
-  }, 400);
+  }, 1000);
 
   onCleanup(() => {
     clearTimeout(timer);
