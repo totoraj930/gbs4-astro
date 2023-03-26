@@ -57,7 +57,7 @@ export function Ads(props: { unit: '300x250' | 'footer' }) {
         </div>
       </Show>
       <Show when={props.unit === 'footer'}>
-        <div>
+        <div class="h-[100px] w-full">
           <UnitGbsFooter />
         </div>
       </Show>
@@ -96,7 +96,7 @@ export function AdsFooter() {
   return (
     <footer
       class={clsx(
-        'min-h-[100px] w-full flex-shrink-0 flex-grow-0',
+        'h-[100px] max-h-[100px] min-h-[100px] w-full flex-shrink-0 flex-grow-0',
         'bg-white dark:bg-gray-800',
         {
           hidden: isCompact(),
