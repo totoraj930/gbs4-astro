@@ -3,7 +3,7 @@ import { gbsList } from '@gbs/Store/gbsList';
 import { globalTimeDiff, setAllTweets, setGlobalTimeDiff } from '.';
 import { TweetData, zCacheResponse } from './schema';
 import { connect, gbsWs, sendMessage } from './ws';
-import { allFilterIds } from '../globalSettings';
+import { allFilterIds, allFilterIdStrs } from '../globalSettings';
 import { createEffect, createSignal, on } from 'solid-js';
 import type { RaidTweetMini } from 'gbs-open-lib';
 import { addToast } from '../toast';
@@ -31,14 +31,14 @@ let updateFilterTimeout: number | null = null;
  */
 export const [isInitializing, setIsInitializing] = createSignal(true);
 createEffect(
-  on(allFilterIds, () => {
+  on(allFilterIdStrs, () => {
     if (isInitializing()) return;
     if (updateFilterTimeout) {
       clearTimeout(updateFilterTimeout);
     }
     updateFilterTimeout = setTimeout(() => {
       sendFilters(allFilterIds());
-      getRaidTweetCache(allFilterIds());
+      getRaidTweetCache(allFilterIdStrs());
     }, 1000);
   })
 );
@@ -190,11 +190,11 @@ export function sendFilters(filters: number[]) {
 /**
  * キャッシュサーバーからクエストを入手
  */
-export async function getRaidTweetCache(filters: number[]) {
-  if (filters.length <= 0) return;
+export async function getRaidTweetCache(idStrs: string) {
+  if (idStrs.length <= 0) return;
   try {
     const url = new URL('https://gbs-open.eriri.net/api/cache');
-    url.searchParams.set('q', filters.join(','));
+    url.searchParams.set('q', idStrs);
     const json = await (await fetch(url.href)).json();
     const res = zCacheResponse.parse(json);
     for (const item of res) {

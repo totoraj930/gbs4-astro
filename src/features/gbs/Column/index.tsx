@@ -2,6 +2,7 @@
 import { Header } from './Header';
 import {
   globalSettings,
+  isCompact,
   saveSettingsToStorage,
   setGlobalSettings,
 } from '@gbs/Store/globalSettings';
@@ -97,7 +98,7 @@ export function Column() {
     >
       <Header />
 
-      <Show when={globalSettings.showMoveButton}>
+      <Show when={globalSettings.showMoveButton && !isCompact()}>
         <div
           class={clsx(
             'z-50 flex h-[36px] w-full items-stretch justify-center border-b border-solid',

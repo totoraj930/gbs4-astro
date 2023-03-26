@@ -2,6 +2,7 @@ import { createEffect, onMount, Show } from 'solid-js';
 import { clsx } from 'clsx';
 import {
   allFilterIds,
+  allFilterIdStrs,
   globalSettings,
   hasFocus,
   initAutoCopy,
@@ -29,7 +30,7 @@ export function Gbs() {
     detectWindowSize();
     await loadGbsList();
     setIsInitializing(false);
-    await getRaidTweetCache(allFilterIds());
+    await getRaidTweetCache(allFilterIdStrs());
     connectReciver();
     initFocusDetector();
     initAutoCopy();

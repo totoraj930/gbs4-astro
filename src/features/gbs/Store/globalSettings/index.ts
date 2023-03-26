@@ -23,6 +23,12 @@ export const allFilterIds = createMemo(() => {
   return [...ids];
 });
 
+export const allFilterIdStrs = createMemo(() => {
+  return allFilterIds()
+    .sort((a, b) => a - b)
+    .join(',');
+});
+
 export const changeAndSave: SetStoreFunction<GlobalSettings> = (
   // @ts-expect-error setStoreと同じ実装のためエラーは出ない
   ...args
