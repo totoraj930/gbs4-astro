@@ -52,8 +52,11 @@ export function Ads(props: { unit: '300x250' | 'footer' }) {
   return (
     <>
       <Show when={props.unit === '300x250'}>
-        <div class="relative h-[250px] w-full">
-          <div class="absolute top-0 left-0 h-full w-full">
+        <div class="relative mx-auto h-[250px] w-[300px]">
+          <div
+            class="absolute top-0 left-0"
+            style={{ width: '300px', height: '200px' }}
+          >
             <UnitGbs300x250 />
           </div>
         </div>
