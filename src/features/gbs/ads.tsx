@@ -25,12 +25,19 @@ export function Ads() {
   return (
     <>
       {/* gbs4-レスポンシブ */}
-      <ins
+      {/* <ins
         class="adsbygoogle block"
         data-ad-client="ca-pub-5994029821720632"
         data-ad-slot="1281137909"
         data-ad-format="auto"
         data-full-width-responsive="true"
+      /> */}
+      {/* gbs4-336x280 */}
+      <ins
+        class="adsbygoogle"
+        style={{ display: 'inline-block', width: '336px', height: '280px' }}
+        data-ad-client="ca-pub-5994029821720632"
+        data-ad-slot="5710766688"
       />
     </>
   );
@@ -45,8 +52,8 @@ export function AdsColumn() {
           'text-gray-700 dark:text-white',
           // 'bg-white, dark:bg-gray-700',
           {
-            'min-w-[var(--column-size)]': globalSettings.columnSize !== 's',
-            'min-w-[300px]': globalSettings.columnSize === 's',
+            'min-w-[var(--column-size)]': globalSettings.columnSize === 'l',
+            'min-w-[336px]': globalSettings.columnSize !== 'l',
             'h-[calc(50%-3px)]': globalSettings.columnType === '2lines',
           }
         )
