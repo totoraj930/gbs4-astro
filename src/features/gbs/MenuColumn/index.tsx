@@ -107,8 +107,8 @@ export function MenuColumn() {
         onCleanup(() => observer.unobserve(elm));
       }}
       class={clsx(
-        'flex h-full min-w-[320px] max-w-[320px] shrink-0 flex-col',
-        'm-[5px]',
+        'h-[calc(100%-5px)] min-w-[320px] max-w-[320px] flex-shrink-0 flex-grow-0',
+        'relative mx-[5px] mt-[5px]',
         'bg-white dark:bg-gray-700 dark:text-white'
       )}
     >
@@ -132,13 +132,14 @@ export function MenuColumn() {
         </span>
       </header>
 
-      <div class="w-[320px] flex-1 overflow-y-scroll">
+      <div class="h-[calc(100%-36px)] w-[320px] flex-1 overflow-y-scroll">
         <div>
-          <p class="bg-white p-[10px] text-center font-bold text-red-600">
-            現在広告のテスト中
-          </p>
-        </div>
-        {/* <div class="flex">
+          <div>
+            <p class="bg-white p-[10px] text-center font-bold text-red-600">
+              現在広告のテスト中
+            </p>
+          </div>
+          {/* <div class="flex">
           <Checkbox
             value={isColumnMoveMode()}
             onChange={(v) => setIsColumnMoveMode(v)}
@@ -155,119 +156,119 @@ export function MenuColumn() {
 
         <hr /> */}
 
-        <button
-          class={clsx(
-            c.mainButton,
-            'disabled:cursor-not-allowed disabled:opacity-50'
-          )}
-          disabled={!canAddColumn()}
-          onClick={() =>
-            changeAndSave(
-              'columnGroup',
-              globalSettings.currentGroupKey,
-              produce((s) => {
-                if (globalSettings.menuPotision === 'right') {
-                  s.columns.push(zColumnOptions.parse({}));
-                } else {
-                  s.columns.unshift(zColumnOptions.parse({}));
-                }
-              })
-            )
-          }
-        >
-          <span class="p-[10px]">
-            {/* <RiSystemAddCircleLine size={20} /> */}
-            <MsAddCircle size={24} />
-          </span>
-          <span>{text('カラムを追加')}</span>
-        </button>
-
-        <hr class={c.hr} />
-
-        <details
-          class="group"
-          onToggle={(e) => setIsOpen(e.currentTarget.open)}
-          open={isOpen()}
-        >
-          <summary class={c.mainButton}>
-            <span class="p-[10px]">
-              {/* <RiSystemSettings4Fill size={20} /> */}
-              <MsSettingsFill size={24} />
-            </span>
-            <span>{text('設定')}</span>
-          </summary>
-          <div
+          <button
             class={clsx(
-              'px-[5px] py-[10px] shadow-inner',
-              'bg-gray-50 dark:bg-[rgba(0,0,0,0.4)] dark:text-white'
+              c.mainButton,
+              'disabled:cursor-not-allowed disabled:opacity-50'
             )}
+            disabled={!canAddColumn()}
+            onClick={() =>
+              changeAndSave(
+                'columnGroup',
+                globalSettings.currentGroupKey,
+                produce((s) => {
+                  if (globalSettings.menuPotision === 'right') {
+                    s.columns.push(zColumnOptions.parse({}));
+                  } else {
+                    s.columns.unshift(zColumnOptions.parse({}));
+                  }
+                })
+              )
+            }
           >
-            <Settings />
+            <span class="p-[10px]">
+              {/* <RiSystemAddCircleLine size={20} /> */}
+              <MsAddCircle size={24} />
+            </span>
+            <span>{text('カラムを追加')}</span>
+          </button>
+
+          <hr class={c.hr} />
+
+          <details
+            class="group"
+            onToggle={(e) => setIsOpen(e.currentTarget.open)}
+            open={isOpen()}
+          >
+            <summary class={c.mainButton}>
+              <span class="p-[10px]">
+                {/* <RiSystemSettings4Fill size={20} /> */}
+                <MsSettingsFill size={24} />
+              </span>
+              <span>{text('設定')}</span>
+            </summary>
+            <div
+              class={clsx(
+                'px-[5px] py-[10px] shadow-inner',
+                'bg-gray-50 dark:bg-[rgba(0,0,0,0.4)] dark:text-white'
+              )}
+            >
+              <Settings />
+            </div>
+          </details>
+
+          <hr class={c.hr} />
+
+          <div class="flex h-[50px] flex-row items-center">
+            <span class="p-[10px]" title={text('マイセット')}>
+              {/* <RiDocumentBookMarkLine size={20} /> */}
+              <MsBookmarks size={24} />
+            </span>
+            <div class="text-sm">
+              <Radio
+                value={globalSettings.currentGroupKey}
+                options={groupOps}
+                name="s-currentGroupKey"
+                onChange={(value) =>
+                  changeAndSave(produce((s) => (s.currentGroupKey = value)))
+                }
+              />
+            </div>
           </div>
-        </details>
 
-        <hr class={c.hr} />
+          <hr class={c.hr} />
 
-        <div class="flex h-[50px] flex-row items-center">
-          <span class="p-[10px]" title={text('マイセット')}>
-            {/* <RiDocumentBookMarkLine size={20} /> */}
-            <MsBookmarks size={24} />
-          </span>
-          <div class="text-sm">
-            <Radio
-              value={globalSettings.currentGroupKey}
-              options={groupOps}
-              name="s-currentGroupKey"
-              onChange={(value) =>
-                changeAndSave(produce((s) => (s.currentGroupKey = value)))
-              }
+          <div class="flex h-[50px] items-center">
+            <button
+              class="p-[10px]"
+              title={text('ミュート切り替え')}
+              onClick={() => changeAndSave(produce((s) => (s.mute = !s.mute)))}
+            >
+              <Show
+                when={globalSettings.mute}
+                fallback={
+                  <Show
+                    when={globalSettings.volume <= 0 && !globalSettings.mute}
+                    fallback={<MsVolumeUp size={24} />}
+                  >
+                    <MsVolumeMute size={24} class="translate-x-[-4px]" />
+                  </Show>
+                }
+              >
+                <MsVolumeOff size={24} />
+              </Show>
+            </button>
+            <input
+              type="range"
+              class="w-[175px]"
+              title={text('音量')}
+              min={0}
+              max={1}
+              step={0.01}
+              value={globalSettings.volume}
+              disabled={globalSettings.mute}
+              onInput={(e) => {
+                const v = Number.parseFloat(e.currentTarget.value);
+                if (v <= 1 && v >= 0) {
+                  changeAndSave(produce((s) => (s.volume = v)));
+                }
+              }}
             />
           </div>
-        </div>
 
-        <hr class={c.hr} />
+          <hr class={c.hr} />
 
-        <div class="flex h-[50px] items-center">
-          <button
-            class="p-[10px]"
-            title={text('ミュート切り替え')}
-            onClick={() => changeAndSave(produce((s) => (s.mute = !s.mute)))}
-          >
-            <Show
-              when={globalSettings.mute}
-              fallback={
-                <Show
-                  when={globalSettings.volume <= 0 && !globalSettings.mute}
-                  fallback={<MsVolumeUp size={24} />}
-                >
-                  <MsVolumeMute size={24} class="translate-x-[-4px]" />
-                </Show>
-              }
-            >
-              <MsVolumeOff size={24} />
-            </Show>
-          </button>
-          <input
-            type="range"
-            class="w-[175px]"
-            title={text('音量')}
-            min={0}
-            max={1}
-            step={0.01}
-            value={globalSettings.volume}
-            disabled={globalSettings.mute}
-            onInput={(e) => {
-              const v = Number.parseFloat(e.currentTarget.value);
-              if (v <= 1 && v >= 0) {
-                changeAndSave(produce((s) => (s.volume = v)));
-              }
-            }}
-          />
-        </div>
-
-        <hr class={c.hr} />
-
-        {/* <div class="flex h-[50px] flex-row items-center">
+          {/* <div class="flex h-[50px] flex-row items-center">
           <button
             class="p-[10px]"
             title={text('テーマ')}
@@ -294,46 +295,47 @@ export function MenuColumn() {
           </div>
         </div> */}
 
-        {/* <hr class={c.hr} /> */}
+          {/* <hr class={c.hr} /> */}
 
-        <div class="flex h-[50px] flex-row items-center">
-          <button
-            class="py-[10px] px-[10px]"
-            title={text('テーマ')}
-            onClick={() =>
-              changeAndSave(produce((s) => (s.darkMode = !s.darkMode)))
-            }
-          >
-            <Show
-              when={globalSettings.darkMode}
-              fallback={<MsLightMode size={24} />}
-            >
-              <MsDarkMode size={24} />
-            </Show>
-          </button>
-
-          <hr class={twMerge(clsx(c.hr, 'h-full border-0 border-r'))} />
-
-          <span class="p-[10px]" title={text('言語')}>
-            {/* <RiEditorTranslate2 size={20} /> */}
-            <MsTranslate size={24} />
-          </span>
-          <div class="text-sm">
-            <Radio
-              value={globalSettings.language}
-              options={langOps}
-              name="s-language"
-              onChange={(value) =>
-                changeAndSave(produce((s) => (s.language = value)))
+          <div class="flex h-[50px] flex-row items-center">
+            <button
+              class="py-[10px] px-[10px]"
+              title={text('テーマ')}
+              onClick={() =>
+                changeAndSave(produce((s) => (s.darkMode = !s.darkMode)))
               }
-            />
+            >
+              <Show
+                when={globalSettings.darkMode}
+                fallback={<MsLightMode size={24} />}
+              >
+                <MsDarkMode size={24} />
+              </Show>
+            </button>
+
+            <hr class={twMerge(clsx(c.hr, 'h-full border-0 border-r'))} />
+
+            <span class="p-[10px]" title={text('言語')}>
+              {/* <RiEditorTranslate2 size={20} /> */}
+              <MsTranslate size={24} />
+            </span>
+            <div class="text-sm">
+              <Radio
+                value={globalSettings.language}
+                options={langOps}
+                name="s-language"
+                onChange={(value) =>
+                  changeAndSave(produce((s) => (s.language = value)))
+                }
+              />
+            </div>
           </div>
+
+          <hr class={c.hr} />
+
+          <div class="mt-[50px]" />
+          <AdsColumn />
         </div>
-
-        <hr class={c.hr} />
-
-        <div class="mt-[50px]" />
-        <AdsColumn />
       </div>
     </section>
   );
