@@ -21,7 +21,7 @@ export function AdsColumn() {
     <Show when={showAds()}>
       <section class="ad-column">
         <p class="py-[11px] text-[14px] dark:text-white">{text('広告')}</p>
-        <div class="ad-wrap bg-gray-200 dark:bg-gray-700">
+        <div class="ad-wrap bg-gray-200 text-center dark:bg-gray-700">
           {/* <ins
             class="adsbygoogle"
             style={{ display: 'inline-block', width: '300px', height: '250px' }}
@@ -32,7 +32,7 @@ export function AdsColumn() {
           /> */}
           <ins
             class="adsbygoogle slot_1"
-            style={{ display: 'block', height: '280px' }}
+            style={{ display: 'inline-block' }}
             data-ad-client="ca-pub-5994029821720632"
             data-ad-slot="7493107324"
             data-ad-format="rectangle"
