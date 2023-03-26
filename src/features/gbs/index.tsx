@@ -84,6 +84,7 @@ export function Gbs() {
           'flex h-full min-h-full w-full flex-row',
           'items-stretch overflow-x-scroll',
           'dark:text-red bg-gray-100 text-gray-800 dark:bg-gray-900',
+          'p-[5px]',
           {
             'has-focus': hasFocus(),
             'overflow-hidden': isScreenLock(),

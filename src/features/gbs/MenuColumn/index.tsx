@@ -23,7 +23,6 @@ import {
   MsVolumeUp,
 } from 'solid-material-symbols/rounded/600';
 import { gbsWs, ping } from '@gbs/Store/tweets/ws';
-import { AdsColumn } from '@gbs/ads';
 import { twMerge } from 'tailwind-merge';
 
 const langOps = [
@@ -108,7 +107,7 @@ export function MenuColumn() {
       }}
       class={clsx(
         'min-w-[320px] max-w-[320px] flex-shrink-0 flex-grow-0',
-        'relative mx-[5px] mt-[5px]',
+        'relative mx-[5px] pt-[2px]',
         'bg-white dark:bg-gray-700 dark:text-white'
       )}
     >
@@ -334,7 +333,6 @@ export function MenuColumn() {
           <hr class={c.hr} />
 
           <div class="mt-[50px]" />
-          {/* <AdsColumn /> */}
         </div>
       </div>
     </section>

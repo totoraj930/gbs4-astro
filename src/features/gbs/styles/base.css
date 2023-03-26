@@ -34,6 +34,7 @@
   *::before,
   *::after {
     line-height: 1;
+    box-sizing: border-box;
   }
 
   html,
@@ -267,8 +268,8 @@
   .ad-column {
     width: 300px;
     min-width: 300px;
-    margin-left: 5px;
-    margin-top: 5px;
+    margin-left: 2px;
+    transform: translateY(2px);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

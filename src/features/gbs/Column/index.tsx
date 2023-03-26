@@ -148,9 +148,7 @@ export function Column() {
         left: pos().left,
         top: pos().top,
       }}
-      class={twMerge(
-        clsx('absolute pl-[5px] pt-[5px]', 'smh:pl-[2px] smh:pt-[2px]')
-      )}
+      class={twMerge(clsx('absolute p-[2px]'))}
     >
       <div
         class={clsx(
