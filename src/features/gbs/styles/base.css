@@ -225,7 +225,12 @@
     animation: fadeOut 300ms ease-in-out 0ms 1 forwards;
   }
 
-  .ads-wrap {
+  .ad-column {
+    flex: 0;
+    width: 300px;
+    min-width: 300px;
+  }
+  .ad-wrap {
     width: 300px !important;
     height: 250px !important;
     min-width: 300px !important;
