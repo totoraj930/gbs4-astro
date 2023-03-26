@@ -236,6 +236,10 @@
     min-width: 300px !important;
     min-height: 250px !important;
   }
+  .adsbygoogle {
+    min-width: 300px;
+    min-height: 250px;
+  }
 
   @keyframes fadeOut {
     0% {
