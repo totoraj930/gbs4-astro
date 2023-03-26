@@ -334,7 +334,7 @@ export function MenuColumn() {
           <hr class={c.hr} />
 
           <div class="mt-[50px]" />
-          <AdsColumn />
+          {/* <AdsColumn /> */}
         </div>
       </div>
     </section>

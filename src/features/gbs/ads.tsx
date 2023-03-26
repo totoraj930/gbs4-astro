@@ -19,8 +19,8 @@ export function deleteAds() {
 export function AdsColumn() {
   return (
     <Show when={showAds()}>
-      <section class="text-center dark:text-white">
-        <p class="w-full py-[5px] text-[14px]">{text('広告')}</p>
+      <section class="ml-[5px] mt-[5px] text-center dark:text-white">
+        <p class=" w-full py-[11px] text-[14px]">{text('広告')}</p>
         <div class="inline-block bg-gray-100 dark:bg-gray-800">
           <ins
             class="adsbygoogle slot_1"

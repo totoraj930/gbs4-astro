@@ -24,6 +24,7 @@ import { twMerge } from 'tailwind-merge';
 import { MsLock, MsLockOpen, MsMenu } from 'solid-material-symbols/rounded/600';
 import { ToastArea } from './Store/toast';
 import { Portal } from 'solid-js/web';
+import { AdsColumn } from './ads';
 
 export function Gbs() {
   onMount(async () => {
@@ -98,6 +99,8 @@ export function Gbs() {
       </Show>
 
       <ColumnGroup groupKey={globalSettings.currentGroupKey} />
+
+      <AdsColumn />
 
       <Show when={globalSettings.menuPotision === 'right'}>
         <MenuColumn />
