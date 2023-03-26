@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { onCleanup, Show, createSignal } from 'solid-js';
 import { twMerge } from 'tailwind-merge';
 import { globalSettings, isCompact } from './Store/globalSettings';
+import { text } from './Text';
 
 declare global {
   interface Window {
@@ -35,7 +36,9 @@ export function UnitGbs300x250() {
       class="adsbygoogle"
       style={{ display: 'inline-block', width: '300px', height: '250px' }}
       data-ad-client="ca-pub-5994029821720632"
-      data-ad-slot="5710766688"
+      data-ad-slot="7373836338"
+      // data-ad-client="ca-pub-5994029821720632"
+      // data-ad-slot="5710766688"
     />
   );
 }
@@ -55,7 +58,7 @@ export function Ads(props: { unit: '300x250' | 'footer' }) {
         <div class="relative mx-auto h-[250px] w-[300px]">
           <div
             class="absolute top-0 left-0"
-            style={{ width: '300px', height: '200px' }}
+            style={{ width: '300px', height: '250px' }}
           >
             <UnitGbs300x250 />
           </div>
@@ -77,20 +80,19 @@ export function AdsColumn() {
         clsx(
           'relative flex h-full shrink-0 flex-col leading-none',
           'text-gray-700 dark:text-white',
+          'h-[250px] w-[300px]'
           // 'bg-white, dark:bg-gray-700',
-          {
-            'min-w-[var(--column-size)]': globalSettings.columnSize !== 's',
-            'min-w-[300px]': globalSettings.columnSize === 's',
-            'h-[calc(50%-3px)]': globalSettings.columnType === '2lines',
-          }
+          // {
+          //   'min-w-[var(--column-size)]': globalSettings.columnSize !== 's',
+          //   'min-w-[300px]': globalSettings.columnSize === 's',
+          //   'h-[calc(50%-3px)]': globalSettings.columnType === '2lines',
+          // }
         )
       )}
     >
       {/* <div class="absolute top-0 left-0 h-full w-full overflow-hidden text-center"> */}
-      <div class="w-full text-center">
-        <p class="mb-[5px] mt-[5px] text-center text-[14px]">広告</p>
-        <Ads unit="300x250" />
-      </div>
+      <p class="mb-[5px] mt-[5px] text-center text-[14px]">{text('広告')}</p>
+      <Ads unit="300x250" />
     </section>
   );
 }

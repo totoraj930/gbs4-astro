@@ -95,6 +95,7 @@ export const TEXT_LIST = [
   { ja: 'コピー: {id}', en: 'Copied: {id}' },
   { ja: 'リストの読み込みに失敗', en: 'Failed to load list' },
   { ja: '画面ロック中', en: 'Screen locked' },
+  { ja: '広告', en: 'Ads' },
 ] as const;
 
 type Key = (typeof TEXT_LIST)[number]['ja'];
