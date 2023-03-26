@@ -24,7 +24,6 @@ import { twMerge } from 'tailwind-merge';
 import { MsLock, MsLockOpen, MsMenu } from 'solid-material-symbols/rounded/600';
 import { ToastArea } from './Store/toast';
 import { AdsColumn } from './ads';
-import { Portal } from 'solid-js/web';
 
 export function Gbs() {
   onMount(async () => {
@@ -110,10 +109,10 @@ export function Gbs() {
         class={clsx(
           'absolute bottom-0 gap-[10px] p-[18px]',
           'pointer-events-none flex flex-col',
-          'z-[40]',
+          'right-0 z-[40]',
           {
-            'right-0': globalSettings.menuPotision === 'left',
-            'left-0': globalSettings.menuPotision === 'right',
+            // 'right-0': globalSettings.menuPotision === 'left',
+            // 'left-0': globalSettings.menuPotision === 'right',
           }
         )}
       >
@@ -163,6 +162,5 @@ export function Gbs() {
         </button>
       </div>
     </main>
-    // </Portal>
   );
 }
