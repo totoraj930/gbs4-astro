@@ -39,7 +39,6 @@ export function AdsColumn() {
           'relative flex h-full shrink-0 flex-col leading-none',
           'text-gray-700 dark:text-white',
           // 'bg-white, dark:bg-gray-700',
-          'flex flex-col items-stretch justify-center',
           {
             'min-w-[var(--column-size)]': globalSettings.columnSize !== 's',
             'min-w-[300px]': globalSettings.columnSize === 's',
@@ -48,7 +47,7 @@ export function AdsColumn() {
         )
       )}
     >
-      <div class="h-full overflow-auto">
+      <div class="absolute top-0 left-0 h-full w-full overflow-auto">
         <p class="mb-[5px] mt-[5px] text-center text-[14px]">広告</p>
         <Ads />
       </div>
