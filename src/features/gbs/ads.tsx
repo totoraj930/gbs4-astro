@@ -21,7 +21,9 @@ export function AdsColumn() {
           data-ad-slot="5710766688"
           style={{ display: 'block', width: '300px', height: '250px' }}
           ref={() => {
-            window.adsbygoogle && window.adsbygoogle.push({});
+            setTimeout(() => {
+              window.adsbygoogle && window.adsbygoogle.push({});
+            }, 1);
           }}
         >
           {}
