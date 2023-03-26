@@ -23,7 +23,7 @@ export function UnitGbsFooter() {
       style={{ display: 'block' }}
       data-ad-client="ca-pub-5994029821720632"
       data-ad-slot="8366255152"
-      data-ad-format="auto"
+      // data-ad-format="auto"
       data-full-width-responsive="true"
     />
   );
@@ -57,7 +57,7 @@ export function Ads(props: { unit: '300x250' | 'footer' }) {
         </div>
       </Show>
       <Show when={props.unit === 'footer'}>
-        <div class="h-[100px] w-full">
+        <div class="h-[100px] max-w-[970px]">
           <UnitGbsFooter />
         </div>
       </Show>
