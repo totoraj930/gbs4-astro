@@ -26,7 +26,9 @@ export function AdsColumn() {
             class="adsbygoogle"
             style={{ display: 'inline-block', width: '300px', height: '250px' }}
             data-ad-client="ca-pub-5994029821720632"
-            data-ad-slot="5710766688"
+            data-ad-slot="1281137909"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
           />
         </div>
       </section>
