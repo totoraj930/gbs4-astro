@@ -177,6 +177,16 @@ export function Settings() {
           </li>
           <li>
             <Checkbox
+              value={globalSettings.menuButton}
+              onChange={(v) =>
+                changeAndSave(produce((s) => (s.menuButton = v)))
+              }
+            >
+              {text('メニューボタンを表示')}
+            </Checkbox>
+          </li>
+          <li>
+            <Checkbox
               value={globalSettings.lockButton}
               onChange={(v) =>
                 changeAndSave(produce((s) => (s.lockButton = v)))

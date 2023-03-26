@@ -43,6 +43,7 @@ export const TEXT_LIST = [
   { ja: '投稿時間', en: 'Tweet time' },
   { ja: 'その他の設定', en: 'Other settings' },
   { ja: '画面ロックボタンを表示', en: 'Show screen lock button' },
+  { ja: 'メニューボタンを表示', en: 'Show menu button' },
   { ja: 'ダークモード', en: 'Dark mode' },
   { ja: '画像を表示', en: 'Show images' },
   { ja: 'デバッグログを表示', en: 'Debug logs' },

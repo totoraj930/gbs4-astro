@@ -124,7 +124,11 @@ export function Gbs() {
               'pointer-events-auto grid rounded-full',
               'bg-sky-500 text-white',
               {
-                hidden: isMenuVisible() || isCompact() || isScreenLock(),
+                hidden:
+                  isMenuVisible() ||
+                  isCompact() ||
+                  isScreenLock() ||
+                  !globalSettings.menuButton,
                 'shadow-[0_0_5px_#000]': globalSettings.darkMode,
                 'shadow-[0_0_5px_rgba(0,0,0,0.5)]': !globalSettings.darkMode,
               }
