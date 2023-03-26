@@ -1,7 +1,7 @@
 import clsx from 'clsx';
-import { onCleanup, onMount } from 'solid-js';
+import { onCleanup, onMount, Show, createSignal } from 'solid-js';
 import { twMerge } from 'tailwind-merge';
-import { globalSettings } from './Store/globalSettings';
+import { globalSettings, isCompact } from './Store/globalSettings';
 
 declare global {
   interface Window {
@@ -13,33 +13,55 @@ declare global {
   }
 }
 
-export function Ads() {
+/**
+ * gbs-footer
+ */
+export function UnitGbsFooter() {
+  return (
+    <ins
+      class="adsbygoogle"
+      style={{ display: 'block' }}
+      data-ad-client="ca-pub-5994029821720632"
+      data-ad-slot="8366255152"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    />
+  );
+}
+
+export function UnitGbs300x250() {
+  return (
+    <ins
+      class="adsbygoogle"
+      style={{ display: 'inline-block', width: '300px', height: '250px' }}
+      data-ad-client="ca-pub-5994029821720632"
+      data-ad-slot="5710766688"
+    />
+  );
+}
+
+export function Ads(props: { unit: '300x250' | 'footer' }) {
   const timer = setTimeout(() => {
     window.adsbygoogle && window.adsbygoogle.push({});
-  }, 100);
+  }, 400);
 
   onCleanup(() => {
     clearTimeout(timer);
   });
 
   return (
-    <div class="h-[250px] w-[300px]">
-      {/* gbs4-レスポンシブ */}
-      {/* <ins
-        class="adsbygoogle block"
-        data-ad-client="ca-pub-5994029821720632"
-        data-ad-slot="1281137909"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      /> */}
-      {/* gbs4-300x250 */}
-      <ins
-        class="adsbygoogle"
-        style={{ display: 'inline-block', width: '300px', height: '250px' }}
-        data-ad-client="ca-pub-5994029821720632"
-        data-ad-slot="5710766688"
-      />
-    </div>
+    <>
+      <Show when={props.unit === '300x250'}>
+        <div class="h-[250px] w-[300px]">
+          <UnitGbs300x250 />
+        </div>
+      </Show>
+      <Show when={props.unit === 'footer'}>
+        <div>
+          <UnitGbsFooter />
+        </div>
+      </Show>
+    </>
   );
 }
 
@@ -62,8 +84,26 @@ export function AdsColumn() {
       {/* <div class="absolute top-0 left-0 h-full w-full overflow-hidden text-center"> */}
       <div class="w-full text-center">
         <p class="mb-[5px] mt-[5px] text-center text-[14px]">広告</p>
-        <Ads />
+        <Ads unit="300x250" />
       </div>
     </section>
+  );
+}
+
+export const [adsFooterH, setAdsFooterH] = createSignal(0);
+
+export function AdsFooter() {
+  return (
+    <footer
+      class={clsx(
+        'min-h-[100px] w-full flex-shrink-0 flex-grow-0',
+        'bg-white dark:bg-gray-800',
+        {
+          hidden: isCompact(),
+        }
+      )}
+    >
+      <Ads unit="footer" />
+    </footer>
   );
 }
