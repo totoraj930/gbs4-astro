@@ -36,7 +36,7 @@ export function AdsColumn() {
             data-ad-client="ca-pub-5994029821720632"
             data-ad-slot="7493107324"
             data-ad-format="auto"
-            data-full-width-responsive="true"
+            // data-full-width-responsive="true"
           />
         </div>
       </section>
