@@ -32,10 +32,10 @@ export function Ads() {
         data-ad-format="auto"
         data-full-width-responsive="true"
       /> */}
-      {/* gbs4-336x280 */}
+      {/* gbs4-300x250 */}
       <ins
         class="adsbygoogle"
-        style={{ display: 'inline-block', width: '336px', height: '280px' }}
+        style={{ display: 'inline-block', width: '300px', height: '250px' }}
         data-ad-client="ca-pub-5994029821720632"
         data-ad-slot="5710766688"
       />
@@ -52,14 +52,14 @@ export function AdsColumn() {
           'text-gray-700 dark:text-white',
           // 'bg-white, dark:bg-gray-700',
           {
-            'min-w-[var(--column-size)]': globalSettings.columnSize === 'l',
-            'min-w-[336px]': globalSettings.columnSize !== 'l',
+            'min-w-[var(--column-size)]': globalSettings.columnSize !== 's',
+            'min-w-[300px]': globalSettings.columnSize === 's',
             'h-[calc(50%-3px)]': globalSettings.columnType === '2lines',
           }
         )
       )}
     >
-      <div class="absolute top-0 left-0 h-full w-full overflow-hidden">
+      <div class="absolute top-0 left-0 h-full w-full overflow-hidden text-center">
         <p class="mb-[5px] mt-[5px] text-center text-[14px]">広告</p>
         <Ads />
       </div>
