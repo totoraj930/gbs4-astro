@@ -285,10 +285,8 @@
     height: 250px;
   }
   .slot_1 {
-    width: 300px;
-    height: 250px;
-    min-width: 300px;
-    min-height: 250px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 
   @keyframes fadeOut {
