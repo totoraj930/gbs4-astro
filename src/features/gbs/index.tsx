@@ -76,7 +76,7 @@ export function Gbs() {
 
   return (
     // <Portal mount={document.body} useShadow={false}>
-    <div
+    <main
       id="gbs-main"
       data-type={globalSettings.columnType}
       class={twMerge(
@@ -162,7 +162,7 @@ export function Gbs() {
           </Show>
         </button>
       </div>
-    </div>
+    </main>
     // </Portal>
   );
 }
