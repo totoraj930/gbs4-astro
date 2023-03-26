@@ -131,7 +131,7 @@ export function MenuColumn() {
         </span>
       </div>
 
-      <div class="flex-1 overflow-y-scroll">
+      <div class="w-[320px] flex-1 overflow-y-scroll">
         <div>
           <p class="bg-white p-[10px] text-center font-bold text-red-600">
             現在広告のテスト中
