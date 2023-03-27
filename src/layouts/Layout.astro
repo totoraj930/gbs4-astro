@@ -40,17 +40,5 @@ const { title } = Astro.props;
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
     ></script>
-    <script is:raw>
-      /**
-       * Ads初期化
-       */
-      const timer = setInterval(() => {
-        const $main = document.body.querySelector('#gbs-main .adsbygoogle');
-        if ($main) {
-          clearInterval(timer);
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        }
-      }, 500);
-    </script>
   </body>
 </html>

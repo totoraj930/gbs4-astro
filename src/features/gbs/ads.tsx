@@ -19,6 +19,20 @@ export function deleteAds() {
   // setShowAds(false);
 }
 
+/**
+ * insの数だけ実行する(初回のページロード時しかやっちゃダメ)
+ */
+function initAds() {
+  console.log('initAds');
+  setTimeout(() => {
+    try {
+      window.adsbygoogle && window.adsbygoogle.push({});
+    } catch (err) {
+      console.error(err);
+    }
+  }, 1);
+}
+
 export function AdsAndMenu() {
   return (
     <div class={clsx('ad-and-menu')}>
@@ -42,7 +56,7 @@ export function AdsColumn() {
     <Show when={showAds()}>
       <section class="ad-column">
         <p class="py-[3px] text-[14px] dark:text-white">{text('広告')}</p>
-        <div class="bg-white text-center dark:bg-gray-700">
+        <div class="ad-wrap bg-white text-center dark:bg-gray-700">
           {/* <ins
             class="adsbygoogle"
             style={{ display: 'inline-block', width: '300px', height: '250px' }}
@@ -57,6 +71,7 @@ export function AdsColumn() {
             data-ad-slot="7493107324"
             data-ad-format="rectangle"
             data-full-width-responsive="false"
+            ref={() => initAds()}
           />
           <ins
             class="adsbygoogle ad-slot-mobile"
@@ -64,6 +79,7 @@ export function AdsColumn() {
             data-ad-slot="7493107324"
             data-ad-format="horizontal"
             data-full-width-responsive="false"
+            ref={() => initAds()}
           />
         </div>
       </section>
