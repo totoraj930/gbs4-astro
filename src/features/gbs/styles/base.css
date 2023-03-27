@@ -284,6 +284,9 @@
     flex-direction: column;
     flex-wrap: nowrap;
   }
+  .ad-slot-mobile {
+    display: none;
+  }
   .ad-wrap,
   .ad-slot-pc {
     display: block;
@@ -295,7 +298,20 @@
     min-height: 280px;
   }
   @media (max-height: 728px) {
+    .ad-slot-pc {
+      display: none;
+    }
     .ad-wrap,
+    .ad-slot-mobile {
+      display: block;
+      width: 340px;
+      max-width: 340px;
+      min-width: 340px;
+      height: 100px;
+      max-height: 100px;
+      min-height: 100px;
+    }
+    /* .ad-wrap,
     .ad-slot-pc {
       display: block;
       width: 300px;
@@ -304,9 +320,9 @@
       height: 250px;
       max-height: 250px;
       min-height: 250px;
-    }
+    } */
   }
-  @media (max-height: 640px) {
+  @media (max-height: 400px) {
     .ad-and-menu {
       flex-direction: row-reverse;
     }

@@ -34,7 +34,7 @@ function initAds() {
       putLog('error', err);
       console.error(err);
     }
-  }, 100);
+  }, 200);
 }
 
 export function AdsAndMenu() {
@@ -77,14 +77,14 @@ export function AdsColumn() {
             data-full-width-responsive="false"
             ref={() => initAds()}
           />
-          {/* <ins
+          <ins
             class="adsbygoogle ad-slot-mobile"
             data-ad-client="ca-pub-5994029821720632"
             data-ad-slot="7493107324"
-            data-ad-format="auto"
+            data-ad-format="horizontal"
             data-full-width-responsive="false"
             ref={() => initAds()}
-          /> */}
+          />
         </div>
       </section>
       {/* <section class="ml-[5px] mt-[5px] text-center dark:text-white">
