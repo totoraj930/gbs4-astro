@@ -24,7 +24,7 @@ import {
 } from 'solid-material-symbols/rounded/600';
 import { gbsWs, ping } from '@gbs/Store/tweets/ws';
 import { twMerge } from 'tailwind-merge';
-import { AdsColumn } from '@gbs/ads';
+import { scrollToElm } from '..';
 
 const langOps = [
   { value: 'ja', name: '日本語' },
@@ -106,6 +106,7 @@ export function MenuColumn() {
         });
         onCleanup(() => observer.unobserve(elm));
       }}
+      id="gbs-menu"
       class={clsx('relative flex h-full max-h-full flex-col')}
     >
       <header
@@ -194,11 +195,16 @@ export function MenuColumn() {
                 'columnGroup',
                 globalSettings.currentGroupKey,
                 produce((s) => {
+                  let pos = 0;
                   if (globalSettings.menuPotision === 'right') {
                     s.columns.push(zColumnOptions.parse({}));
+                    pos = s.columns.length - 1;
                   } else {
                     s.columns.unshift(zColumnOptions.parse({}));
                   }
+                  setTimeout(() => {
+                    scrollToElm(`[data-column-i="${pos}"]`);
+                  }, 100);
                 })
               )
             }

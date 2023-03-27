@@ -26,6 +26,22 @@ import { ToastArea } from './Store/toast';
 import { AdsAndMenu, AdsColumn } from './ads';
 import { LogColumn } from './Store/logs';
 
+export function scrollToElm(query: string) {
+  const elm = document.body.querySelector('#gbs-main');
+  const menuElm = document.body.querySelector(query);
+  if (!elm || !menuElm) return;
+  try {
+    const { x } = menuElm.getBoundingClientRect();
+    console.log(x, elm.scrollLeft);
+    elm.scrollTo({
+      left: x + elm.scrollLeft,
+      behavior: 'smooth',
+    });
+  } catch {
+    /* */
+  }
+}
+
 export function Gbs() {
   onMount(async () => {
     detectWindowSize();
@@ -58,19 +74,6 @@ export function Gbs() {
       setIsCompact(true);
     } else {
       setIsCompact(false);
-    }
-  }
-
-  function showMenu() {
-    const elm = document.body.querySelector('#gbs-main');
-    if (!elm) return;
-    try {
-      elm.scrollTo({
-        left: globalSettings.menuPotision === 'left' ? 0 : 9999,
-        behavior: 'smooth',
-      });
-    } catch {
-      /* */
     }
   }
 
@@ -123,7 +126,7 @@ export function Gbs() {
         )}
       >
         <button
-          onClick={() => showMenu()}
+          onClick={() => scrollToElm('#gbs-menu')}
           class={twMerge(
             clsx(
               'h-[40px] w-[40px] place-content-center',

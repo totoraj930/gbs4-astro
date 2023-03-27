@@ -306,7 +306,7 @@
       min-height: 250px;
     }
   }
-  @media (max-height: 500px) {
+  @media (max-height: 640px) {
     .ad-and-menu {
       flex-direction: row-reverse;
     }

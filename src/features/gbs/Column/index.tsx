@@ -148,6 +148,7 @@ export function Column() {
         left: pos().left,
         top: pos().top,
       }}
+      data-column-i={index()}
       class={twMerge(clsx('absolute p-[2px]'))}
     >
       <div
