@@ -24,7 +24,7 @@ export function deleteAds() {
  * insの数だけ実行する(初回のページロード時しかやっちゃダメ)
  */
 function initAds() {
-  console.log('initAds');
+  putLog('info', 'init ads.');
   setTimeout(() => {
     try {
       window.adsbygoogle && window.adsbygoogle.push({});
@@ -34,7 +34,7 @@ function initAds() {
       putLog('error', err);
       console.error(err);
     }
-  }, 1);
+  }, 100);
 }
 
 export function AdsAndMenu() {
