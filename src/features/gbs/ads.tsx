@@ -1,4 +1,7 @@
+import clsx from 'clsx';
 import { createSignal, Show } from 'solid-js';
+import { MenuColumn } from './MenuColumn';
+import { globalSettings } from './Store/globalSettings';
 import { text } from './Text';
 
 declare global {
@@ -13,15 +16,33 @@ declare global {
 
 const [showAds, setShowAds] = createSignal(true);
 export function deleteAds() {
-  setShowAds(false);
+  // setShowAds(false);
+}
+
+export function AdsAndMenu() {
+  return (
+    <div class={clsx('ad-and-menu')}>
+      <div class="ad-title">
+        <AdsColumn />
+      </div>
+
+      <Show when={globalSettings.menuPotision === 'right'}>
+        <div class="relative w-[320px] flex-1">
+          <div class="absolute top-0 left-0 h-full w-full">
+            <MenuColumn />
+          </div>
+        </div>
+      </Show>
+    </div>
+  );
 }
 
 export function AdsColumn() {
   return (
     <Show when={showAds()}>
       <section class="ad-column">
-        <p class="py-[11px] text-[14px] dark:text-white">{text('広告')}</p>
-        <div class="ad-wrap bg-gray-200 text-center dark:bg-gray-700">
+        <p class="py-[3px] text-[14px] dark:text-white">{text('広告')}</p>
+        <div class="bg-white text-center dark:bg-gray-700">
           {/* <ins
             class="adsbygoogle"
             style={{ display: 'inline-block', width: '300px', height: '250px' }}
@@ -31,11 +52,17 @@ export function AdsColumn() {
             // data-full-width-responsive="true"
           /> */}
           <ins
-            class="adsbygoogle slot_1"
-            style={{ display: 'inline-block' }}
+            class="adsbygoogle ad-slot-pc"
             data-ad-client="ca-pub-5994029821720632"
             data-ad-slot="7493107324"
             data-ad-format="rectangle"
+            data-full-width-responsive="false"
+          />
+          <ins
+            class="adsbygoogle ad-slot-mobile"
+            data-ad-client="ca-pub-5994029821720632"
+            data-ad-slot="7493107324"
+            data-ad-format="horizontal"
             data-full-width-responsive="false"
           />
         </div>

@@ -24,6 +24,7 @@ import {
 } from 'solid-material-symbols/rounded/600';
 import { gbsWs, ping } from '@gbs/Store/tweets/ws';
 import { twMerge } from 'tailwind-merge';
+import { AdsColumn } from '@gbs/ads';
 
 const langOps = [
   { value: 'ja', name: '日本語' },
@@ -105,16 +106,14 @@ export function MenuColumn() {
         });
         onCleanup(() => observer.unobserve(elm));
       }}
-      class={clsx(
-        'min-w-[320px] max-w-[320px] flex-shrink-0 flex-grow-0',
-        'relative mx-[5px] pt-[2px]',
-        'bg-white dark:bg-gray-700 dark:text-white'
-      )}
+      class={clsx('relative flex h-full max-h-full flex-col')}
     >
       <header
         class={clsx(
           'flex min-h-[36px] flex-row items-center border-b border-solid px-[5px]',
-          'border-gray-300 dark:border-gray-600'
+          'border-gray-300 dark:border-gray-600',
+          'bg-white dark:bg-gray-700 dark:text-white',
+          'max-w-[330px]'
         )}
       >
         <h1 class="font-bold">Granblue Search 4</h1>
@@ -131,13 +130,19 @@ export function MenuColumn() {
         </span>
       </header>
 
-      <div class="h-[calc(100%-36px)] w-[320px] flex-1 overflow-y-scroll">
-        <div>
-          <div>
+      <div
+        class={clsx(
+          'flex-1 overflow-y-scroll',
+          'bg-white dark:bg-gray-700 dark:text-white',
+          'max-w-[330px]'
+        )}
+      >
+        <div class="flex min-h-full flex-col">
+          {/* <div>
             <p class="bg-white p-[10px] text-center font-bold text-red-600">
               現在広告のテスト中
             </p>
-          </div>
+          </div> */}
           {/* <div class="flex">
           <Checkbox
             value={isColumnMoveMode()}
@@ -154,6 +159,29 @@ export function MenuColumn() {
         </div>
 
         <hr /> */}
+
+          {/* <div class="mt-auto" />
+
+          <hr class={c.hr} /> */}
+
+          <div class="flex h-[50px] flex-row items-center">
+            <span class="p-[10px]" title={text('マイセット')}>
+              {/* <RiDocumentBookMarkLine size={20} /> */}
+              <MsBookmarks size={24} />
+            </span>
+            <div class="text-sm">
+              <Radio
+                value={globalSettings.currentGroupKey}
+                options={groupOps}
+                name="s-currentGroupKey"
+                onChange={(value) =>
+                  changeAndSave(produce((s) => (s.currentGroupKey = value)))
+                }
+              />
+            </div>
+          </div>
+
+          <hr class={c.hr} />
 
           <button
             class={clsx(
@@ -205,25 +233,6 @@ export function MenuColumn() {
               <Settings />
             </div>
           </details>
-
-          <hr class={c.hr} />
-
-          <div class="flex h-[50px] flex-row items-center">
-            <span class="p-[10px]" title={text('マイセット')}>
-              {/* <RiDocumentBookMarkLine size={20} /> */}
-              <MsBookmarks size={24} />
-            </span>
-            <div class="text-sm">
-              <Radio
-                value={globalSettings.currentGroupKey}
-                options={groupOps}
-                name="s-currentGroupKey"
-                onChange={(value) =>
-                  changeAndSave(produce((s) => (s.currentGroupKey = value)))
-                }
-              />
-            </div>
-          </div>
 
           <hr class={c.hr} />
 
@@ -331,8 +340,6 @@ export function MenuColumn() {
           </div>
 
           <hr class={c.hr} />
-
-          <div class="mt-[50px]" />
         </div>
       </div>
     </section>

@@ -23,7 +23,7 @@ import { initAudioContext } from './utils';
 import { twMerge } from 'tailwind-merge';
 import { MsLock, MsLockOpen, MsMenu } from 'solid-material-symbols/rounded/600';
 import { ToastArea } from './Store/toast';
-import { AdsColumn } from './ads';
+import { AdsAndMenu, AdsColumn } from './ads';
 
 export function Gbs() {
   onMount(async () => {
@@ -74,7 +74,6 @@ export function Gbs() {
   }
 
   return (
-    // <Portal mount={document.body} useShadow={false}>
     <main
       id="gbs-main"
       data-type={globalSettings.columnType}
@@ -84,7 +83,7 @@ export function Gbs() {
           'flex h-full min-h-full w-full flex-row',
           'items-stretch overflow-x-scroll',
           'dark:text-red bg-gray-100 text-gray-800 dark:bg-gray-900',
-          'p-[5px] smh:p-0',
+          'p-[5px] smh:p-[3px]',
           {
             'has-focus': hasFocus(),
             'overflow-hidden': isScreenLock(),
@@ -95,22 +94,21 @@ export function Gbs() {
       <ToastArea />
 
       <Show when={globalSettings.menuPotision === 'left'}>
-        <MenuColumn />
+        <div class="mr-[5px] min-w-[320px] shrink-0 grow-0 p-[2px]">
+          <MenuColumn />
+        </div>
       </Show>
 
       <ColumnGroup groupKey={globalSettings.currentGroupKey} />
 
-      <AdsColumn />
-
-      <Show when={globalSettings.menuPotision === 'right'}>
-        <MenuColumn />
-      </Show>
+      <AdsAndMenu />
 
       <div
         class={clsx(
           'absolute bottom-0 gap-[10px] p-[18px]',
           'pointer-events-none flex flex-col',
-          'right-0 z-[40]',
+          'z-[40]',
+          'right-0',
           {
             // 'right-0': globalSettings.menuPotision === 'left',
             // 'left-0': globalSettings.menuPotision === 'right',
