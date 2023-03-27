@@ -7,10 +7,7 @@ import {
   setGlobalSettings,
 } from '@gbs/Store/globalSettings';
 import { FilteredTweets } from './FilteredTweets';
-import type {
-  ColumnGroupKey,
-  ColumnOptions,
-} from '@gbs/Store/globalSettings/schema';
+import type { ColumnGroupKey } from '@gbs/Store/globalSettings/schema';
 import { createMemo, For, Show } from 'solid-js';
 import { produce } from 'solid-js/store';
 import { ColumnProvider, Dispatch, useColumn } from './columnContext';

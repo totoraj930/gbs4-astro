@@ -40,11 +40,12 @@ export function ColumnProvider(props: ProviderProps) {
   const [options, setOptions] = createStore(props.initialOptions);
   return (
     <ColumnContext.Provider
-      // eslint-disable-next-line solid/reactivity
       value={{
         options,
         setOptions,
+        // eslint-disable-next-line solid/reactivity
         dispatch: props.dispatch,
+        // eslint-disable-next-line solid/reactivity
         index: props.index,
       }}
     >

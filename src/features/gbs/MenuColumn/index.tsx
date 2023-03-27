@@ -81,12 +81,12 @@ export function MenuColumn() {
     );
   });
 
-  const themeOps = createMemo(() => {
-    return [
-      { value: 'dark', name: text('ダーク') },
-      { value: 'light', name: text('ライト') },
-    ] as const;
-  });
+  // const themeOps = createMemo(() => {
+  //   return [
+  //     { value: 'dark', name: text('ダーク') },
+  //     { value: 'light', name: text('ライト') },
+  //   ] as const;
+  // });
 
   const [pingFlash, setPingFlash] = createSignal('');
 

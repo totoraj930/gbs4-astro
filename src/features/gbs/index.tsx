@@ -23,7 +23,7 @@ import { initAudioContext } from './utils';
 import { twMerge } from 'tailwind-merge';
 import { MsLock, MsLockOpen, MsMenu } from 'solid-material-symbols/rounded/600';
 import { ToastArea } from './Store/toast';
-import { AdsAndMenu, AdsColumn } from './ads';
+import { AdsAndMenu } from './ads';
 import { LogColumn } from './Store/logs';
 
 export function scrollToElm(query: string) {

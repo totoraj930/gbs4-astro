@@ -7,7 +7,6 @@ import clsx from 'clsx';
 import { RiSystemDeleteBin2Line } from 'solid-icons/ri';
 import { onCleanup, Show, createEffect, createMemo } from 'solid-js';
 import { createStore, produce } from 'solid-js/store';
-import { Portal } from 'solid-js/web';
 import {
   MsBadge,
   MsFilterList,
