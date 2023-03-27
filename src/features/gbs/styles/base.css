@@ -296,6 +296,7 @@
   .ad-slot-pc {
     display: inline-block;
     width: 340px;
+    min-width: 340px;
     height: 280px;
     max-height: 280px;
   }
@@ -309,6 +310,7 @@
     .ad-slot-mobile {
       display: inline-block;
       width: 340px;
+      min-width: 340px;
       height: 100px;
       max-height: 100px;
     }
