@@ -6,6 +6,7 @@ import { Checkbox } from './Checkbox';
 import { Radio } from './Radio';
 import { Select } from './Select';
 import { deleteAds } from '@gbs/ads';
+import { scrollToElm } from '..';
 
 const c = /*tw*/ {
   wrap: 'px-[5px]',
@@ -116,6 +117,7 @@ export function Settings() {
           onChange={(v) => {
             changeAndSave(produce((s) => (s.menuPotision = v)));
             deleteAds();
+            scrollToElm('#gbs-menu');
           }}
         />
       </div>

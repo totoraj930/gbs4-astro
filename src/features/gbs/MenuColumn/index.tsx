@@ -175,9 +175,10 @@ export function MenuColumn() {
                 value={globalSettings.currentGroupKey}
                 options={groupOps}
                 name="s-currentGroupKey"
-                onChange={(value) =>
-                  changeAndSave(produce((s) => (s.currentGroupKey = value)))
-                }
+                onChange={(value) => {
+                  changeAndSave(produce((s) => (s.currentGroupKey = value)));
+                  scrollToElm('[data-column-i="0"]');
+                }}
               />
             </div>
           </div>
