@@ -24,6 +24,7 @@ import { twMerge } from 'tailwind-merge';
 import { MsLock, MsLockOpen, MsMenu } from 'solid-material-symbols/rounded/600';
 import { ToastArea } from './Store/toast';
 import { AdsAndMenu, AdsColumn } from './ads';
+import { LogColumn } from './Store/logs';
 
 export function Gbs() {
   onMount(async () => {
@@ -92,6 +93,12 @@ export function Gbs() {
       )}
     >
       <ToastArea />
+
+      <Show when={globalSettings.log}>
+        <div class="mr-[5px] min-w-[320px] max-w-[320px] shrink-0 grow-0 p-[2px]">
+          <LogColumn />
+        </div>
+      </Show>
 
       <Show when={globalSettings.menuPotision === 'left'}>
         <div class="mr-[5px] min-w-[320px] shrink-0 grow-0 p-[2px]">

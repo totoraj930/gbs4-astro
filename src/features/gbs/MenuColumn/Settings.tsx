@@ -207,14 +207,14 @@ export function Settings() {
               {text('画像を表示')}
             </Checkbox>
           </li>
-          {/* <li>
+          <li>
             <Checkbox
               value={globalSettings.log}
               onChange={(v) => changeAndSave(produce((s) => (s.log = v)))}
             >
               {text('ログを表示')}
             </Checkbox>
-          </li> */}
+          </li>
         </ul>
       </div>
     </div>

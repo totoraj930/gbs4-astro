@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { createSignal, Show } from 'solid-js';
 import { MenuColumn } from './MenuColumn';
 import { globalSettings } from './Store/globalSettings';
+import { putLog } from './Store/logs';
 import { text } from './Text';
 
 declare global {
@@ -28,6 +29,9 @@ function initAds() {
     try {
       window.adsbygoogle && window.adsbygoogle.push({});
     } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      putLog('error', err);
       console.error(err);
     }
   }, 1);
