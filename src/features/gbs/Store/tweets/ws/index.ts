@@ -30,6 +30,7 @@ export function sendMessage(clientMsg: ClientMessage) {
 }
 
 let startPingTime = Date.now();
+let prevMessageTime = Date.now();
 const [ping, setPing] = createSignal(0);
 export { ping };
 
@@ -37,6 +38,9 @@ let isStart = false;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const timer = setInterval(() => {
+  if (Date.now() - prevMessageTime > 8000) {
+    return connect();
+  }
   if (
     isStart &&
     ws &&
@@ -44,11 +48,12 @@ const timer = setInterval(() => {
     ws.readyState !== WebSocket.CONNECTING &&
     ws.readyState !== WebSocket.CLOSING
   ) {
-    connect();
+    return connect();
   }
 }, 2000);
 
 export function connect() {
+  isStart = false;
   if (ws) {
     ws.close();
     ws = null;
@@ -59,6 +64,7 @@ export function connect() {
     ws = new WebSocket(`wss://gbs-open.eriri.net/private/api/stream/ws/`);
 
     ws.addEventListener('message', (event) => {
+      prevMessageTime = Date.now();
       try {
         // console.log(JSON.parse(event.data));
         const msg = zServerMessage.parse(JSON.parse(event.data));
