@@ -100,6 +100,8 @@ export async function initAudioContext() {
   audioContext = new AudioContext();
 }
 
+const nowPlaySourceNodes = new Map<string, AudioBufferSourceNode>();
+
 export async function playAudio(url: string, volume: number) {
   if (!audioContext) return () => {};
   if (!gainNode) {
@@ -120,10 +122,25 @@ export async function playAudio(url: string, volume: number) {
     return audioBuffer;
   }
 
+  // 再生中の同じ音声は止める
+  try {
+    const nowPlay = nowPlaySourceNodes.get(url);
+    if (nowPlay) {
+      nowPlay.stop();
+    }
+  } catch {
+    /* */
+  }
+
   const sourceNode = audioContext.createBufferSource();
   sourceNode.buffer = await getAudioBuffer();
+  nowPlaySourceNodes.set(url, sourceNode);
   sourceNode.connect(gainNode);
   sourceNode.start();
+
+  sourceNode.addEventListener('ended', () => {
+    nowPlaySourceNodes.delete(url);
+  });
 
   return () => {
     sourceNode.stop();
