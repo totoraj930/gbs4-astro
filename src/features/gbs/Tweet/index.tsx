@@ -11,6 +11,13 @@ type Props = {
 
 export function Tweet(props: Props) {
   const viewTime = createMemo(() => {
+    if (globalSettings.date24) {
+      const d = new Date(props.tweet.time);
+      const hh = `0${d.getHours()}`.slice(-2);
+      const mm = `0${d.getMinutes()}`.slice(-2);
+      // const ss = `0${d.getSeconds()}`.slice(-2);
+      return `${hh}:${mm}`;
+    }
     const now = globalTime();
     const seconds = Math.round((now - props.tweet.time) / 1000);
     const minutes = ~~(seconds / 60);
@@ -63,7 +70,10 @@ export function Tweet(props: Props) {
         <span
           class={clsx(
             'absolute top-[5px] right-[5px] z-[1] min-w-[60px] rounded-full',
-            'bg-[rgba(0,0,0,0.7)] pt-[4px] pb-[3px] text-center text-[14px] text-white'
+            'bg-[rgba(0,0,0,0.7)] pt-[4px] pb-[3px] text-center text-[14px] text-white',
+            {
+              // 'px-[5px]': globalSettings.date24,
+            }
           )}
         >
           {viewTime()}

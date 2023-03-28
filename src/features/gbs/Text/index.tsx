@@ -97,6 +97,7 @@ export const TEXT_LIST = [
   { ja: '画面ロック中', en: 'Screen locked' },
   { ja: '広告', en: 'Ads' },
   { ja: '注意事項', en: 'Terms of Use (Japanese)' },
+  { ja: '24時間表記にする', en: '24-Hour Clock' },
 ] as const;
 
 type Key = (typeof TEXT_LIST)[number]['ja'];

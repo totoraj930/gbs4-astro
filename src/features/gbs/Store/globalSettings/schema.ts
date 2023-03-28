@@ -120,6 +120,7 @@ export const zGlobalSettings = z.object({
   showMoveButton: z.boolean().default(false),
   menuPotision: zMenuPosition.default('right'),
   fewerTweets: z.boolean().default(true),
+  date24: z.boolean().default(false),
 
   lockButton: z.boolean().default(false),
   menuButton: z.boolean().default(true),

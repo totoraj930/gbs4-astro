@@ -14,7 +14,7 @@
     --c-elm-6: #933bff;
     --c-tweet-outline-1: #fff;
     --c-tweet-bg: #fff;
-    --c-tweet-flash: rgba(255, 255, 255, 0.6);
+    --c-tweet-flash: rgba(255, 255, 255, 0.3);
     --c-tweet-copied: rgba(0, 0, 0, 0.5);
   }
   .dark {

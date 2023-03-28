@@ -211,6 +211,14 @@ export function Settings() {
           </li>
           <li>
             <Checkbox
+              value={globalSettings.date24}
+              onChange={(v) => changeAndSave(produce((s) => (s.date24 = v)))}
+            >
+              {text('24時間表記にする')}
+            </Checkbox>
+          </li>
+          <li>
+            <Checkbox
               value={globalSettings.log}
               onChange={(v) => changeAndSave(produce((s) => (s.log = v)))}
             >
