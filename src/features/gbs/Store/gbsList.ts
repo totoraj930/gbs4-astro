@@ -8,7 +8,7 @@ export type { GbsList };
 export const [gbsList, setGbsList] = createSignal<GbsList>([]);
 
 export async function loadGbsList() {
-  const url = 'https://gbs.eriri.net/list/';
+  const url = 'https://gbs-open.eriri.net/api/list/list.json';
   try {
     const res = await fetch(url);
     const rawJson = await res.json();

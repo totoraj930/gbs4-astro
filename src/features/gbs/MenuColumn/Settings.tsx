@@ -116,7 +116,7 @@ export function Settings() {
           options={options().menuPosition}
           onChange={(v) => {
             changeAndSave(produce((s) => (s.menuPotision = v)));
-            deleteAds();
+            // deleteAds();
             scrollToElm('#gbs-menu');
           }}
         />

@@ -3,6 +3,7 @@ import {
   globalSettings,
   isCompact,
 } from '@gbs/Store/globalSettings';
+import { putLog } from '@gbs/Store/logs';
 import { getTimeStr } from '@gbs/utils';
 import clsx from 'clsx';
 import { createMemo, createSignal, For, Show } from 'solid-js';
@@ -27,11 +28,15 @@ export const [infoRes, setInfoRes] = createSignal<InfoResponse>();
 export const [importantInfo, setImportantInfo] = createSignal<InfoItem>();
 
 export async function getInfo() {
-  const url = 'https://gbs-dev.eriri.net/info/info.json';
-  const res = await fetch(url);
-  const info = zInfoResponse.parse(await res.json());
-  setInfoRes(info);
-  setImportantInfo(info.important);
+  try {
+    const url = 'https://gbs-dev.eriri.net/info/info.json';
+    const res = await fetch(url);
+    const info = zInfoResponse.parse(await res.json());
+    setInfoRes(info);
+    setImportantInfo(info.important);
+  } catch (err) {
+    putLog('error', err);
+  }
 }
 
 function convertLine(info: InfoItem) {

@@ -15,9 +15,9 @@ declare global {
   }
 }
 
-const [showAds] = createSignal(true);
+const [showAds, setShowAds] = createSignal(true);
 export function deleteAds() {
-  // setShowAds(false);
+  setShowAds(false);
 }
 
 /**

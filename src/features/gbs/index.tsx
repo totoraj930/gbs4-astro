@@ -29,6 +29,7 @@ import { AdsAndMenu } from './ads';
 import { LogColumn } from './Store/logs';
 import { getInfo, importantInfo, ImportantInfo } from './Info';
 import { Warn } from './Info/warn';
+import { initUrlParams } from './UrlParam';
 
 export function scrollToElm(query: string) {
   const elm = document.body.querySelector('#gbs-main');
@@ -48,6 +49,7 @@ export function scrollToElm(query: string) {
 
 export function Gbs() {
   onMount(async () => {
+    initUrlParams();
     detectWindowSize();
     await loadGbsList();
     setIsInitializing(false);
