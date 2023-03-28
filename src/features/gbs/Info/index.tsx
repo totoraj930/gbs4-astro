@@ -1,4 +1,8 @@
-import { changeAndSave, globalSettings } from '@gbs/Store/globalSettings';
+import {
+  changeAndSave,
+  globalSettings,
+  isCompact,
+} from '@gbs/Store/globalSettings';
 import { getTimeStr } from '@gbs/utils';
 import clsx from 'clsx';
 import { createMemo, createSignal, For, Show } from 'solid-js';
@@ -30,41 +34,66 @@ export async function getInfo() {
   setImportantInfo(info.important);
 }
 
+function convertLine(info: InfoItem) {
+  const target =
+    globalSettings.language === 'en' ? info.en ?? info.message : info.message;
+  if (Array.isArray(target)) {
+    return target;
+  } else {
+    const res = target.split('\n');
+    return res;
+  }
+}
+
+export function InfoView(props: { info: InfoItem }) {
+  const date = createMemo(() => new Date(props.info.date));
+  const lines = createMemo(() => {
+    return convertLine(props.info);
+  });
+  return (
+    <>
+      <time class="text-[14px]">[{getTimeStr(date(), true)}]</time>
+      <div>
+        <For each={lines()}>
+          {(line) => {
+            // eslint-disable-next-line solid/no-innerhtml
+            return <p innerHTML={line} class="break-words" />;
+          }}
+        </For>
+      </div>
+    </>
+  );
+}
+
 export function ImportantInfo(props: { info: InfoItem }) {
   const date = createMemo(() => new Date(props.info.date));
   const lines = createMemo(() => {
-    const target =
-      globalSettings.language === 'en'
-        ? props.info.en ?? props.info.message
-        : props.info.message;
-    if (Array.isArray(target)) {
-      return target;
-    } else {
-      return target.split('\n');
-    }
+    return convertLine(props.info);
   });
   return (
+    // <Show when={!isCompact() && true}>
     <Show when={globalSettings.hideInfo !== props.info.date}>
       <div
         class={clsx(
-          'flex items-center gap-[5px] p-[5px]',
+          'flex flex-wrap items-center',
           'bg-white dark:bg-gray-600 dark:text-white',
-          'leading-[1.5]'
+          'py-[5px] leading-[1.5]'
         )}
       >
         <button
-          class="p-[3px]"
+          class="px-[10px]"
           onClick={() =>
             changeAndSave(produce((s) => (s.hideInfo = props.info.date)))
           }
         >
           <MsClose size={20} />
         </button>
-        <time>[{getTimeStr(date(), true)}]</time>
-        <div>
+        <time class="text-[14px]">[{getTimeStr(date(), true)}]</time>
+        <div class="normal-html flex flex-col gap-[5px] px-[10px]">
           <For each={lines()}>
             {(line) => {
-              return <p>{line}</p>;
+              // eslint-disable-next-line solid/no-innerhtml
+              return <p innerHTML={line} class="break-words" />;
             }}
           </For>
         </div>

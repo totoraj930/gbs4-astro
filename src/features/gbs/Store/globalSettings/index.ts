@@ -71,6 +71,8 @@ export const [isCompact, setIsCompact] = createSignal(false);
  */
 export const [isScreenLock, setIsScreenLock] = createSignal(false);
 
+export const [isOpenAbout, setIsOpenAbout] = createSignal(false);
+
 /**
  * カラム移動モードのON/OFF
  */

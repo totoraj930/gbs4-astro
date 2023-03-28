@@ -1,4 +1,4 @@
-import { createEffect, onMount, Show } from 'solid-js';
+import { createEffect, createSignal, onMount, Show } from 'solid-js';
 import { clsx } from 'clsx';
 import {
   allFilterIdStrs,
@@ -7,8 +7,10 @@ import {
   initAutoCopy,
   initFocusDetector,
   isCompact,
+  isOpenAbout,
   isScreenLock,
   setIsCompact,
+  setIsOpenAbout,
   setIsScreenLock,
 } from '@gbs/Store/globalSettings';
 import { loadGbsList } from '@gbs/Store/gbsList';
@@ -26,6 +28,7 @@ import { ToastArea } from './Store/toast';
 import { AdsAndMenu } from './ads';
 import { LogColumn } from './Store/logs';
 import { getInfo, importantInfo, ImportantInfo } from './Info';
+import { Warn } from './Info/warn';
 
 export function scrollToElm(query: string) {
   const elm = document.body.querySelector('#gbs-main');
@@ -103,6 +106,10 @@ export function Gbs() {
         )}
       >
         <ToastArea />
+
+        <Show when={isOpenAbout()}>
+          <Warn onClose={() => setIsOpenAbout(false)} />
+        </Show>
 
         <Show when={globalSettings.log}>
           <div class="mr-[5px] min-w-[320px] max-w-[320px] shrink-0 grow-0 p-[2px]">

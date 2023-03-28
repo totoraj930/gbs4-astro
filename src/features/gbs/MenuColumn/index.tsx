@@ -1,6 +1,10 @@
 import { createMemo, createSignal, Show, onCleanup } from 'solid-js';
 import { produce } from 'solid-js/store';
-import { changeAndSave, globalSettings } from '../Store/globalSettings';
+import {
+  changeAndSave,
+  globalSettings,
+  setIsOpenAbout,
+} from '../Store/globalSettings';
 import { text } from '../Text';
 import { Radio } from './Radio';
 import { Settings } from './Settings';
@@ -15,6 +19,7 @@ import {
   MsAddCircle,
   MsBookmarks,
   MsDarkMode,
+  MsHelp,
   MsLightMode,
   MsSettingsFill,
   MsTranslate,
@@ -347,6 +352,18 @@ export function MenuColumn() {
           </div>
 
           <hr class={c.hr} />
+          <div class={clsx('px-[10px] py-[10px]')}>
+            <button
+              class={clsx('flex items-center')}
+              onClick={() => {
+                setIsOpenAbout(true);
+              }}
+            >
+              <MsHelp size={22} class="mr-[5px]" />
+              <span>{text('注意事項')}</span>
+            </button>
+          </div>
+          {/* <hr class={c.hr} /> */}
         </div>
       </div>
     </section>

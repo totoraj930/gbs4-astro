@@ -20,7 +20,7 @@
   .dark {
     --c-tweet-outline-1: #2e2a2a;
     --c-tweet-bg: #2e2a2a;
-    --c-tweet-flash: rgba(255, 255, 255, 0.2);
+    --c-tweet-flash: rgba(0, 0, 0, 0.25);
     --c-tweet-copied: rgba(0, 0, 0, 0.6);
   }
 
@@ -52,6 +52,27 @@
 
   body.dark {
     background: #222;
+  }
+
+  .normal-html a {
+    color: #1b82ea;
+  }
+  .dark .normal-html a {
+    color: #17ffff;
+  }
+
+  .normal-html p {
+    line-height: 1.5;
+  }
+
+  .normal-html p + p {
+    margin-top: 1em;
+  }
+  .title {
+    font-weight: bold;
+  }
+  .normal-html * + .title {
+    margin-top: 2em;
   }
 
   #gbs-main {
