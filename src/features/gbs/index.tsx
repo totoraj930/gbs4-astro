@@ -25,6 +25,7 @@ import { MsLock, MsLockOpen, MsMenu } from 'solid-material-symbols/rounded/600';
 import { ToastArea } from './Store/toast';
 import { AdsAndMenu } from './ads';
 import { LogColumn } from './Store/logs';
+import { getInfo } from './Info';
 
 export function scrollToElm(query: string) {
   const elm = document.body.querySelector('#gbs-main');
@@ -48,6 +49,7 @@ export function Gbs() {
     await loadGbsList();
     setIsInitializing(false);
     await getRaidTweetCache(allFilterIdStrs());
+    getInfo();
     connectReciver();
     initFocusDetector();
     initAutoCopy();
