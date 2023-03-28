@@ -3,6 +3,8 @@ import {
   globalSettings,
   saveSettingsToStorage,
 } from '@gbs/Store/globalSettings';
+import { SoundData } from '@gbs/Store/globalSettings/schema';
+import { playAudio } from '@gbs/utils';
 import clsx from 'clsx';
 import { RiSystemDeleteBin2Line } from 'solid-icons/ri';
 import { onCleanup, Show, createEffect, createMemo } from 'solid-js';
@@ -11,6 +13,7 @@ import {
   MsBadge,
   MsFilterList,
   MsMusicNote,
+  MsPlayArrow,
   MsSwapVert,
 } from 'solid-material-symbols/rounded/600';
 import { text } from '../../Text';
@@ -46,6 +49,11 @@ export function SettingsModal(props: Props) {
 
   const delCol = () => dispatch({ type: 'Delete' });
 
+  function testPlayAudio() {
+    const url = '/gbs/sound/' + SoundData[col.sound.type].file;
+    playAudio(url, globalSettings.volume);
+  }
+
   createEffect(() => {
     setLocalFilters([...col.filters]);
   });
@@ -61,8 +69,8 @@ export function SettingsModal(props: Props) {
   }
 
   function onDelete() {
-    const res = window.confirm(text('カラムを削除しますか？'));
-    if (!res) return;
+    // const res = window.confirm(text('カラムを削除しますか？'));
+    // if (!res) return;
     delCol();
     props.onClose();
   }
@@ -140,17 +148,25 @@ export function SettingsModal(props: Props) {
                     &copy; 魔王魂
                   </a>
                 </p>
-                <Select
-                  options={soundOps()}
-                  value={col.sound.type}
-                  class="h-[32px] w-full text-[14px]"
-                  onChange={(v) =>
-                    setCol(
-                      'sound',
-                      produce((s) => (s.type = v))
-                    )
-                  }
-                />
+                <div class="flex">
+                  <Select
+                    options={soundOps()}
+                    value={col.sound.type}
+                    class="h-[32px] flex-1 text-[14px]"
+                    onChange={(v) =>
+                      setCol(
+                        'sound',
+                        produce((s) => (s.type = v))
+                      )
+                    }
+                  />
+                  <button
+                    onClick={() => testPlayAudio()}
+                    class="min-w-[20px] shrink-0 grow-0"
+                  >
+                    <MsPlayArrow size={20} />
+                  </button>
+                </div>
               </div>
             </div>
 
