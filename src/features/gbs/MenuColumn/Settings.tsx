@@ -221,6 +221,16 @@ export function Settings() {
           </li>
           <li>
             <Checkbox
+              value={globalSettings.alwaysHeader}
+              onChange={(v) =>
+                changeAndSave(produce((s) => (s.alwaysHeader = v)))
+              }
+            >
+              {text('カラムヘッダーを常に表示')}
+            </Checkbox>
+          </li>
+          <li>
+            <Checkbox
               value={globalSettings.log}
               onChange={(v) => changeAndSave(produce((s) => (s.log = v)))}
             >

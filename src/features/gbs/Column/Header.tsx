@@ -63,7 +63,7 @@ export function Header() {
             'z-40 flex flex-row items-center justify-start gap-[2px] border-b border-solid',
             'border-gray-300 dark:border-gray-600',
             {
-              hidden: isCompact(),
+              hidden: isCompact() && !globalSettings.alwaysHeader,
             }
           )
         )}

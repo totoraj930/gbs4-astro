@@ -98,6 +98,7 @@ export const TEXT_LIST = [
   { ja: '広告', en: 'Ads' },
   { ja: '注意事項', en: 'Terms of Use (Japanese)' },
   { ja: '24時間表記にする', en: '24-Hour Clock' },
+  { ja: 'カラムヘッダーを常に表示', en: 'Always show colmun headers' },
 ] as const;
 
 type Key = (typeof TEXT_LIST)[number]['ja'];
