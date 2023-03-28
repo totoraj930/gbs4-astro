@@ -60,15 +60,12 @@ export function AdsColumn() {
     <Show when={showAds()}>
       <section class="ad-column">
         <p class="py-[3px] text-[14px] dark:text-white">{text('広告')}</p>
-        <div class="ad-wrap bg-white text-center dark:bg-gray-700">
-          {/* <ins
-            class="adsbygoogle"
-            style={{ display: 'inline-block', width: '300px', height: '250px' }}
-            data-ad-client="ca-pub-5994029821720632"
-            data-ad-slot="7373836338"
-            // data-ad-format="auto"
-            // data-full-width-responsive="true"
-          /> */}
+        <div
+          class={clsx(
+            'ad-wrap ad-slot-pc',
+            'bg-white text-center dark:bg-gray-700 dark:text-white'
+          )}
+        >
           <ins
             class="adsbygoogle ad-slot-pc"
             data-ad-client="ca-pub-5994029821720632"
@@ -77,6 +74,13 @@ export function AdsColumn() {
             data-full-width-responsive="false"
             ref={() => initAds()}
           />
+        </div>
+        <div
+          class={clsx(
+            'ad-wrap ad-slot-mobile',
+            'bg-white text-center dark:bg-gray-700 dark:text-white'
+          )}
+        >
           <ins
             class="adsbygoogle ad-slot-mobile"
             data-ad-client="ca-pub-5994029821720632"

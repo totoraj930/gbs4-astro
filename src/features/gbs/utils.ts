@@ -29,7 +29,13 @@ export function getUserDarkMode() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
-export function getTimeStr(date: Date = new Date()) {
+export function getTimeStr(date: Date = new Date(), short?: boolean) {
+  if (short) {
+    const YYYY = date.getFullYear();
+    const MM = `0${date.getMonth() + 1}`.slice(-2);
+    const DD = `0${date.getDate()}`.slice(-2);
+    return `${YYYY}-${MM}-${DD}`;
+  }
   const hh = `00${date.getHours()}`.slice(-2);
   const mm = `00${date.getMinutes()}`.slice(-2);
   const ss = `00${date.getSeconds()}`.slice(-2);

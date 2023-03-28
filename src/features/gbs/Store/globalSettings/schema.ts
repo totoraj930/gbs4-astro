@@ -119,7 +119,7 @@ export const zGlobalSettings = z.object({
   noScroll: z.boolean().default(false),
   showMoveButton: z.boolean().default(false),
   menuPotision: zMenuPosition.default('right'),
-  fewerTweets: z.boolean().default(false),
+  fewerTweets: z.boolean().default(true),
 
   lockButton: z.boolean().default(false),
   menuButton: z.boolean().default(true),
@@ -127,5 +127,7 @@ export const zGlobalSettings = z.object({
   volume: z.number().min(0).max(1).default(0.1),
   mute: z.boolean().default(false),
   focusOnlySound: z.boolean().default(false),
+
+  hideInfo: z.string().optional(),
 });
 export type GlobalSettings = z.infer<typeof zGlobalSettings>;
