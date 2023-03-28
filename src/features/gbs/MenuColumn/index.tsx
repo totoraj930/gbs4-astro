@@ -17,10 +17,12 @@ import {
 
 import {
   MsAddCircle,
+  MsBolt,
   MsBookmarks,
   MsDarkMode,
   MsHelp,
   MsLightMode,
+  MsPerson,
   MsSettingsFill,
   MsTranslate,
   MsVolumeMute,
@@ -352,16 +354,38 @@ export function MenuColumn() {
           </div>
 
           <hr class={c.hr} />
-          <div class={clsx('px-[10px] py-[10px]')}>
-            <button
-              class={clsx('flex items-center')}
-              onClick={() => {
-                setIsOpenAbout(true);
-              }}
-            >
-              <MsHelp size={22} class="mr-[5px]" />
-              <span>{text('注意事項')}</span>
-            </button>
+          <div class="mt-[10px] flex flex-col gap-[10px]">
+            <div class={clsx('px-[10px]')}>
+              <button
+                class={clsx('flex items-center')}
+                onClick={() => {
+                  setIsOpenAbout(true);
+                }}
+              >
+                <MsHelp size={22} class="mr-[5px]" />
+                <span>{text('注意事項')}</span>
+              </button>
+            </div>
+            <div class={clsx('flex items-center px-[10px]', 'normal-html')}>
+              <MsPerson size={22} class="mr-[5px]" />
+              <a
+                class={clsx('flex items-center ')}
+                href="https://twitter.com/totoraj_game"
+                target="_blank"
+              >
+                <span>@totoraj_game</span>
+              </a>
+            </div>
+            <div class={clsx('flex items-center px-[10px]', 'normal-html')}>
+              <MsBolt size={22} class="mr-[5px]" />
+              <a
+                class={clsx('flex items-center text-[13px]')}
+                href="https://gbs-open.eriri.net"
+                target="_blank"
+              >
+                <span>ツイ救援プロジェクト(gbs-open)</span>
+              </a>
+            </div>
           </div>
           {/* <hr class={c.hr} /> */}
         </div>

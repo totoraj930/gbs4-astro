@@ -205,9 +205,14 @@ export function FilteredTweets() {
     <>
       <Show when={globalSettings.copyButton === 'top'}>
         <button
-          class={clsx(
-            'grid h-[60px] w-full place-items-center border-b border-solid',
-            'border-gray-300 dark:border-gray-600'
+          class={twMerge(
+            clsx(
+              'grid h-[60px] w-full place-items-center border-b border-solid',
+              'border-gray-300 dark:border-gray-600',
+              {
+                'h-[40px] text-[14px]': isCompact(),
+              }
+            )
           )}
           onMouseDown={copyLatest}
           onTouchEnd={copyLatest}
@@ -281,9 +286,14 @@ export function FilteredTweets() {
 
       <Show when={globalSettings.copyButton === 'bottom'}>
         <button
-          class={clsx(
-            'grid h-[60px] w-full place-items-center border-t border-solid',
-            'border-gray-300 dark:border-gray-600'
+          class={twMerge(
+            clsx(
+              'grid h-[60px] w-full place-items-center border-t border-solid',
+              'border-gray-300 dark:border-gray-600',
+              {
+                'h-[40px] text-[14px]': isCompact(),
+              }
+            )
           )}
           onMouseDown={copyLatest}
           onTouchEnd={copyLatest}

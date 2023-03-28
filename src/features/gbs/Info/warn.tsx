@@ -41,6 +41,16 @@ export function Warn(props: Props) {
         role="dialog"
         aria-modal="true"
       >
+        <div class={c.body}>
+          <p>
+            このサイトは「
+            <a href="https://gbs-open.eriri.net" target="_blank">
+              ツイ救援プロジェクト(gbs-open)
+            </a>
+            」に参加してくれている人たちのおかげで運営できています。
+          </p>
+          <p>参加お待ちしております。</p>
+        </div>
         <Show when={infoRes()}>
           <div class={c.body}>
             <InfoView info={infoRes()!.important} />
