@@ -45,6 +45,7 @@ export function Settings() {
       menuPosition: [
         { value: 'left', name: text('左') },
         { value: 'right', name: text('右') },
+        { value: 'overlay', name: text('全面') },
       ] as const,
     };
   });
@@ -187,6 +188,7 @@ export function Settings() {
               onChange={(v) =>
                 changeAndSave(produce((s) => (s.menuButton = v)))
               }
+              disabled={globalSettings.menuPotision === 'overlay'}
             >
               {text('メニューボタンを表示')}
             </Checkbox>

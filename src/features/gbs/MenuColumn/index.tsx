@@ -354,7 +354,7 @@ export function MenuColumn() {
           </div>
 
           <hr class={c.hr} />
-          <div class="mt-[10px] flex flex-col gap-[10px]">
+          <div class="my-[10px] flex flex-col gap-[10px]">
             <div class={clsx('px-[10px]')}>
               <button
                 class={clsx('flex items-center')}

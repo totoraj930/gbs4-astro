@@ -8,6 +8,7 @@ import { createEffect, createSignal, on } from 'solid-js';
 import type { RaidTweetMini } from 'gbs-open-lib';
 import { addToast } from '../toast';
 import { text } from '@gbs/Text';
+import { putLog } from '../logs';
 
 type ReceiverEvents = {
   tweet: TweetData;
@@ -79,7 +80,8 @@ gbsWs.on('ping', (num) => {
 });
 
 gbsWs.on('error', (msg) => {
-  console.log(msg);
+  // console.log(msg);
+  putLog('error', msg);
 });
 
 gbsWs.on('close', () => {

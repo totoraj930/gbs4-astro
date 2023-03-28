@@ -73,6 +73,10 @@ export const [isScreenLock, setIsScreenLock] = createSignal(false);
 
 export const [isOpenAbout, setIsOpenAbout] = createSignal(false);
 
+export const [isOpenMenu, setIsOpenMenu] = createSignal(false);
+
+export const [showAds, setShowAds] = createSignal(true);
+
 /**
  * カラム移動モードのON/OFF
  */

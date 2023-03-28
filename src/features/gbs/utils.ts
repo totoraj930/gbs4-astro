@@ -1,4 +1,5 @@
 import type { ClickAction } from './Store/globalSettings/schema';
+import { putLog } from './Store/logs';
 
 let __num = 0;
 export function uid() {
@@ -11,7 +12,18 @@ export async function hasClipboardPermission() {
       name: 'clipboard-write' as PermissionName,
     });
     return res.state === 'granted' || res.state === 'prompt';
-  } catch {
+  } catch (err) {
+    try {
+      const ua = window.navigator.userAgent.toLowerCase().trim();
+      const is_iOS = /iphone|ipad/.test(ua);
+      const is_Android = /android/.test(ua);
+      const is_Firefox = /firefox/.test(ua);
+      putLog('info', ua);
+      return (!is_iOS && is_Android) || (!is_iOS && is_Firefox);
+    } catch {
+      /* */
+    }
+    putLog('error', err);
     /* */
   }
   return false;

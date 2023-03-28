@@ -8,9 +8,11 @@ import {
   initFocusDetector,
   isCompact,
   isOpenAbout,
+  isOpenMenu,
   isScreenLock,
   setIsCompact,
   setIsOpenAbout,
+  setIsOpenMenu,
   setIsScreenLock,
 } from '@gbs/Store/globalSettings';
 import { loadGbsList } from '@gbs/Store/gbsList';
@@ -30,6 +32,7 @@ import { LogColumn } from './Store/logs';
 import { getInfo, importantInfo, ImportantInfo } from './Info';
 import { Warn } from './Info/warn';
 import { initUrlParams } from './UrlParam';
+import { MenuOverlay } from './MenuColumn/MenuOverlay';
 
 export function scrollToElm(query: string) {
   const elm = document.body.querySelector('#gbs-main');
@@ -37,7 +40,7 @@ export function scrollToElm(query: string) {
   if (!elm || !menuElm) return;
   try {
     const { x } = menuElm.getBoundingClientRect();
-    console.log(x, elm.scrollLeft);
+    // console.log(x, elm.scrollLeft);
     elm.scrollTo({
       left: x + elm.scrollLeft,
       behavior: 'smooth',
@@ -109,6 +112,10 @@ export function Gbs() {
       >
         <ToastArea />
 
+        <Show when={isOpenMenu() && globalSettings.menuPotision === 'overlay'}>
+          <MenuOverlay onClose={() => setIsOpenMenu(false)} />
+        </Show>
+
         <Show when={isOpenAbout()}>
           <Warn onClose={() => setIsOpenAbout(false)} />
         </Show>
@@ -141,6 +148,30 @@ export function Gbs() {
             }
           )}
         >
+          {/* OverlayMenu */}
+          <button
+            onClick={() => setIsOpenMenu(true)}
+            class={twMerge(
+              clsx(
+                'h-[40px] w-[40px] place-content-center',
+                'pointer-events-auto grid rounded-full',
+                'bg-sky-500 text-white',
+                {
+                  hidden:
+                    globalSettings.menuPotision !== 'overlay' ||
+                    isCompact() ||
+                    isScreenLock() ||
+                    isOpenMenu(),
+                  'shadow-[0_0_5px_#000]': globalSettings.darkMode,
+                  'shadow-[0_0_5px_rgba(0,0,0,0.5)]': !globalSettings.darkMode,
+                }
+              )
+            )}
+          >
+            <MsMenu size={26} />
+          </button>
+
+          {/* Left/Right Menu */}
           <button
             onClick={() => scrollToElm('#gbs-menu')}
             class={twMerge(
@@ -162,6 +193,8 @@ export function Gbs() {
           >
             <MsMenu size={26} />
           </button>
+
+          {/* Screen Lock */}
           <button
             onClick={() => setIsScreenLock((prev) => !prev)}
             class={twMerge(

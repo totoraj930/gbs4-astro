@@ -1,7 +1,7 @@
 import clsx from 'clsx';
-import { createSignal, Show } from 'solid-js';
+import { Show } from 'solid-js';
 import { MenuColumn } from './MenuColumn';
-import { globalSettings } from './Store/globalSettings';
+import { globalSettings, setShowAds, showAds } from './Store/globalSettings';
 import { putLog } from './Store/logs';
 import { text } from './Text';
 
@@ -15,7 +15,6 @@ declare global {
   }
 }
 
-const [showAds, setShowAds] = createSignal(true);
 export function deleteAds() {
   setShowAds(false);
 }
@@ -26,6 +25,7 @@ export function deleteAds() {
 function initAds() {
   putLog('info', 'init ads.');
   setTimeout(() => {
+    if (!showAds()) return;
     try {
       window.adsbygoogle && window.adsbygoogle.push({});
     } catch (err) {

@@ -88,7 +88,7 @@ export type ColumnType = z.infer<typeof zColumnType>;
 export const zLanguageOption = z.enum(['en', 'ja']);
 export type LanguageOption = z.infer<typeof zLanguageOption>;
 
-export const zMenuPosition = z.enum(['left', 'right']);
+export const zMenuPosition = z.enum(['left', 'right', 'overlay']);
 export type MenuPosition = z.infer<typeof zMenuPosition>;
 
 export const zClickAction = z.enum([
