@@ -163,7 +163,7 @@ export function FilteredTweets() {
       // 最新なら処理する
       if (insertPos === 0) {
         // 自動コピー
-        if (col.autoCopy) copyTweet(tweetData);
+        if (col.autoCopy && hasFocus()) copyTweet(tweetData);
 
         // ミュート確認
         if (!col.sound.mute && !globalSettings.mute) {
