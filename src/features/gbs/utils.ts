@@ -165,7 +165,14 @@ let useNewWindow = false;
     useNewWindow = false;
   }
 })();
+let prevOpenTime = Date.now();
 export function openGbfPage(type: ClickAction) {
+  const nowTime = Date.now();
+  if (nowTime - prevOpenTime < 500) {
+    return;
+  }
+  putLog('info', 'open');
+  prevOpenTime = nowTime;
   const url = actionUrls[type];
   if (!url) return;
   if (useNewWindow) {
