@@ -1,0 +1,12 @@
+---
+import { GbsRanking } from '@gbs/Ranking';
+import '../features/gbs/styles/base.css';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="ランキング | Granblue Search 4"
+  description="グラブルのTwitter救援依頼をリアルタイムに検索するサイト"
+>
+  <GbsRanking client:only="solid-js" />
+</Layout>
