@@ -22,6 +22,7 @@ import {
   MsDarkMode,
   MsHelp,
   MsLightMode,
+  MsMilitaryTechFill,
   MsPerson,
   MsSettingsFill,
   MsTranslate,
@@ -384,6 +385,16 @@ export function MenuColumn() {
                 target="_blank"
               >
                 <span>ツイ救援プロジェクト(gbs-open)</span>
+              </a>
+            </div>
+            <div class={clsx('flex items-center px-[10px]', 'normal-html')}>
+              <MsMilitaryTechFill size={22} class="mr-[5px]" />
+              <a
+                class={clsx('flex items-center text-[13px]')}
+                href="https://gbs.eriri.net/ranking"
+                target="_blank"
+              >
+                <span>待機人数ランキング</span>
               </a>
             </div>
           </div>
