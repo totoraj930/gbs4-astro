@@ -159,7 +159,7 @@ export function Column() {
         <Show when={globalSettings.showMoveButton && !isCompact()}>
           <div
             class={clsx(
-              'z-50 flex h-[36px] w-full items-stretch justify-center border-b border-solid',
+              'z-49 flex h-[36px] w-full items-stretch justify-center border-b border-solid',
               'border-gray-300 dark:border-gray-600'
             )}
           >
