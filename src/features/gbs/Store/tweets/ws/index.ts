@@ -37,20 +37,20 @@ export { ping };
 let isStart = false;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const timer = setInterval(() => {
-  if (Date.now() - prevMessageTime > 8000) {
-    return connect();
-  }
-  if (
-    isStart &&
-    ws &&
-    ws.readyState !== WebSocket.OPEN &&
-    ws.readyState !== WebSocket.CONNECTING &&
-    ws.readyState !== WebSocket.CLOSING
-  ) {
-    return connect();
-  }
-}, 2000);
+// const timer = setInterval(() => {
+//   if (Date.now() - prevMessageTime > 8000) {
+//     return connect();
+//   }
+//   if (
+//     isStart &&
+//     ws &&
+//     ws.readyState !== WebSocket.OPEN &&
+//     ws.readyState !== WebSocket.CONNECTING &&
+//     ws.readyState !== WebSocket.CLOSING
+//   ) {
+//     return connect();
+//   }
+// }, 2000);
 
 export function connect() {
   isStart = false;

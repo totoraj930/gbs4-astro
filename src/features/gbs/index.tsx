@@ -56,9 +56,9 @@ export function Gbs() {
     detectWindowSize();
     await loadGbsList();
     setIsInitializing(false);
-    await getRaidTweetCache(allFilterIdStrs());
+    // await getRaidTweetCache(allFilterIdStrs());
     getInfo();
-    connectReciver();
+    // connectReciver();
     initFocusDetector();
     initAutoCopy();
     document.body.addEventListener('click', initAudioContext, { once: true });
